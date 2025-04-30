@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="law_blue">#1F3A93</color>
+    <color name="royal_blue">#0D47A1</color>  <!-- Azul Real -->
+    <color name="bckGround">#c3c6e3</color> <!-- COLOR DE FONDO #a8aee6 -->
+    <!--<color name="bckGround">#020412</color>  COLOR DE FONDO #a8aee6 -->
+
+
+
+</resources>

@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">LagVis_V1</string>
+
+    <string-array name="comunidades">
+        <item>Andalucía</item>
+        <item>Aragón</item>
+        <item>Asturias</item>
+        <item>Baleares</item>
+        <item>Canarias</item>
+        <item>Cantabria</item>
+        <item>Castilla-La Mancha</item>
+        <item>Castilla y León</item>
+        <item>Cataluña</item>
+        <item>Extremadura</item>
+        <item>Galicia</item>
+        <item>Comunidad de Madrid</item>
+        <item>Murcia</item>
+        <item>Navarra</item>
+        <item>La Rioja</item>
+        <item>País Vasco</item>
+        <item>Valencia</item>
+    </string-array>
+
+
+    <string-array name="sectores">
+        <item>Hosteleria</item>
+        <item>Construcción</item>
+        <item>Informatica</item>
+
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

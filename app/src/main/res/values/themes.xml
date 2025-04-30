@@ -1,0 +1,19 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.LagVis_V1" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/law_blue</item>
+        <item name="colorPrimaryVariant">@color/royal_blue</item>
+        <item name="colorOnPrimary">#FFFFFF</item> <!-- Texto en blanco para contraste -->
+        <item name="android:fontFamily">@font/inter2</item>
+
+    </style>
+
+    <style name="Theme.LagVis_V1" parent="Base.Theme.LagVis_V1" />
+    
+    
+    <style name="bottomNavigation">
+        <item name="android:background">@color/law_blue</item>
+        <item name="android:iconTint">@color/white</item>
+        <item name="itemTextColor">@color/black</item>
+    </style>
+</resources>
