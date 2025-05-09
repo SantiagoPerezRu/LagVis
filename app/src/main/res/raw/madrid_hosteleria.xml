@@ -1,0 +1,72 @@
+<convenio_colectivo>
+    <titulo>Convenio Colectivo del Sector de Hostelería de la Comunidad de Madrid</titulo>
+
+    <resumen_general>
+        Este convenio regula las condiciones laborales del personal que presta servicios en el sector de la hostelería en la Comunidad de Madrid. Su objetivo es establecer derechos y deberes en materia de jornada, descansos, licencias, retribuciones, prevención de riesgos laborales, y otras condiciones socio-laborales.
+    </resumen_general>
+
+    <vacaciones>
+        <dias>30 días naturales por año trabajado</dias>
+        <observaciones>
+            Las vacaciones serán retribuidas y no sustituibles por compensación económica.
+            Se disfrutarán preferentemente entre el 1 de junio y el 30 de septiembre, salvo acuerdo entre empresa y persona trabajadora.
+            El calendario de vacaciones deberá fijarse con al menos dos meses de antelación.
+            No se computarán como vacaciones los días festivos coincidentes.
+        </observaciones>
+    </vacaciones>
+
+    <festivos>
+        <numero_dias>14 festivos al año</numero_dias>
+        <detalle>
+            En caso de trabajo en festivo, se compensará con descanso equivalente o retribución adicional pactada.
+        </detalle>
+    </festivos>
+
+    <horas_extraordinarias>
+        <regulacion>
+            El número máximo anual será el legalmente establecido.
+            Serán voluntarias salvo pacto contrario.
+            Se compensarán preferentemente con descanso equivalente.
+        </regulacion>
+    </horas_extraordinarias>
+
+    <licencias>
+        <retribuidas>
+            <matrimonio>15 días naturales</matrimonio>
+            <fallecimiento_familiares>2 días (ampliables a 4 si hay desplazamiento)</fallecimiento_familiares>
+            <nacimiento_hijos>2 días</nacimiento_hijos>
+            <mudanza>1 día</mudanza>
+            <deber_inexcusable>Por el tiempo indispensable</deber_inexcusable>
+        </retribuidas>
+        <no_retribuidas>
+            <formacion>
+                Hasta 20 horas anuales para formación relacionada con el puesto.
+            </formacion>
+            <otros>
+                Pueden acordarse entre la empresa y el trabajador/a.
+            </otros>
+        </no_retribuidas>
+    </licencias>
+
+    <seguro>
+        <cobertura>
+            Seguro colectivo obligatorio para accidentes laborales y no laborales con indemnización por muerte o invalidez permanente.
+        </cobertura>
+        <importe>21.000 € por contingencias comunes y profesionales</importe>
+    </seguro>
+
+    <manutencion>
+        <detalleManun>
+            El personal con jornada partida tendrá derecho a manutención durante la jornada, consistente en comida o cena, según el turno, sin coste para el trabajador/a.
+            Cuando no pueda ofrecerse directamente, se abonará en metálico la cantidad pactada en tablas.
+        </detalleManun>
+    </manutencion>
+
+    <derechos_generales>
+        <igualdad>Igualdad de trato y oportunidades entre mujeres y hombres.</igualdad>
+        <formacion>Derecho a la formación continua durante la jornada laboral.</formacion>
+        <salud_laboral>Protección en materia de riesgos laborales, con equipos y formación adecuados.</salud_laboral>
+        <conciliacion>Medidas para favorecer la conciliación de la vida personal, familiar y laboral.</conciliacion>
+        <representacion>Derechos de información, consulta y negociación a través de la representación legal de las personas trabajadoras.</representacion>
+    </derechos_generales>
+</convenio_colectivo>

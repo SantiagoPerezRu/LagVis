@@ -1,5 +1,8 @@
 package com.example.lagvis_v1;
 
+import static android.widget.Toast.LENGTH_SHORT;
+
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,37 +73,38 @@ public class FirstFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflar la vista del fragmento
+        // Cargamos la vista del fragmento
         View view = inflater.inflate(R.layout.fragment_first, container, false);
 
-        // Instanciar el TextView
+        // Instanciar objetos necesarios.
         TextView textViewError = view.findViewById(R.id.textViewError);
-
         Button btnSiguiente = view.findViewById(R.id.btnEnviar);
-
-        AutoCompleteTextView autoCompleteTextViewComunidadAutonoma = view.findViewById(R.id.autoCompleteTextViewComunidadAutonoma);
-
+        AutoCompleteTextView autoCompleteTextViewComunidades = view.findViewById(R.id.autoCompleteTextViewComunidades);
         AutoCompleteTextView autoCompleteTextViewSectores = view.findViewById(R.id.autoCompleteTextViewSectores);
 
 
         /*
         *
-        * Llenar las listas de comunidades autónomas y sectores laborales
+        * Cargamos las listas de comunidades y sectores laborales
         *
         * */
 
-        String[] comunidades = getResources().getStringArray(R.array.comunidades);
+        String[] provinicias = getResources().getStringArray(R.array.comunidades_autonomas);
         String[] sectores = getResources().getStringArray(R.array.sectores);
 
-
-        ArrayAdapter<String> arrAdapterComunidadesAuto = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, comunidades);
+        /*
+        *
+        * En esta parte del código hacemos que los autoCompleteTextView se llenen con las comunidades autónomas y sectores laborales.
+        * Primero crearemos los adaptadores, se los mandaremos a los autoCompleteTexView
+        * y cuando hagamos click se desplegaran en forma de lista donde el usuario pueda elegir
+        *
+        */
+        ArrayAdapter<String> arrAdapterComunidades = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, provinicias);
         ArrayAdapter<String> arrAdapterSectores = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, sectores);
-
-
-        autoCompleteTextViewComunidadAutonoma.setAdapter(arrAdapterComunidadesAuto);
+        autoCompleteTextViewComunidades.setAdapter(arrAdapterComunidades);
         autoCompleteTextViewSectores.setAdapter(arrAdapterSectores);
 
-        autoCompleteTextViewComunidadAutonoma.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        autoCompleteTextViewComunidades.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String item = adapterView.getItemAtPosition(i).toString();
@@ -113,24 +118,150 @@ public class FirstFragment extends Fragment {
             }
         });
 
-
+        /*
+        *
+        * Al pulsar en siguiente consguimos comunidades y sectores y se lo mandamos a la clase Convenio.
+        * Esta será la que reproduce los convenios segun los datos que le hemos mandado en el intent.
+        *
+         */
         btnSiguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String comunidades = autoCompleteTextViewComunidades.getText().toString();
+                String sector = autoCompleteTextViewSectores.getText().toString();
 
-                if(autoCompleteTextViewComunidadAutonoma.getText().toString().isEmpty() || autoCompleteTextViewSectores.getText().toString().isEmpty()){
+                if (comunidades.isEmpty() || sector.isEmpty()) {
                     textViewError.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     textViewError.setVisibility(View.INVISIBLE);
-                }
 
+                    String nombreArchivo = obtenerNombreArchivoConvenio(comunidades, sector);
+
+
+                    if (nombreArchivo == null) {
+                        textViewError.setText("No se encontró un convenio para esta combinación.");
+                        textViewError.setVisibility(View.VISIBLE);
+                    } else {
+                        Intent i = new Intent(requireActivity(), Convenio.class);
+                        i.putExtra("archivo_convenio", nombreArchivo); // <- Lo pasas a la siguiente actividad
+                        startActivity(i);
+                    }
+                }
             }
         });
-
-
-
-
         return view;
+    }
+
+
+    /*
+
+
+
+
+
+    /**
+     * Consigue el nombre del archivo XML del convenio según la comunidad y el sector.
+     * Junta la comunidad y el sector en minúsculas y cambia las letras con acentos o la 'ñ' y los espacios por guiones bajos.
+     * Después mira si existe un archivo con ese nombre (.xml) en la carpeta 'raw'.
+     *
+     * @param comunidades La comunidad que eligió el usuario.
+     * @param sector      El sector de trabajo que eligió el usuario.
+     * @return El nombre completo del archivo XML
+     *
+     * Simplificamos el nombre para evitar problemas con Comunidades como Comunidad de Madrid, Valenciana ETC...
+     */
+    private String obtenerNombreArchivoConvenio(String comunidad, String sector) {
+        String comunidadSimplificada = simplificarNombreComunidad(comunidad);
+        String nombreArchivo = (comunidadSimplificada + "_" + sector).toLowerCase()
+                .replace("á", "a")
+                .replace("é", "e")
+                .replace("í", "i")
+                .replace("ó", "o")
+                .replace("ú", "u")
+                .replace("ñ", "n")
+                .replace(" ", "_");;
+
+
+        // Conseguimos el ID  del recurso osea de el XML con los datos del convenio
+        int resId = getResources().getIdentifier(nombreArchivo.replace(".xml", ""), "raw", requireContext().getPackageName());
+
+        if (resId == 0) {
+            return null; // No existe el archivo
+        } else {
+            return nombreArchivo + ".xml"; // Devuelve el nombre del archivo
+        }
+    }
+
+
+    /**
+     * Coge el nombre de la comunidad autónoma tal cual y lo apaña un poco
+     * para que quede más cortito y sin espacios, listo para usarlo en el nombre del archivo.
+     * Si es "Comunidad de Madrid" lo deja en "madrid", si es "Comunidad Valenciana" en "valencia",
+     * y así con las Islas Baleares. Si no es ninguna de esas, pues lo pone todo en minúsculas
+     * y cambia los espacios por guiones bajos.
+     *
+     * @param comunidad El nombre de la comunidad tal cual lo seleccionó el usuario.
+     * @return El nombre de la comunidad más simple y sin espacios (con guiones bajos si hacía falta).
+     */
+    private String simplificarNombreComunidad(String comunidad) {
+        String nombreSimplificado;
+        switch (comunidad) {
+            case "Comunidad de Madrid":
+                nombreSimplificado = "madrid";
+                break;
+            case "Comunidad Valenciana":
+                nombreSimplificado = "valencia";
+                break;
+            case "Illes Balears":
+                nombreSimplificado = "baleares";
+                break;
+            case "País Vasco":
+                nombreSimplificado = "pais_vasco"; // Mantengo el guion bajo si ya lo tienes en tus archivos
+                break;
+            case "Andalucía":
+                nombreSimplificado = "andalucia";
+                break;
+            case "Aragón":
+                nombreSimplificado = "aragon";
+                break;
+            case "Asturias":
+                nombreSimplificado = "asturias";
+                break;
+            case "Cantabria":
+                nombreSimplificado = "cantabria";
+                break;
+            case "Castilla-La Mancha":
+                nombreSimplificado = "castilla_la_mancha"; // Mantengo guion bajo
+                break;
+            case "Castilla y León":
+                nombreSimplificado = "castilla_y_leon"; // Mantengo guion bajo
+                break;
+            case "Cataluña":
+                nombreSimplificado = "cataluna";
+                break;
+            case "Extremadura":
+                nombreSimplificado = "extremadura";
+                break;
+            case "Galicia":
+                nombreSimplificado = "galicia";
+                break;
+            case "Canarias":
+                nombreSimplificado = "canarias";
+                break;
+            case "La Rioja":
+                nombreSimplificado = "la_rioja"; // Mantengo guion bajo
+                break;
+            case "Región de Murcia":
+                nombreSimplificado = "murcia";
+                break;
+            case "Navarra":
+                nombreSimplificado = "navarra";
+                break;
+            default:
+                nombreSimplificado = comunidad.toLowerCase().replace(" ", "_");
+                break;
+        }
+        return nombreSimplificado;
     }
 
 }

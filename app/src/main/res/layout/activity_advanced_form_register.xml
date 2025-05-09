@@ -100,7 +100,7 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Comunidad Autonoma"
+            android:text="Comunidad Autónoma"
             android:textColor="@color/black"
             android:textSize="18dp"
             android:textStyle="bold" />
@@ -115,7 +115,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="none"
-                android:hint="Comunidad autonoma"
+                android:hint="Comunidad Autónoma"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>

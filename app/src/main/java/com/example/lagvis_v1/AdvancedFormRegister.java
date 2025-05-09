@@ -35,9 +35,20 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/*
+*
+*
+* Clase para continuar nuestro registro con datos más específicos.
+*
+*
+ */
+
+
+
 public class AdvancedFormRegister extends AppCompatActivity {
 
-    AutoCompleteTextView autoCompleteComunidadesAutonomas;
+    AutoCompleteTextView autoCompleteComunidades;
     AutoCompleteTextView _autoCompleteTextViewSectores;
     ArrayAdapter<String> arrAdapterComunidadesAuto;
     ArrayAdapter<String> arrAdapterSectores;
@@ -94,21 +105,21 @@ public class AdvancedFormRegister extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        String[] comunidades = getResources().getStringArray(R.array.comunidades);
+        String[] comunidades = getResources().getStringArray(R.array.comunidades_autonomas);
         String[] sectores = getResources().getStringArray(R.array.sectores);
 
         btnSiguiente = findViewById(R.id.btnEnviar);
 
-        autoCompleteComunidadesAutonomas = findViewById(R.id.autoCompleteTextViewComunidadAutonoma);
+        autoCompleteComunidades = findViewById(R.id.autoCompleteTextViewComunidadAutonoma);
         _autoCompleteTextViewSectores = findViewById(R.id.autoCompleteTextViewSectores);
 
         arrAdapterComunidadesAuto = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, comunidades);
         arrAdapterSectores = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, sectores);
 
-        autoCompleteComunidadesAutonomas.setAdapter(arrAdapterComunidadesAuto);
+        autoCompleteComunidades.setAdapter(arrAdapterComunidadesAuto);
         _autoCompleteTextViewSectores.setAdapter(arrAdapterSectores);
 
-        autoCompleteComunidadesAutonomas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        autoCompleteComunidades.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String item = adapterView.getItemAtPosition(i).toString();
@@ -134,25 +145,36 @@ public class AdvancedFormRegister extends AppCompatActivity {
         });
     }
 
+    /*
+    *
+    *
+    * Metodo para registrar usuario.
+    * Este se registra en nuestra base de datos interna.
+    * Se consiguen los datos desde el formulario y el UUID de Google.
+    *
+    *
+     */
+
     private void registrarNuevoUsuario() {
         ProgressDialog progressDialog = new ProgressDialog(AdvancedFormRegister.this);
         progressDialog.setMessage("Cargando...");
 
-        // Validación de la fecha de nacimiento
+        // Validación fecha no es nula
         if (fechaNacimiento == null || fechaNacimiento.isEmpty()) {
             Toast.makeText(this, "Debe seleccionar una fecha de nacimiento", Toast.LENGTH_LONG).show();
             return;
         }
 
+        //Conseguimos la fecha la dividimos ya que en nuestra base de datos saldrá como String.
         try {
             String[] partes = fechaNacimiento.split("/");
             int dia = Integer.parseInt(partes[0]);
-            int mes = Integer.parseInt(partes[1]) - 1;
+            int mes = Integer.parseInt(partes[1]) - 1; // Se necesita restar uno para que coincida con el Calendar.
             int ano = Integer.parseInt(partes[2]);
 
+            //Comprobación fecha seleccionada no es mayor a la fecha de hoy.
             Calendar fechaSeleccionada = Calendar.getInstance();
             fechaSeleccionada.set(ano, mes, dia);
-
             Calendar fechaActual = Calendar.getInstance();
 
             if (fechaSeleccionada.after(fechaActual)) {
@@ -165,10 +187,11 @@ public class AdvancedFormRegister extends AppCompatActivity {
             return;
         }
 
+        //Comprobaciones para que no se deje ningun campo vacio
         if (_nombreEditText.getText().toString().trim().isEmpty() ||
                 _apellidoEdiText.getText().toString().trim().isEmpty() ||
                 _apellidoEdiText2.getText().toString().trim().isEmpty() ||
-                autoCompleteComunidadesAutonomas.getText().toString().trim().isEmpty() ||
+                autoCompleteComunidades.getText().toString().trim().isEmpty() ||
                 _autoCompleteTextViewSectores.getText().toString().trim().isEmpty()) {
 
             Toast.makeText(this, "Debe introducir todos los campos!", Toast.LENGTH_LONG).show();
@@ -178,15 +201,15 @@ public class AdvancedFormRegister extends AppCompatActivity {
             String name = _nombreEditText.getText().toString().trim();
             String surName1 = _apellidoEdiText.getText().toString().trim();
             String surName2 = _apellidoEdiText2.getText().toString().trim();
-            String comunidadAutonoma = autoCompleteComunidadesAutonomas.getText().toString().trim();
+            String comunidad = autoCompleteComunidades.getText().toString().trim();
             String sectorLaboral = _autoCompleteTextViewSectores.getText().toString().trim();
             String fecha2Nacimiento = btnFecha.getText().toString();
-            String idComunidadAutonoma = String.valueOf(obtenerIdComunidad(comunidadAutonoma));
+            String idComunidad = String.valueOf(obtenerIdComunidadAutonoma(comunidad));
             String idSector = String.valueOf(obtenerIdSector(sectorLaboral));
             FirebaseUser usuarioFireBase = auth.getCurrentUser();
             String uidFireBase = usuarioFireBase.getUid();
 
-            StringRequest request = new StringRequest(Request.Method.POST, "http://192.168.1.50/lagVis/insertar_.php", new Response.Listener<String>() {
+            StringRequest request = new StringRequest(Request.Method.POST, "http://192.168.1.44/lagVis/insertar_.php", new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     if (response.equalsIgnoreCase("Datos insertados correctamente")) {
@@ -212,9 +235,9 @@ public class AdvancedFormRegister extends AppCompatActivity {
                     params.put("nombre", name);
                     params.put("apellido", surName1);
                     params.put("apellido2", surName2);
-                    params.put("comunidad_id", idComunidadAutonoma);
+                    params.put("comunidad_id", idComunidad);
                     params.put("sector_id", idSector);
-                    params.put("fechaNacimiento", fecha2Nacimiento);
+                        params.put("fechaNacimiento", fecha2Nacimiento);
                     return params;
                 }
             };
@@ -224,28 +247,29 @@ public class AdvancedFormRegister extends AppCompatActivity {
         }
     }
 
-    public int obtenerIdComunidad(String comunidadAutonoma) {
+    public int obtenerIdComunidadAutonoma(String comunidadAutonoma) {
         switch (comunidadAutonoma) {
             case "Andalucía": return 1;
             case "Aragón": return 2;
             case "Asturias": return 3;
-            case "Baleares": return 4;
-            case "Canarias": return 5;
-            case "Cantabria": return 6;
-            case "Castilla-La Mancha": return 7;
-            case "Castilla y León": return 8;
-            case "Cataluña": return 9;
-            case "Extremadura": return 10;
-            case "Galicia": return 11;
-            case "Comunidad de Madrid": return 12;
-            case "Murcia": return 13;
-            case "Navarra": return 14;
-            case "La Rioja": return 15;
-            case "País Vasco": return 16;
-            case "Valencia": return 17;
+            case "Cantabria": return 4;
+            case "Castilla-La Mancha": return 5;
+            case "Castilla y León": return 6;
+            case "Cataluña": return 7;
+            case "Comunidad Valenciana": return 8;
+            case "Extremadura": return 9;
+            case "Galicia": return 10;
+            case "Illes Balears": return 11;
+            case "Canarias": return 12;
+            case "La Rioja": return 13;
+            case "Comunidad de Madrid": return 14;
+            case "Región de Murcia": return 15;
+            case "Navarra": return 16;
+            case "País Vasco": return 17;
             default: return -1;
         }
     }
+
 
     public int obtenerIdSector(String sector) {
         switch (sector) {

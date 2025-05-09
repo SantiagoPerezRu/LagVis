@@ -1,24 +1,24 @@
 <resources>
     <string name="app_name">LagVis_V1</string>
 
-    <string-array name="comunidades">
+    <string-array name="comunidades_autonomas">
         <item>Andalucía</item>
         <item>Aragón</item>
         <item>Asturias</item>
-        <item>Baleares</item>
-        <item>Canarias</item>
         <item>Cantabria</item>
         <item>Castilla-La Mancha</item>
         <item>Castilla y León</item>
         <item>Cataluña</item>
+        <item>Comunidad Valenciana</item>
         <item>Extremadura</item>
         <item>Galicia</item>
-        <item>Comunidad de Madrid</item>
-        <item>Murcia</item>
-        <item>Navarra</item>
+        <item>Illes Balears</item>
+        <item>Canarias</item>
         <item>La Rioja</item>
+        <item>Comunidad de Madrid</item>
+        <item>Región de Murcia</item>
+        <item>Navarra</item>
         <item>País Vasco</item>
-        <item>Valencia</item>
     </string-array>
 
 
