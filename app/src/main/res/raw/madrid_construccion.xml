@@ -1,0 +1,71 @@
+<convenio_colectivo>
+    <titulo>Convenio Colectivo General del Sector de la Construcción</titulo>
+
+    <resumen_general>
+        Este convenio establece las condiciones laborales básicas aplicables en todo el territorio nacional para el personal del sector de la construcción. Regula jornadas, descansos, licencias, retribuciones, formación, salud laboral, y otras condiciones laborales y sociales.
+    </resumen_general>
+
+    <vacaciones>
+        <dias>30 días naturales por año trabajado</dias>
+        <observaciones>
+            Las vacaciones serán retribuidas y no podrán ser sustituidas por compensación económica.
+            Se disfrutarán preferentemente entre los meses de junio a septiembre, salvo pacto en contrario.
+            El calendario de vacaciones se acordará en cada empresa conforme a la representación de los trabajadores.
+            Los días festivos no se computarán dentro del periodo vacacional.
+        </observaciones>
+    </vacaciones>
+
+    <festivos>
+        <numero_dias>14 festivos al año</numero_dias>
+        <detalle>
+            En caso de trabajo en festivo, se compensará con descanso equivalente o retribución, según acuerdo entre empresa y trabajador.
+        </detalle>
+    </festivos>
+
+    <horas_extraordinarias>
+        <regulacion>
+            Se procurará evitar su realización.
+            Tendrán carácter voluntario salvo pacto expreso.
+            Serán compensadas preferentemente con descanso equivalente dentro de los 4 meses siguientes.
+        </regulacion>
+    </horas_extraordinarias>
+
+    <licencias>
+        <retribuidas>
+            <matrimonio>15 días naturales</matrimonio>
+            <fallecimiento_familiares>2 días (ampliables a 4 si hay desplazamiento)</fallecimiento_familiares>
+            <nacimiento_hijos>2 días</nacimiento_hijos>
+            <mudanza>1 día</mudanza>
+            <deber_inexcusable>Por el tiempo indispensable</deber_inexcusable>
+        </retribuidas>
+        <no_retribuidas>
+            <formacion>
+                Hasta 20 horas anuales para formación profesional del sector.
+            </formacion>
+            <otros>
+                Se podrán acordar entre la empresa y la persona trabajadora.
+            </otros>
+        </no_retribuidas>
+    </licencias>
+
+    <seguro>
+        <cobertura>
+            Seguro obligatorio de accidentes para el personal por muerte o invalidez permanente derivada de accidente laboral o no laboral.
+        </cobertura>
+        <importe>47.000 € por fallecimiento y 47.000 € por incapacidad permanente absoluta o gran invalidez</importe>
+    </seguro>
+
+    <manutencion>
+        <detalleManun>
+            El convenio no establece un derecho general a manutención, pero podrá contemplarse en convenios provinciales o acuerdos de empresa.
+        </detalleManun>
+    </manutencion>
+
+    <derechos_generales>
+        <igualdad>Compromiso con la igualdad de trato y oportunidades entre mujeres y hombres.</igualdad>
+        <formacion>Derecho a la formación profesional continua y reciclaje profesional.</formacion>
+        <salud_laboral>Protección efectiva en materia de seguridad y salud laboral, con formación obligatoria en prevención.</salud_laboral>
+        <conciliacion>Fomento de la conciliación de la vida laboral, personal y familiar conforme a la normativa vigente.</conciliacion>
+        <representacion>Derecho a la representación colectiva para la negociación y defensa de intereses laborales.</representacion>
+    </derechos_generales>
+</convenio_colectivo>
