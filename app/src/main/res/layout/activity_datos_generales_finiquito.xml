@@ -20,16 +20,15 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/top_background" />
-
             <TextView
-                android:id="@+id/tvResumenTitulo"
+                android:id="@+id/tvTituloDatosGenerales"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|start"
                 android:layout_margin="16dp"
                 android:fontFamily="@font/inter"
                 android:padding="8dp"
-                android:text="💰 Calculadora de &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Finiquitos "
+                android:text="💰 Datos Generales"
                 android:textColor="@android:color/white"
                 android:textSize="30sp"
                 android:textStyle="bold" />
@@ -41,13 +40,14 @@
             android:orientation="vertical"
             android:padding="20dp">
 
+
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 app:cardCornerRadius="8dp"
-                app:cardElevation="4dp">
-
+                app:cardElevation="4dp"
+                android:layout_marginTop="16dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -57,21 +57,27 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="📝 En este apartado podrás calcular lo que tú empresa una vez de despiden."
-                        android:textAlignment="center"
+                        android:text="💰 Salario Anual (€)"
                         android:textColor="#2C3E50"
                         android:textSize="18sp"
                         android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/etSalarioAnual"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:hint="Introduce el salario anual"
+                        android:inputType="numberDecimal" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 app:cardCornerRadius="8dp"
-                app:cardElevation="4dp">
-
+                app:cardElevation="4dp"
+                android:layout_marginTop="16dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -81,29 +87,26 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="📅 Fecha de contrato"
+                        android:text="🏖️ Días de Vacaciones No Disfrutados"
                         android:textColor="#2C3E50"
                         android:textSize="18sp"
                         android:textStyle="bold" />
-
                     <EditText
-                        android:id="@+id/etFechaContrato"
+                        android:id="@+id/etDiasVacaciones"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:focusable="false"
-                        android:hint="Selecciona la fecha de contrato"
-                        android:inputType="date" />
+                        android:hint="Introduce los días no disfrutados"
+                        android:inputType="number" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 app:cardCornerRadius="8dp"
-                app:cardElevation="4dp">
-
+                app:cardElevation="4dp"
+                android:layout_marginTop="16dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -113,32 +116,57 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="📅 Fecha de despido"
+                        android:text="💰 Número de Pagas"
                         android:textColor="#2C3E50"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
-                    <EditText
-                        android:id="@+id/etFechaDespido"
+                    <Spinner
+                        android:id="@+id/spinnerPagas"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:focusable="false"
-                        android:hint="Selecciona la fecha de despido"
-                        android:inputType="date" />
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp"
+                android:layout_marginTop="16dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="📜 Tipo de Despido"
+                        android:textColor="#2C3E50"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/spinnerTipoDespido"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <Button
-                android:id="@+id/btnSiguiente"
-                android:layout_width="180dp"
+                android:id="@+id/btnCalcularFiniquito"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="end"
                 android:layout_marginTop="24dp"
-                android:backgroundTint="#3333cc"
+                android:backgroundTint="#4CAF50"
                 android:fontFamily="@font/inter"
                 android:padding="16dp"
-                android:text="Siguiente"
+                android:text="Calcular Finiquito"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
                 app:cornerRadius="8dp" />

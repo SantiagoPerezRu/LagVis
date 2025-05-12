@@ -17,6 +17,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name="FiniquitosPackage.ActivityResultadoFiniquito"
+            android:exported="false" />
+        <activity
+            android:name="FiniquitosPackage.ActivityDatosGeneralesFiniquito"
+            android:exported="false" />
+        <activity
             android:name=".Convenio"
             android:exported="false" />
         <activity

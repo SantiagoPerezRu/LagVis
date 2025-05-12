@@ -80,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
-                                                Toast.makeText(RegisterActivity.this, "EMAIL ENVIADO SOLO DEPURACION!!!!", Toast.LENGTH_LONG).show();
+                                                //Toast.makeText(RegisterActivity.this, "EMAIL ENVIADO SOLO DEPURACION!!!!", Toast.LENGTH_LONG).show();
 
                                             }
                                         }

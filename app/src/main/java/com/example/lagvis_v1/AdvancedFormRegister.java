@@ -3,6 +3,7 @@ package com.example.lagvis_v1;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -46,7 +47,7 @@ import java.util.Map;
 
 
 
-public class AdvancedFormRegister extends AppCompatActivity {
+public class AdvancedFormRegister extends BaseActivity {
 
     AutoCompleteTextView autoCompleteComunidades;
     AutoCompleteTextView _autoCompleteTextViewSectores;
@@ -90,11 +91,14 @@ public class AdvancedFormRegister extends AppCompatActivity {
                         Calendar fechaActual = Calendar.getInstance();
 
                         if (fechaSeleccionada.after(fechaActual)) {
-                            Toast.makeText(AdvancedFormRegister.this, "La fecha no puede ser futura", Toast.LENGTH_SHORT).show();
+                            Drawable checkIcon = getDrawable(R.drawable.ic_error_outline);
+                            showCustomToast("La fecha no puede ser futura!", checkIcon);
+
                         } else {
                             btnFecha.setText(i2 + "/" + (i1 + 1) + "/" + i);
                             fechaNacimiento = i2 + "/" + (i1 + 1) + "/" + i;
-                            Toast.makeText(AdvancedFormRegister.this, "fecha" + fechaNacimiento, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(AdvancedFormRegister.this, "fecha" + fechaNacimiento, Toast.LENGTH_SHORT).show();
+
 
                         }
                     }
@@ -161,7 +165,10 @@ public class AdvancedFormRegister extends AppCompatActivity {
 
         // Validación fecha no es nula
         if (fechaNacimiento == null || fechaNacimiento.isEmpty()) {
-            Toast.makeText(this, "Debe seleccionar una fecha de nacimiento", Toast.LENGTH_LONG).show();
+
+            Drawable checkIcon = getDrawable(R.drawable.ic_error_outline);
+            showCustomToast("¡Debe seleccionar una fecha de nacimiento!", checkIcon);
+
             return;
         }
 
@@ -178,12 +185,18 @@ public class AdvancedFormRegister extends AppCompatActivity {
             Calendar fechaActual = Calendar.getInstance();
 
             if (fechaSeleccionada.after(fechaActual)) {
-                Toast.makeText(this, "La fecha de nacimiento no puede ser futura", Toast.LENGTH_LONG).show();
+
+
+                Drawable checkIcon = getDrawable(R.drawable.ic_error_outline);
+                showCustomToast("¡La fecha de nacimiento no puede ser futura!", checkIcon);
+
                 return;
             }
 
         } catch (Exception e) {
-            Toast.makeText(this, "Error al procesar la fecha de nacimiento", Toast.LENGTH_LONG).show();
+            Drawable checkIcon = getDrawable(R.drawable.ic_error_outline);
+            showCustomToast("¡Error al procesar la fecha de nacimiento!", checkIcon);
+
             return;
         }
 
@@ -194,7 +207,10 @@ public class AdvancedFormRegister extends AppCompatActivity {
                 autoCompleteComunidades.getText().toString().trim().isEmpty() ||
                 _autoCompleteTextViewSectores.getText().toString().trim().isEmpty()) {
 
-            Toast.makeText(this, "Debe introducir todos los campos!", Toast.LENGTH_LONG).show();
+            Drawable checkIcon = getDrawable(R.drawable.ic_error_outline);
+            showCustomToast("Debe introducir todos los campos!", checkIcon);
+
+
 
         } else {
 
@@ -209,7 +225,7 @@ public class AdvancedFormRegister extends AppCompatActivity {
             FirebaseUser usuarioFireBase = auth.getCurrentUser();
             String uidFireBase = usuarioFireBase.getUid();
 
-            StringRequest request = new StringRequest(Request.Method.POST, "http://192.168.1.44/lagVis/insertar_.php", new Response.Listener<String>() {
+            StringRequest request = new StringRequest(Request.Method.POST, "http://192.168.1.50/lagVis/insertar_.php", new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     if (response.equalsIgnoreCase("Datos insertados correctamente")) {
@@ -223,7 +239,10 @@ public class AdvancedFormRegister extends AppCompatActivity {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(AdvancedFormRegister.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    Drawable checkIcon = getDrawable(R.drawable.ic_error_outline);
+                    showCustomToast(error.getMessage(), checkIcon);
+
                     progressDialog.dismiss();
                 }
             }) {

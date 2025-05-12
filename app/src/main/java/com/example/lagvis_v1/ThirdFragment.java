@@ -1,64 +1,110 @@
 package com.example.lagvis_v1;
 
+import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ThirdFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import androidx.fragment.app.Fragment;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+
+import FiniquitosPackage.ActivityDatosGeneralesFiniquito;
+
 public class ThirdFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private EditText etFechaContrato;
+    private EditText etFechaDespido;
+    private Button btnSiguiente;
+    private Calendar calendarContrato;
+    private Calendar calendarDespido;
+    private SimpleDateFormat dateFormatter;
 
     public ThirdFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ThirdFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ThirdFragment newInstance(String param1, String param2) {
-        ThirdFragment fragment = new ThirdFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        // Constructor vacío requerido
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_third, container, false);
+        // Inflar el layout para este fragmento
+        View view = inflater.inflate(R.layout.fragment_third, container, false);
+
+        // Inicializar las vistas
+        etFechaContrato = view.findViewById(R.id.etFechaContrato);
+        etFechaDespido = view.findViewById(R.id.etFechaDespido);
+        btnSiguiente = view.findViewById(R.id.btnSiguiente);
+
+        // Inicializar los calendarios y el formato de fecha
+        calendarContrato = Calendar.getInstance();
+        calendarDespido = Calendar.getInstance();
+        dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+        // Configurar OnClickListener para el EditText de fecha de contrato
+        etFechaContrato.setOnClickListener(v -> mostrarDatePickerDialog(calendarContrato, etFechaContrato));
+
+        // Configurar OnClickListener para el EditText de fecha de despido
+        etFechaDespido.setOnClickListener(v -> mostrarDatePickerDialog(calendarDespido, etFechaDespido));
+
+        // Configurar OnClickListener para el botón Siguiente
+        btnSiguiente.setOnClickListener(v -> calcularYEnviarDiasTrabajados());
+
+        return view;
+    }
+
+    private void mostrarDatePickerDialog(Calendar calendar, final EditText editText) {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                requireContext(),
+                (view, year, monthOfYear, dayOfMonth) -> {
+                    calendar.set(year, monthOfYear, dayOfMonth);
+                    editText.setText(dateFormatter.format(calendar.getTime()));
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+        );
+        datePickerDialog.show();
+    }
+
+    private void calcularYEnviarDiasTrabajados() {
+        String fechaContratoStr = etFechaContrato.getText().toString();
+        String fechaDespidoStr = etFechaDespido.getText().toString();
+
+        if (fechaContratoStr.isEmpty() || fechaDespidoStr.isEmpty()) {
+            Toast.makeText(requireContext(), "Por favor, selecciona ambas fechas.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            Date fechaContrato = dateFormatter.parse(fechaContratoStr);
+            Date fechaDespido = dateFormatter.parse(fechaDespidoStr);
+
+            if (fechaContrato != null && fechaDespido != null && fechaDespido.before(fechaContrato)) {
+                Toast.makeText(requireContext(), "La fecha de despido no puede ser anterior a la fecha de contrato.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            long diferenciaMillis = fechaDespido.getTime() - fechaContrato.getTime();
+            long diasTrabajados = TimeUnit.DAYS.convert(diferenciaMillis, TimeUnit.MILLISECONDS);
+            Toast.makeText(requireContext(), "Dias:"+diasTrabajados, Toast.LENGTH_SHORT).show();
+            // Crear un Intent para la siguiente actividad
+            Intent intent = new Intent(requireContext(), ActivityDatosGeneralesFiniquito.class);
+            intent.putExtra("diasTrabajados", diasTrabajados);
+            startActivity(intent);
+
+        } catch (ParseException e) {
+            Toast.makeText(requireContext(), "Error al parsear las fechas.", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
     }
 }

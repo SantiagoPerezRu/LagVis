@@ -1,6 +1,7 @@
 package com.example.lagvis_v1;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,7 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class RecoverPassword extends AppCompatActivity {
+public class RecoverPassword extends BaseActivity {
 
     private TextView recuperarPasswdEmail, textoYaEnviado1, textoYaEnviado2, textoRegistrateAqui;
     private Button btnEnviar;
@@ -90,7 +91,10 @@ public class RecoverPassword extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(RecoverPassword.this, "Email enviado SOLO DEPURACION!!", Toast.LENGTH_LONG).show();
+
+                            Drawable checkIcon = getDrawable(R.drawable.ic_info_outline);
+                            showCustomToast("¡Email enviado revise su correo!", checkIcon);
+
                         }
                     }
                 });

@@ -1,5 +1,6 @@
 package com.example.lagvis_v1;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Xml;
 import android.widget.TextView;
@@ -11,7 +12,7 @@ import org.xmlpull.v1.XmlPullParser;
 
 import java.io.InputStream;
 
-public class Convenio extends AppCompatActivity {
+public class Convenio extends BaseActivity {
 
     private TextView tvTitulo, tvResumenGeneral, tvDiasVacaciones, tvObservacionesVacaciones,
             tvNumeroFestivos, tvDetalleFestivos, tvRegulacionHorasExtra,
@@ -54,10 +55,10 @@ public class Convenio extends AppCompatActivity {
         try {
             // 1. Obtener el nombre del archivo desde el Intent
             String nombreArchivo = getIntent().getStringExtra("archivo_convenio");
-            Toast.makeText(this, "Primer nombre: " + nombreArchivo, Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, "Primer nombre: " + nombreArchivo, Toast.LENGTH_SHORT).show();
 
             if (nombreArchivo == null || nombreArchivo.isEmpty()) {
-                Toast.makeText(this, "Nombre de archivo no proporcionado", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(this, "Nombre de archivo no proporcionado", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -66,7 +67,10 @@ public class Convenio extends AppCompatActivity {
 
 
             if (resourceId == 0) {
-                Toast.makeText(this, "Archivo no encontrado: " + nombreArchivo, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Archivo no encontrado: " + nombreArchivo, Toast.LENGTH_SHORT).show();
+                Drawable checkIcon = getDrawable(R.drawable.ic_error_outline);
+                showCustomToast("Archivo no encontrado!", checkIcon);
+
                 return;
             }
 
@@ -165,7 +169,10 @@ public class Convenio extends AppCompatActivity {
 
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "Error al cargar el convenio", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Error al cargar el convenio", Toast.LENGTH_SHORT).show();
+            Drawable checkIcon = getDrawable(R.drawable.ic_error_outline);
+            showCustomToast("Error al cargar el convenio!", checkIcon);
+
         }
     }
 
