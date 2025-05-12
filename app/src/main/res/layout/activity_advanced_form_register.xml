@@ -166,12 +166,15 @@
             android:id="@+id/btnEnviar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/inter"
             android:layout_marginTop="5dp"
+            android:backgroundTint="#3F51B5"
+            android:fontFamily="@font/inter"
             android:text="Siguiente"
-            android:textSize="20dp"
 
+            android:textSize="20dp"
             android:textStyle="bold" />
+
+
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
