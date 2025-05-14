@@ -1,6 +1,13 @@
 <resources>
-    <string name="app_name">LagVis_V1</string>
-
+    <string name="app_name">Menú de navegación</string>
+    <string name="navigation_drawer_open">Abrir menú de navegación</string>
+    <string name="navigation_drawer_close">Cerrar menú de navegación</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Imagen del encabezado de navegación</string>
+    <string name="menu_home">Inicio</string>
+    <string name="menu_gallery">Galería</string>
+    <string name="menu_slideshow">Presentación</string>
     <string-array name="comunidades_autonomas">
         <item>Andalucía</item>
         <item>Aragón</item>
