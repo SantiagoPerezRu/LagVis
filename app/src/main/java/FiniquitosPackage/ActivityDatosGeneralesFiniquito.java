@@ -62,15 +62,17 @@ public class ActivityDatosGeneralesFiniquito extends AppCompatActivity {
     }
 
     private void configurarSpinnerTipoDespido() {
-        // Opciones para el tipo de despido
-        String[] opcionesTipoDespido = {"Procedente", "Improcedente", "Nulo"}; //Añade más tipos si es necesario
-        // Crear un ArrayAdapter usando un layout por defecto del sistema
+        String[] opcionesTipoDespido = {
+                "Disciplinario (procedente)", // posición 0
+                "Objetivo",                   // posición 1
+                "Improcedente",              // posición 2
+                "Nulo"                        // posición 3
+        };
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, opcionesTipoDespido);
-        // Especificar el layout a usar cuando se despliega la lista de opciones
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Asignar el adapter al spinner
         spinnerTipoDespido.setAdapter(adapter);
     }
+
 
     private void calcularFiniquito() {
         // Obtener los valores introducidos por el usuario
@@ -79,47 +81,96 @@ public class ActivityDatosGeneralesFiniquito extends AppCompatActivity {
         int posicionPagas = spinnerPagas.getSelectedItemPosition();
         int posicionTipoDespido = spinnerTipoDespido.getSelectedItemPosition();
 
-        // Validar que los campos obligatorios estén completos
         if (salarioAnualStr.isEmpty() || diasVacacionesStr.isEmpty()) {
             Toast.makeText(this, "Por favor, introduce el salario anual y los días de vacaciones.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Convertir los valores a los tipos de datos adecuados
-        double salarioAnual = Double.parseDouble(salarioAnualStr);
-        int diasVacaciones = Integer.parseInt(diasVacacionesStr);
+        try {
+            double salarioAnual = Double.parseDouble(salarioAnualStr);
+            int diasVacaciones = Integer.parseInt(diasVacacionesStr);
 
-        // Realizar el cálculo del finiquito (aquí va tu lógica de cálculo)
-        // ...
-        double importeFiniquito = calcularImporteFiniquito(salarioAnual, diasTrabajados, diasVacaciones, posicionPagas, posicionTipoDespido);
-        Toast.makeText(this, "aa"+importeFiniquito, Toast.LENGTH_SHORT).show();
-        // Crear un Intent para mostrar el resultado
-        Intent intent = new Intent(this, ActivityResultadoFiniquito.class); // Reemplaza ResultadoFiniquitoActivity.class
-        intent.putExtra("importeFiniquito", importeFiniquito);
-        intent.putExtra("diasTrabajados", diasTrabajados); //Si los necesitas pasar
-        startActivity(intent);
-        // Mostrar un mensaje de error si los datos no son válidos
-         //catch (NumberFormatException e) {
-           // Toast.makeText(this, "Error en el formato de los datos introducidos.", Toast.LENGTH_SHORT).show();
-            //e.printStackTrace();
-      //  }
+            double salarioDiario = salarioAnual / 365.0;
+            double salarioMensual = salarioAnual / 12.0;
 
+            // 1. Salario correspondiente a días trabajados (si no se ha cobrado el mes actual)
+            // Asumimos que si se trabaja el mes completo y el despido es al final, ya está cobrado.
+            // Para un cálculo más preciso, necesitaríamos la fecha de despido exacta para calcular
+            // la parte proporcional del mes si el despido no es a final de mes.
+            // Para este ejemplo, simplificaremos y pondremos a 0 si se trabajó el año completo.
+            double salarioPorDiasTrabajados = 0;
+            if (diasTrabajados < 365) {
+                // Esto es una simplificación. Lo ideal sería tener la fecha de inicio del mes de despido.
+                // Aquí asumimos que los días trabajados en el año son los días trabajados en el mes actual.
+                salarioPorDiasTrabajados = (salarioMensual / 30.0) * (diasTrabajados % 30); // Aproximación a días del mes
+                if (salarioPorDiasTrabajados < 0) salarioPorDiasTrabajados = 0; // Evitar valores negativos si diasTrabajados es múltiplo de 30
+            }
+
+
+            // 2. Vacaciones no disfrutadas
+            double importeVacaciones = diasVacaciones * salarioDiario;
+
+            // 3. Pagas extra prorrateadas (solo si hay más de 12 pagas)
+            double pagasExtra = 0;
+            if (posicionPagas == 1) { // 14 pagas
+                double pagaExtraAnual = salarioAnual / 14.0;
+                // Prorrateo de la parte no devengada de las pagas extra.
+                // Asumimos que las pagas extra son semestrales.
+                // Esto es una simplificación y podría necesitar más detalle según el convenio.
+                pagasExtra = (pagaExtraAnual * (diasTrabajados % 182.5)) / 182.5; // Aproximación a semestre en días
+                if (pagasExtra < 0) pagasExtra = 0;
+            } else if (posicionPagas == 2) { // Pagas prorrateadas
+                pagasExtra = 0; // Si están prorrateadas, ya están incluidas en el salario anual.
+            }
+
+            // 4. Indemnización según el tipo de despido
+            double indemnizacion = 0;
+            double aniosTrabajados = diasTrabajados / 365.0;
+
+            switch (posicionTipoDespido) {
+                case 1: // Objetivo
+                    indemnizacion = salarioDiario * 20 * aniosTrabajados;
+                    double maxObjetivo = salarioMensual * 12;
+                    indemnizacion = Math.min(indemnizacion, maxObjetivo);
+                    break;
+                case 2: // Improcedente
+                    indemnizacion = salarioDiario * 33 * aniosTrabajados;
+                    double maxImprocedente = salarioMensual * 24;
+                    indemnizacion = Math.min(indemnizacion, maxImprocedente);
+                    break;
+                case 3: // Nulo
+                    indemnizacion = 0;
+                    break;
+                default: // Disciplinario o sin indemnización
+                    indemnizacion = 0;
+                    break;
+            }
+
+            // 5. Finiquito (sin incluir indemnización)
+            double totalFiniquito = salarioPorDiasTrabajados + importeVacaciones + pagasExtra;
+
+            // 6. Total general (finiquito + indemnización)
+            double totalLiquidacion = totalFiniquito + indemnizacion;
+
+            // 7. Enviar resultados
+            Intent intent = new Intent(this, ActivityResultadoFiniquito.class);
+            intent.putExtra("salario", salarioPorDiasTrabajados);
+            intent.putExtra("vacaciones", importeVacaciones);
+            intent.putExtra("pagasExtra", pagasExtra);
+            intent.putExtra("finiquito", totalFiniquito);
+            intent.putExtra("indemnizacion", indemnizacion);
+            intent.putExtra("total", totalLiquidacion);
+            startActivity(intent);
+
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Error en el formato de los datos introducidos.", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
     }
-    //Método para calcular el finiquito.
-    private double calcularImporteFiniquito(double salarioAnual, long diasTrabajados, int diasVacaciones, int posicionPagas, int posicionTipoDespido) {
-        double importe = 0;
 
-        double salarioDiario = salarioAnual / 365;
 
-        double calculoSalarioDiarioDiasTrabajados = salarioDiario * diasTrabajados;
 
-        double calculoValorVacacionesNoDisfrutadas = diasVacaciones * salarioDiario;
 
-        double importeTotal = calculoSalarioDiarioDiasTrabajados + calculoValorVacacionesNoDisfrutadas;
 
-        //Toast.makeText(this, ""+importeTotal, Toast.LENGTH_SHORT).show();
-
-        return importeTotal;
-    }
 }
 

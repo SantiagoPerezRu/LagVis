@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/home"
+            android:icon="@drawable/baseline_home_24"
+            android:title="Inicio" />
+        <item
+            android:id="@+id/notice"
+            android:icon="@drawable/baseline_newspaper_24"
+            android:title="Noticias" />
+        <item
+            android:id="@+id/calc"
+            android:icon="@drawable/baseline_calculate_24"
+            android:title="Finiquitos" />
+        <item
+            android:id="@+id/settings"
+            android:icon="@drawable/baseline_settings_24"
+            android:title="Tú perfil" />
+        <item
+            android:id="@+id/nav_vida_laboral"
+
+            android:title="Vida Laboral" />
+    </group>
+
+</menu>
