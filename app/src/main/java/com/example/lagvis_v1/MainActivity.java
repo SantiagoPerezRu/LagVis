@@ -13,7 +13,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
-import FiniquitosPackage.ActivityDatosGeneralesFiniquito;
+
+import FiniquitosPackage.ActivityDatosGeneralesDespido;
 import VisualizadorPaginas.ActivityPaginaVidaLaboral;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -81,6 +82,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_vida_laboral:
                 Intent intentNavegador = new Intent(this, ActivityPaginaVidaLaboral.class);
                 startActivity(intentNavegador);
+                break;
+            case R.id.nav_calculadoraDespidos:
+                Intent intentCalcDespidos = new Intent(this, ActivityDatosGeneralesDespido.class);
+                startActivity(intentCalcDespidos);
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);

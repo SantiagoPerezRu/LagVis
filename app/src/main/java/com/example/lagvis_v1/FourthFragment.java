@@ -35,7 +35,9 @@ public class FourthFragment extends Fragment {
     private String mParam2;
 
     private TextView nombreTextView, apellidoTextView, apellido2TextView, sectorLaboralTextView, comunidadAutonomaTextView, fechaNacimientoTextView;
-    private static final String URL_MOSTRAR_DATOS = "http://192.168.1.50/lagVis/mostrar_.php";
+
+    private static final String URL_MOSTRAR_DATOS = "http://192.168.1.69:8080/lagVis/mostrar_.php";
+
     private String uidUsuario;
 
     private Button recuperarPasswd;
@@ -110,48 +112,52 @@ public class FourthFragment extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("Respuesta", response);
+                        Log.d("RESPUESTA_CRUDA", "Respuesta completa: " + response);
 
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            String exito = jsonObject.getString("exito");
 
-                            if (exito.equals("1")) {
-                                JSONArray datosArray = jsonObject.getJSONArray("datos");
-                                if (datosArray.length() > 0) {
-                                    JSONObject datosUsuario = datosArray.getJSONObject(0);
-                                    String nombre = datosUsuario.getString("nombre");
-                                    String apellido = datosUsuario.getString("apellido");
-                                    String apellido2 = datosUsuario.getString("apellido2");
-                                    String sectorLaboral = datosUsuario.getString("sector_laboral");
-                                    String comunidadAutonoma = datosUsuario.getString("comunidad_autonoma");
-                                    String fechaNacimiento = datosUsuario.getString("fecha_nacimiento");
+                            if (jsonObject.getString("exito").equals("1")) {
 
-                                    nombreTextView.setText(nombre);
-                                    apellidoTextView.setText(apellido);
-                                    apellido2TextView.setText(apellido2);
-                                    sectorLaboralTextView.setText(sectorLaboral);
-                                    comunidadAutonomaTextView.setText(comunidadAutonoma);
-                                    fechaNacimientoTextView.setText(fechaNacimiento);
+                                if (jsonObject.has("datos")) {
+                                    JSONArray datosArray = jsonObject.getJSONArray("datos");
 
+                                    if (datosArray.length() > 0) {
+                                        JSONObject datosUsuario = datosArray.getJSONObject(0);
 
+                                        String nombre = datosUsuario.optString("nombre", "");
+                                        String apellido = datosUsuario.optString("apellido", "");
+                                        String apellido2 = datosUsuario.optString("apellido2", "");
+                                        String sectorLaboral = datosUsuario.optString("sector_laboral", "");
+                                        String comunidadAutonoma = datosUsuario.optString("comunidad_autonoma", "");
+                                        String fechaNacimiento = datosUsuario.optString("fecha_nacimiento", "");
 
+                                        nombreTextView.setText(nombre);
+                                        apellidoTextView.setText(apellido);
+                                        apellido2TextView.setText(apellido2);
+                                        sectorLaboralTextView.setText(sectorLaboral);
+                                        comunidadAutonomaTextView.setText(comunidadAutonoma);
+                                        fechaNacimientoTextView.setText(fechaNacimiento);
+                                    } else {
+                                        mostrarToastPersonalizado("No se encontraron datos para el usuario.", R.drawable.ic_error_outline);
+                                    }
                                 } else {
-                                    mostrarToastPersonalizado("No se encontraron datos para el usuario!", R.drawable.ic_error_outline);
-
-
+                                    mostrarToastPersonalizado("La respuesta no contiene datos del usuario.", R.drawable.ic_error_outline);
                                 }
+
                             } else {
-                                String mensaje = jsonObject.getString("mensaje");
-                                Log.e("Error", mensaje);
-                                Toast.makeText(getContext(), mensaje, Toast.LENGTH_LONG).show();
+                                String mensaje = jsonObject.has("mensaje") ? jsonObject.getString("mensaje") : "Ocurrió un error inesperado.";
+                                mostrarToastPersonalizado(mensaje, R.drawable.ic_error_outline);
+                                Log.e("Error JSON", "Servidor respondió con error: " + mensaje);
                             }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Log.e("JSONException", "Error al parsear JSON: " + e.getMessage());
-                            Toast.makeText(getContext(), "Error al procesar los datos: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            mostrarToastPersonalizado("Error al procesar la respuesta del servidor.", R.drawable.ic_error_outline);
                         }
                     }
+
                 },
                 new Response.ErrorListener() {
                     @Override

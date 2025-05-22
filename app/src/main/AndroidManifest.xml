@@ -10,12 +10,27 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="LagVis | Solución digital"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LagVis_V1"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name="FiniquitosPackage.ActivityResultadoDespido"
+            android:exported="false" />
+        <activity
+            android:name="FiniquitosPackage.ActivityDatosGeneralesDespido"
+            android:exported="false" />
+        <activity
+            android:name="RRHHTracker.ActivityLoginEmpleadosEmpresa"
+            android:exported="false" />
+        <activity
+            android:name="RRHHTracker.ActivityRegistroEmpresa"
+            android:exported="false" />
+        <activity
+            android:name="RRHHTracker.LoginEmpresas"
+            android:exported="false" />
         <activity
             android:name="VisualizadorPaginas.ActivityPaginaVidaLaboral"
             android:exported="false" />
@@ -33,7 +48,7 @@
             android:exported="false" />
         <activity
             android:name=".RecoverPassword"
-            android:exported="false" /> <!-- LoginActivity ahora es la actividad principal -->
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="true">
