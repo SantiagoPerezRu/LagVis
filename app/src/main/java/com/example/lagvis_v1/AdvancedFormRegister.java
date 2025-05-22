@@ -225,7 +225,7 @@ public class AdvancedFormRegister extends BaseActivity {
             FirebaseUser usuarioFireBase = auth.getCurrentUser();
             String uidFireBase = usuarioFireBase.getUid();
 
-            StringRequest request = new StringRequest(Request.Method.POST, "http://192.168.1.50/lagVis/insertar_.php", new Response.Listener<String>() {
+            StringRequest request = new StringRequest(Request.Method.POST, "http://192.168.1.69:8080/lagVis/insertar_.php", new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     if (response.equalsIgnoreCase("Datos insertados correctamente")) {

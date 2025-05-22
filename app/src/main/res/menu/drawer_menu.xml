@@ -15,15 +15,20 @@
         <item
             android:id="@+id/calc"
             android:icon="@drawable/baseline_calculate_24"
-            android:title="Finiquitos" />
+            android:title="Calculadora de finiquitos" />
+        <item
+            android:id="@+id/nav_calculadoraDespidos"
+            android:icon="@drawable/baseline_calculate_24"
+            android:title="Calculadora de despidos" />
         <item
             android:id="@+id/settings"
             android:icon="@drawable/baseline_settings_24"
             android:title="Tú perfil" />
         <item
             android:id="@+id/nav_vida_laboral"
-
+            android:icon="@drawable/ic_info_outline"
             android:title="Vida Laboral" />
+
     </group>
 
 </menu>
