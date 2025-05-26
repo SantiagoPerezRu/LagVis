@@ -36,7 +36,7 @@ public class FourthFragment extends Fragment {
 
     private TextView nombreTextView, apellidoTextView, apellido2TextView, sectorLaboralTextView, comunidadAutonomaTextView, fechaNacimientoTextView;
 
-    private static final String URL_MOSTRAR_DATOS = "http://192.168.1.69:8080/lagVis/mostrar_.php";
+    private static final String URL_MOSTRAR_DATOS = LagVisConstantes.ENDPOINT_MOSTRAR;
 
     private String uidUsuario;
 

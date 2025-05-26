@@ -23,15 +23,6 @@
             android:name="FiniquitosPackage.ActivityDatosGeneralesDespido"
             android:exported="false" />
         <activity
-            android:name="RRHHTracker.ActivityLoginEmpleadosEmpresa"
-            android:exported="false" />
-        <activity
-            android:name="RRHHTracker.ActivityRegistroEmpresa"
-            android:exported="false" />
-        <activity
-            android:name="RRHHTracker.LoginEmpresas"
-            android:exported="false" />
-        <activity
             android:name="VisualizadorPaginas.ActivityPaginaVidaLaboral"
             android:exported="false" />
         <activity

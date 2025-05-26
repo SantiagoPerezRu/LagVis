@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     SecondFragment secondFragment = new SecondFragment();  // Noticias
     ThirdFragment thirdFragment = new ThirdFragment();     // Finiquitos
     FourthFragment fourthFragment = new FourthFragment();  // Tú perfil
+
+    NoticiasGuardadasFragment fragmentNoticiasGuaradas = new NoticiasGuardadasFragment(); // Noticias guardadas fragment
     ActivityPaginaVidaLaboral activityNavegador = new ActivityPaginaVidaLaboral(); // Vida Laboral
 
     @Override
@@ -86,6 +88,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_calculadoraDespidos:
                 Intent intentCalcDespidos = new Intent(this, ActivityDatosGeneralesDespido.class);
                 startActivity(intentCalcDespidos);
+                break;
+            case R.id.noticiasGuardadas:
+                loadFragment(fragmentNoticiasGuaradas);
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);

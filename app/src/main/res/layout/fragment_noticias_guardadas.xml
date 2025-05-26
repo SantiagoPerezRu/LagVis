@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp">
+
+            <ImageView
+                android:id="@+id/imgHeader"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/top_background" /> <TextView
+            android:id="@+id/tvSavedNewsTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|start"
+            android:layout_margin="16dp"
+            android:text=" 🔖 Noticias Guardadas "
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:fontFamily="@font/inter"
+            android:padding="8dp" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="📝 Aquí puedes revisar las noticias que has guardado previamente."
+                        android:textColor="#2C3E50"
+                        android:textAlignment="center"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tvSavedTituloNoticia"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#2C3E50"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:minHeight="100dp"
+                        android:fontFamily="@font/inter"
+                        android:text="Cargando noticias guardadas..." /> <TextView
+                    android:id="@+id/tvSavedFechaNoticiaLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#2C3E50"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:minHeight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="📅 Fecha noticia: "
+                    android:fontFamily="@font/inter"
+                    android:visibility="gone"/> <TextView
+                    android:id="@+id/tvSavedFechaNoticia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#2C3E50"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:minHeight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text=""
+                    android:visibility="gone"/> <TextView
+                    android:id="@+id/tvSavedCreadorNoticiaLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#2C3E50"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:minHeight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="🖋️ Noticia publicada por:"
+                    android:fontFamily="@font/inter"
+                    android:visibility="gone"/> <TextView
+                    android:id="@+id/tvSavedCreadorNoticia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#2C3E50"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:minHeight="20dp"
+                    android:text=""
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone"/> <TextView
+                    android:paddingTop="25dp"
+                    android:id="@+id/tvSavedEnlaceNoticia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#3333cc"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:minHeight="20dp"
+                    android:text="Pincha aquí para ir al enlace de la noticia!"
+                    android:visibility="gone"/> <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="15dp">
+                    <Button
+                        android:id="@+id/btnSavedAnterior"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:backgroundTint="#3333cc"
+                        android:fontFamily="@font/inter"
+                        android:text="Anterior"
+                        android:layout_marginEnd="10dp"
+                        android:textColor="@android:color/white"
+                        app:cornerRadius="8dp" />
+
+                    <Button
+                        android:id="@+id/btnSavedSiguiente"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:backgroundTint="#3333cc"
+                        android:fontFamily="@font/inter"
+                        android:text="Siguiente"
+                        android:textColor="@android:color/white"
+                        app:cornerRadius="8dp" />
+                </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
