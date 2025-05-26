@@ -13,6 +13,10 @@
             android:icon="@drawable/baseline_newspaper_24"
             android:title="Noticias" />
         <item
+            android:id="@+id/noticiasGuardadas"
+            android:icon="@drawable/ic_guardar"
+            android:title="Noticias Guardadas" />
+        <item
             android:id="@+id/calc"
             android:icon="@drawable/baseline_calculate_24"
             android:title="Calculadora de finiquitos" />
@@ -21,13 +25,14 @@
             android:icon="@drawable/baseline_calculate_24"
             android:title="Calculadora de despidos" />
         <item
-            android:id="@+id/settings"
-            android:icon="@drawable/baseline_settings_24"
-            android:title="Tú perfil" />
-        <item
             android:id="@+id/nav_vida_laboral"
             android:icon="@drawable/ic_info_outline"
             android:title="Vida Laboral" />
+        <item
+            android:id="@+id/settings"
+            android:icon="@drawable/baseline_settings_24"
+            android:title="Tú perfil" />
+
 
     </group>
 

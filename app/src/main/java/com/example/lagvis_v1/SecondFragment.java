@@ -1,6 +1,12 @@
 package com.example.lagvis_v1;
 
+import static androidx.appcompat.content.res.AppCompatResources.getDrawable;
+
+import android.app.ProgressDialog;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +15,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import api.NewsApiService;
 import api.NewsItem;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
@@ -20,7 +30,16 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.graphics.Color;
 
-public class SecondFragment extends Fragment implements NewsApiService.NoticiasCallback {
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+public class SecondFragment extends BaseFragment implements NewsApiService.NoticiasCallback {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -34,11 +53,17 @@ public class SecondFragment extends Fragment implements NewsApiService.NoticiasC
     private int indiceNoticiaActual = 0;
     private Button btnAnterior;
     private Button btnSiguiente;
+
+    private Button btnGuardarNoticia;
     private TextView verMasTexto;
 
     private TextView fechaNoticia;
 
     private TextView creadorNoticia;
+
+    private FirebaseAuth auth;
+
+    private String uidUsuario;
 
     public SecondFragment() {
         // Required empty public constructor
@@ -74,11 +99,13 @@ public class SecondFragment extends Fragment implements NewsApiService.NoticiasC
         //verMasTexto = view.findViewById(R.id.verMasTaexto);
         fechaNoticia = view.findViewById(R.id.fechaNoticia2);
         creadorNoticia = view.findViewById(R.id.creadorNoticia2);
-
+        btnGuardarNoticia = view.findViewById(R.id.btnGuardarNoticia);
+        auth = FirebaseAuth.getInstance();
 
         // Deshabilitar botones al inicio
         btnAnterior.setEnabled(false);
         btnSiguiente.setEnabled(false);
+        btnGuardarNoticia.setEnabled(false);
 
         NewsApiService newsApiService = new NewsApiService(this);
         newsApiService.obtenerNoticias("Boe", "es", "business");
@@ -96,6 +123,13 @@ public class SecondFragment extends Fragment implements NewsApiService.NoticiasC
                 indiceNoticiaActual++;
                 mostrarNoticiaActual();
                 actualizarEstadoBotones();
+            }
+        });
+
+        btnGuardarNoticia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                guardarNoticiaActual();
             }
         });
 
@@ -132,6 +166,29 @@ public class SecondFragment extends Fragment implements NewsApiService.NoticiasC
             verMasTexto.setVisibility(View.GONE);
         }
     }
+
+    private void guardarNoticiaActual() {
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser == null) {
+            Drawable checkIcon = ContextCompat.getDrawable(getContext(), R.drawable.ic_error_outline);
+            mostrarToastPersonalizado("¡Usuario no autenticado!", checkIcon);
+            return;
+        }
+        String uid = currentUser.getUid();
+
+        if (listaNoticias != null && !listaNoticias.isEmpty()) {
+            NewsItem noticia = listaNoticias.get(indiceNoticiaActual);
+            String titulo = noticia.title;
+            String fecha = noticia.pubDate;
+            String enlace = noticia.link;
+            String creador = noticia.creator;
+            guardarNoticiaEnServidorVolley(uid, titulo, fecha, enlace, creador);
+        } else {
+            Drawable checkIcon = ContextCompat.getDrawable(getContext(), R.drawable.ic_error_outline);
+            mostrarToastPersonalizado("¡No hay noticia para guardar!", checkIcon);
+        }
+    }
+
 
     private void mostrarNoticiaActual() {
         if (listaNoticias != null && !listaNoticias.isEmpty()) {
@@ -183,13 +240,57 @@ public class SecondFragment extends Fragment implements NewsApiService.NoticiasC
         } else if (indiceNoticiaActual == 0) {
             btnAnterior.setEnabled(false);
             btnSiguiente.setEnabled(true);
+            btnGuardarNoticia.setEnabled(true);
         } else if (indiceNoticiaActual == listaNoticias.size() - 1) {
             btnSiguiente.setEnabled(false);
             btnAnterior.setEnabled(true);
+            btnGuardarNoticia.setEnabled(true);
         } else {
             btnAnterior.setEnabled(true);
             btnSiguiente.setEnabled(true);
+            btnGuardarNoticia.setEnabled(true);
         }
     }
+
+    private void guardarNoticiaEnServidorVolley(String uid, String titulo, String fecha, String enlace, String creador) {
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Guardando noticia...");
+        progressDialog.show();
+
+        String url = LagVisConstantes.ENDPOINT_GUARDAR_NOTICIA;
+
+        StringRequest request = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+                        Drawable checkIcon = ContextCompat.getDrawable(getContext(), R.drawable.ic_check_circle);
+                        mostrarToastPersonalizado("¡Noticia guardada con éxito!", checkIcon);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        Drawable checkIcon = ContextCompat.getDrawable(getContext(), R.drawable.ic_error_outline);
+                        mostrarToastPersonalizado("¡Error al guarda la noticia!", checkIcon);
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("uid", uid);
+                params.put("titulo", titulo);
+                params.put("fecha", fecha);
+                params.put("enlace", enlace);
+                params.put("creador", creador);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(request);
+    }
+
 }
 

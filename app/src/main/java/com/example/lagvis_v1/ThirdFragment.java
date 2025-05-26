@@ -2,6 +2,7 @@ package com.example.lagvis_v1;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import java.text.ParseException;
@@ -21,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 import FiniquitosPackage.ActivityDatosGeneralesFiniquito;
 
-public class ThirdFragment extends Fragment {
+public class ThirdFragment extends BaseFragment {
 
     private EditText etFechaContrato;
     private EditText etFechaDespido;
@@ -29,6 +31,9 @@ public class ThirdFragment extends Fragment {
     private Calendar calendarContrato;
     private Calendar calendarDespido;
     private SimpleDateFormat dateFormatter;
+
+    private Drawable errorIcon;
+    private Drawable checkIcon;
 
     public ThirdFragment() {
         // Constructor vacío requerido
@@ -39,6 +44,9 @@ public class ThirdFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflar el layout para este fragmento
         View view = inflater.inflate(R.layout.fragment_third, container, false);
+
+        errorIcon = ContextCompat.getDrawable(getContext(), R.drawable.ic_error_outline);
+        checkIcon = ContextCompat.getDrawable(getContext(), R.drawable.ic_check_circle);
 
         // Inicializar las vistas
         etFechaContrato = view.findViewById(R.id.etFechaContrato);
@@ -81,7 +89,8 @@ public class ThirdFragment extends Fragment {
         String fechaDespidoStr = etFechaDespido.getText().toString();
 
         if (fechaContratoStr.isEmpty() || fechaDespidoStr.isEmpty()) {
-            Toast.makeText(requireContext(), "Por favor, selecciona ambas fechas.", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(requireContext(), "Por favor, selecciona ambas fechas.", Toast.LENGTH_SHORT).show();
+            mostrarToastPersonalizado("Por favor, selecciona ambas fechas", errorIcon);
             return;
         }
 
@@ -90,20 +99,22 @@ public class ThirdFragment extends Fragment {
             Date fechaDespido = dateFormatter.parse(fechaDespidoStr);
 
             if (fechaContrato != null && fechaDespido != null && fechaDespido.before(fechaContrato)) {
-                Toast.makeText(requireContext(), "La fecha de despido no puede ser anterior a la fecha de contrato.", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(requireContext(), "La fecha de despido no puede ser anterior a la fecha de contrato.", Toast.LENGTH_SHORT).show();
+                mostrarToastPersonalizado("La fecha de despido no puede ser anterior a la fecha de contrato.", errorIcon);
                 return;
             }
 
             long diferenciaMillis = fechaDespido.getTime() - fechaContrato.getTime();
             long diasTrabajados = TimeUnit.DAYS.convert(diferenciaMillis, TimeUnit.MILLISECONDS);
-            Toast.makeText(requireContext(), "Dias:"+diasTrabajados, Toast.LENGTH_SHORT).show();
+
             // Crear un Intent para la siguiente actividad
             Intent intent = new Intent(requireContext(), ActivityDatosGeneralesFiniquito.class);
             intent.putExtra("diasTrabajados", diasTrabajados);
             startActivity(intent);
 
         } catch (ParseException e) {
-            Toast.makeText(requireContext(), "Error al parsear las fechas.", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(requireContext(), "Error al parsear las fechas.", Toast.LENGTH_SHORT).show();
+            mostrarToastPersonalizado("Error al parsear las fechas.", errorIcon);
             e.printStackTrace();
         }
     }
