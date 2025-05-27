@@ -17,20 +17,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FirstFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class FirstFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
 
-    // TODO: Rename and change types of parameters
+
     private String mParam1;
     private String mParam2;
 
@@ -156,9 +151,6 @@ public class FirstFragment extends Fragment {
     /*
 
 
-
-
-
     /**
      * Consigue el nombre del archivo XML del convenio según la comunidad y el sector.
      * Junta la comunidad y el sector en minúsculas y cambia las letras con acentos o la 'ñ' y los espacios por guiones bajos.
@@ -216,7 +208,7 @@ public class FirstFragment extends Fragment {
                 nombreSimplificado = "baleares";
                 break;
             case "País Vasco":
-                nombreSimplificado = "pais_vasco"; // Mantengo el guion bajo si ya lo tienes en tus archivos
+                nombreSimplificado = "pais_vasco"; 
                 break;
             case "Andalucía":
                 nombreSimplificado = "andalucia";
@@ -231,10 +223,10 @@ public class FirstFragment extends Fragment {
                 nombreSimplificado = "cantabria";
                 break;
             case "Castilla-La Mancha":
-                nombreSimplificado = "castilla_la_mancha"; // Mantengo guion bajo
+                nombreSimplificado = "castilla_la_mancha"; 
                 break;
             case "Castilla y León":
-                nombreSimplificado = "castilla_y_leon"; // Mantengo guion bajo
+                nombreSimplificado = "castilla_y_leon"; 
                 break;
             case "Cataluña":
                 nombreSimplificado = "cataluna";
@@ -249,7 +241,7 @@ public class FirstFragment extends Fragment {
                 nombreSimplificado = "canarias";
                 break;
             case "La Rioja":
-                nombreSimplificado = "la_rioja"; // Mantengo guion bajo
+                nombreSimplificado = "la_rioja"; 
                 break;
             case "Región de Murcia":
                 nombreSimplificado = "murcia";
