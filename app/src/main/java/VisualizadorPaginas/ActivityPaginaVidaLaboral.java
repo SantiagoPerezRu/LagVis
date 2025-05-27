@@ -14,8 +14,7 @@ public class ActivityPaginaVidaLaboral extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pagina_vida_laboral); // Asegúrate de que el nombre del layout coincida
-
+        setContentView(R.layout.activity_pagina_vida_laboral); 
         webViewNavegador = findViewById(R.id.webViewNavegador);
 
         // Habilita Javascript (necesario para la mayoría de los sitios web)
