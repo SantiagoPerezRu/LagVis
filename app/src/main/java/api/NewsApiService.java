@@ -13,7 +13,7 @@ import java.util.List;
 
 public class NewsApiService {
 
-    private static final String API_KEY = "pub_859010197238a46b7699c07ede5c156d273a2"; // Reemplaza con tu API Key
+    private static final String API_KEY = "pub_859010197238a46b7699c07ede5c156d273a2";
     private static final String BASE_URL = "https://newsdata.io/api/1/news";
 
     public interface NoticiasCallback {
@@ -90,7 +90,7 @@ public class NewsApiService {
                     String link = article.has("link") && !article.get("link").isJsonNull() ? article.get("link").getAsString() : "";
                     String pubDate = article.has("pubDate") && !article.get("pubDate").isJsonNull() ? article.get("pubDate").getAsString() : "Fecha desconocida";
                     String creator = article.has("creator") && !article.get("creator").isJsonNull() ? article.get("creator").getAsString() : "Anónimo"; // Obtener el creador
-                    noticias.add(new NewsItem(title, link, pubDate, creator)); // Pasar el creador al constructor
+                    noticias.add(new NewsItem(title, link, pubDate, creator)); 
                 }
             }
             return noticias;
