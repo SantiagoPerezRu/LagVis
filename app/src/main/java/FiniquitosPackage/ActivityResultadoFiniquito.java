@@ -1,4 +1,4 @@
-package FiniquitosPackage; // Cambia por tu paquete real
+package FiniquitosPackage;
 
 import android.os.Bundle;
 import android.widget.TextView;
@@ -14,28 +14,28 @@ public class ActivityResultadoFiniquito extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_resultado_finiquito); // Asegúrate de que coincida con el nombre XML
+        setContentView(R.layout.activity_resultado_finiquito); 
 
-        // 1. Referencias a los TextView
+        
         tvVacaciones = findViewById(R.id.tvVacaciones);
         tvPagasExtras = findViewById(R.id.tvPagasExtras);
         tvFiniquito = findViewById(R.id.tvFiniquito);
         tvIndemnizacion = findViewById(R.id.tvIndemnizacion);
         tvTotal = findViewById(R.id.tvTotal);
 
-        // 2. Obtener los datos del Intent
+        // Obtener los datos del Intent
         double vacaciones = getIntent().getDoubleExtra("vacaciones", 0.0);
         double pagasExtras = getIntent().getDoubleExtra("pagasExtras", 0.0);
         double finiquito = getIntent().getDoubleExtra("finiquito", 0.0);
         double indemnizacion = getIntent().getDoubleExtra("indemnizacion", 0.0);
 
-        // 3. Mostrar cada valor con formato €
+        //ostrar cada valor con formato €
         tvVacaciones.setText(String.format("%.2f €", vacaciones));
         tvPagasExtras.setText(String.format("%.2f €", pagasExtras));
         tvFiniquito.setText(String.format("%.2f €", finiquito));
         tvIndemnizacion.setText(String.format("%.2f €", indemnizacion));
 
-        // 4. Calcular total
+        //Calcular total
         double total = finiquito + indemnizacion;
         tvTotal.setText(String.format("%.2f €", total));
     }
