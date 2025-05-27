@@ -39,7 +39,7 @@ public class BaseActivity extends AppCompatActivity {
             toastIcon.setVisibility(View.GONE);
         }
         Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 100); // Ajusta el tercer parámetro
+        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 100); 
         toast.setDuration(Toast.LENGTH_LONG);
         toast.setView(layout);
         toast.show();
