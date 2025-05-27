@@ -177,12 +177,12 @@ public class FourthFragment extends Fragment {
         Volley.newRequestQueue(getContext()).add(stringRequest);
     }
 
-
+    /* Codigo repetido recordar borrar!!!!!!!!!!!!!!!!!!!!!!1*/
     public void mostrarToastPersonalizado(String message, int iconResId) {
-        if (getContext() == null) return; // Comprueba si el contexto es nulo
+        if (getContext() == null) return; 
         LayoutInflater inflater = getLayoutInflater();
         View layout = inflater.inflate(R.layout.custom_toast,
-                (ViewGroup) getView().findViewById(R.id.custom_toast_container)); // Asegúrate de que el ID es correcto
+                (ViewGroup) getView().findViewById(R.id.custom_toast_container)); 
         TextView text = layout.findViewById(R.id.toast_text);
         text.setText(message);
         ImageView toastIcon = (ImageView) layout.findViewById(R.id.toast_icon);
@@ -193,7 +193,7 @@ public class FourthFragment extends Fragment {
         } else {
             toastIcon.setVisibility(View.GONE);
         }
-        Toast toast = new Toast(getContext()); // Usa getContext() en un Fragment
+        Toast toast = new Toast(getContext());
         toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 100);
         toast.setDuration(Toast.LENGTH_LONG);
         toast.setView(layout);
