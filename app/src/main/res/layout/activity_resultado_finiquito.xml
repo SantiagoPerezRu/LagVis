@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ActivityResultadoFiniquito">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/imageViewHeader"
@@ -202,6 +201,18 @@
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-
+        <Button
+            android:id="@+id/btnExportarPdfFiniquito"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="#3333cc"
+            android:fontFamily="@font/inter"
+            android:padding="16dp"
+            android:text="Exportar a PDF"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:cornerRadius="8dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
