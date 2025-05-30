@@ -1,4 +1,4 @@
-package FiniquitosPackage; // Asegúrate de que este sea tu paquete real
+package FiniquitosPackage;
 
 import android.content.Context;
 import android.content.Intent;

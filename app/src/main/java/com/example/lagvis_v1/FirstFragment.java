@@ -1,7 +1,5 @@
 package com.example.lagvis_v1;
 
-import static android.widget.Toast.LENGTH_SHORT;
-
 import android.content.Intent;
 import android.os.Bundle;
 

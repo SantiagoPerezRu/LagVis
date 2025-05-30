@@ -286,8 +286,5 @@ public class ActivityResultadoDespido extends AppCompatActivity {
         return ""; // Retorna vacío si no es un BitmapDrawable
     }
 
-    private String formatAmount(double amount) {
-        return String.format(Locale.getDefault(), "%.2f €", amount);
-    }
 
 }

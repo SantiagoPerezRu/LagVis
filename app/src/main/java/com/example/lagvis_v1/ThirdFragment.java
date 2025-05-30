@@ -113,7 +113,6 @@ public class ThirdFragment extends BaseFragment {
             startActivity(intent);
 
         } catch (ParseException e) {
-            //Toast.makeText(requireContext(), "Error al parsear las fechas.", Toast.LENGTH_SHORT).show();
             mostrarToastPersonalizado("Error al parsear las fechas.", errorIcon);
             e.printStackTrace();
         }
