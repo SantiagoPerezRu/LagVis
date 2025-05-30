@@ -42,13 +42,11 @@ public class ThirdFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflar el layout para este fragmento
         View view = inflater.inflate(R.layout.fragment_third, container, false);
 
         errorIcon = ContextCompat.getDrawable(getContext(), R.drawable.ic_error_outline);
         checkIcon = ContextCompat.getDrawable(getContext(), R.drawable.ic_check_circle);
 
-        // Inicializar las vistas
         etFechaContrato = view.findViewById(R.id.etFechaContrato);
         etFechaDespido = view.findViewById(R.id.etFechaDespido);
         btnSiguiente = view.findViewById(R.id.btnSiguiente);
@@ -99,7 +97,6 @@ public class ThirdFragment extends BaseFragment {
             Date fechaDespido = dateFormatter.parse(fechaDespidoStr);
 
             if (fechaContrato != null && fechaDespido != null && fechaDespido.before(fechaContrato)) {
-                //Toast.makeText(requireContext(), "La fecha de despido no puede ser anterior a la fecha de contrato.", Toast.LENGTH_SHORT).show();
                 mostrarToastPersonalizado("La fecha de despido no puede ser anterior a la fecha de contrato.", errorIcon);
                 return;
             }

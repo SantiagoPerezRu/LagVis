@@ -97,7 +97,6 @@ public class ActivityDatosGeneralesFiniquito extends AppCompatActivity {
             // Asumimos que si se trabaja el mes completo y el despido es al final, ya está cobrado.
             // Para un cálculo más preciso, necesitaríamos la fecha de despido exacta para calcular
             // la parte proporcional del mes si el despido no es a final de mes.
-            // Para este ejemplo, simplificaremos y pondremos a 0 si se trabajó el año completo.
             double salarioPorDiasTrabajados = 0;
             if (diasTrabajados < 365) {
                 // Esto es una simplificación. Lo ideal sería tener la fecha de inicio del mes de despido.
@@ -116,7 +115,6 @@ public class ActivityDatosGeneralesFiniquito extends AppCompatActivity {
                 double pagaExtraAnual = salarioAnual / 14.0;
                 // Prorrateo de la parte no devengada de las pagas extra.
                 // Asumimos que las pagas extra son semestrales.
-                // Esto es una simplificación y podría necesitar más detalle según el convenio.
                 pagasExtra = (pagaExtraAnual * (diasTrabajados % 182.5)) / 182.5; // Aproximación a semestre en días
                 if (pagasExtra < 0) pagasExtra = 0;
             } else if (posicionPagas == 2) { // Pagas prorrateadas

@@ -1,4 +1,4 @@
-package com.example.lagvis_v1; // Asegúrate de que este sea tu paquete correcto
+package com.example.lagvis_v1;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -38,8 +38,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import api.NewsItem; // Asegúrate de que esta clase exista y tenga los campos correctos
+import api.NewsItem;
 
 public class NoticiasGuardadasFragment extends BaseFragment {
 
@@ -88,7 +87,7 @@ public class NoticiasGuardadasFragment extends BaseFragment {
         // Configura el ProgressDialog
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Cargando noticias guardadas...");
-        progressDialog.setCancelable(false); // No permitir que se cancele tocando fuera
+        progressDialog.setCancelable(false);
 
         // Deshabilita los botones al inicio
         btnSavedAnterior.setEnabled(false);
@@ -113,11 +112,10 @@ public class NoticiasGuardadasFragment extends BaseFragment {
 
         return view;
     }
-
+// Una vez que la vista ha sido creada, intenta cargar las noticias
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // Una vez que la vista ha sido creada, intenta cargar las noticias
         cargarNoticiasGuardadas();
     }
 
@@ -133,44 +131,37 @@ public class NoticiasGuardadasFragment extends BaseFragment {
 
         String uidUsuario = currentUser.getUid();
         progressDialog.show(); // Muestra el diálogo de progreso
-
+        
         String url = LagVisConstantes.ENDPOINT_LISTAR_NOTICIAS;
 
+        //Llamamos al scrip PHP
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         progressDialog.dismiss(); // Oculta el diálogo de progreso
                         try {
-                            // --- INICIO DE LA CORRECCIÓN ---
-                            // 1. Parsear la respuesta completa como un JSONObject
+                            // Parsear la respuesta completa como un JSONObject
                             JSONObject jsonResponse = new JSONObject(response);
 
-                            // 2. Verificar el estado de éxito
+                            // Verificar el estado de éxito, el script si hay noticias y salen bien devuelve un mensaje de éxito
                             String exito = jsonResponse.getString("exito");
-                            String mensaje = jsonResponse.optString("mensaje", ""); // Para mensajes de error, si existen
+                            String mensaje = jsonResponse.optString("mensaje", ""); 
 
                             if ("1".equals(exito)) {
-                                // 3. Si el 'exito' es 1, entonces obtenemos el JSONArray 'datos'
+                                // Si el 'exito' es 1, entonces obtenemos el JSONArray 'datos'
                                 JSONArray jsonArray = jsonResponse.getJSONArray("datos");
 
                                 listaNoticiasGuardadas = new ArrayList<>();
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject newsJson = jsonArray.getJSONObject(i);
-                                    // Asegúrate de que los nombres de las claves aquí (title, link, pubDate, creator)
-                                    // coincidan exactamente con los que devuelve tu PHP para las noticias guardadas.
-                                    // Tu PHP de noticias_guardadas.php devuelve:
-                                    // id, titulo, enlace, fecha, creador
-                                    // Así que deberías usar esos nombres aquí:
-                                    String id = newsJson.optString("id"); // Si necesitas el ID
+                                    String id = newsJson.optString("id"); 
                                     String title = newsJson.optString("titulo");
                                     String link = newsJson.optString("enlace");
                                     String pubDate = newsJson.optString("fecha");
                                     String creator = newsJson.optString("creador");
 
-                                    // Asumo que NewsItem tiene un constructor para estos campos,
-                                    // o que los campos se llaman igual que en el JSON.
-                                    // Si tu constructor de NewsItem no acepta todos, ajústalo.
+                                    //Guardar noticia en la lista
                                     listaNoticiasGuardadas.add(new NewsItem(title, link, pubDate, creator));
                                 }
 
@@ -193,7 +184,7 @@ public class NoticiasGuardadasFragment extends BaseFragment {
                                 Drawable errorIcon = ContextCompat.getDrawable(getContext(), R.drawable.ic_error_outline);
                                 mostrarToastPersonalizado("Error: " + mensaje, errorIcon);
                             }
-                            // --- FIN DE LA CORRECCIÓN ---
+                            
 
                         } catch (JSONException e) {
                             Log.e("SavedNewsFragment", "Error al parsear JSON: " + e.getMessage());
@@ -207,14 +198,11 @@ public class NoticiasGuardadasFragment extends BaseFragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss(); // Oculta el diálogo de progreso
+                        progressDialog.dismiss();
                         Log.e("SavedNewsFragment", "Error de Volley: " + error.toString());
                         String errorMessage = "Error al conectar con el servidor.";
                         if (error.networkResponse != null) {
                             errorMessage += " Código: " + error.networkResponse.statusCode;
-                            // Puedes intentar obtener el cuerpo de la respuesta de error si es necesario
-                            // String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
-                            // Log.e("SavedNewsFragment", "Cuerpo de error: " + responseBody);
                         }
                         tvSavedTituloNoticia.setText(errorMessage);
                         ocultarDetallesNoticia();
@@ -225,7 +213,7 @@ public class NoticiasGuardadasFragment extends BaseFragment {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("uid", uidUsuario); // Envía el UID del usuario
+                params.put("uid", uidUsuario);
                 return params;
             }
         };
@@ -264,13 +252,11 @@ public class NoticiasGuardadasFragment extends BaseFragment {
                 @Override
                 public void updateDrawState(@NonNull TextPaint ds) {
                     super.updateDrawState(ds);
-                    ds.setColor(Color.BLUE); // Color del enlace
-                    ds.setUnderlineText(true); // Subrayar el enlace
+                    ds.setColor(Color.BLUE); 
+                    ds.setUnderlineText(true); 
                 }
             };
-
-            // Aplica el ClickableSpan al texto "Pincha aquí"
-            // Ajusta los índices si el texto "Pincha aquí" cambia
+            
             spannableString.setSpan(clickableSpan, 0, 11, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
             tvSavedEnlaceNoticia.setText(spannableString);
             tvSavedEnlaceNoticia.setMovementMethod(LinkMovementMethod.getInstance()); // Necesario para que el ClickableSpan funcione

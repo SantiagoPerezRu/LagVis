@@ -58,7 +58,6 @@ public class Convenio extends BaseActivity {
            // Toast.makeText(this, "Primer nombre: " + nombreArchivo, Toast.LENGTH_SHORT).show();
 
             if (nombreArchivo == null || nombreArchivo.isEmpty()) {
-              //  Toast.makeText(this, "Nombre de archivo no proporcionado", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -67,7 +66,6 @@ public class Convenio extends BaseActivity {
 
 
             if (resourceId == 0) {
-                //Toast.makeText(this, "Archivo no encontrado: " + nombreArchivo, Toast.LENGTH_SHORT).show();
                 Drawable checkIcon = getDrawable(R.drawable.ic_error_outline);
                 showCustomToast("Archivo no encontrado!", checkIcon);
 
@@ -169,7 +167,6 @@ public class Convenio extends BaseActivity {
 
         } catch (Exception e) {
             e.printStackTrace();
-            //Toast.makeText(this, "Error al cargar el convenio", Toast.LENGTH_SHORT).show();
             Drawable checkIcon = getDrawable(R.drawable.ic_error_outline);
             showCustomToast("Error al cargar el convenio!", checkIcon);
 
