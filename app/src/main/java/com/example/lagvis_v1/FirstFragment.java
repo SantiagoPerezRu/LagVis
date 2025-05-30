@@ -1,7 +1,5 @@
 package com.example.lagvis_v1;
 
-import static android.widget.Toast.LENGTH_SHORT;
-
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -18,11 +16,29 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+
+
+
 public class FirstFragment extends Fragment {
 
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private final Set<String> sectoresEstatales = new HashSet<>(Arrays.asList(
+            "Call Center",
+            "Conservas de Pescado",
+            "Química",
+            "Calzado",
+            "Textil y Confección",
+            "Perfumería",
+            "Estaciones de Servicio"
+    ));
+
 
 
 
@@ -78,6 +94,7 @@ public class FirstFragment extends Fragment {
         AutoCompleteTextView autoCompleteTextViewSectores = view.findViewById(R.id.autoCompleteTextViewSectores);
 
 
+
         /*
         *
         * Cargamos las listas de comunidades y sectores laborales
@@ -117,6 +134,7 @@ public class FirstFragment extends Fragment {
         *
         * Al pulsar en siguiente consguimos comunidades y sectores y se lo mandamos a la clase Convenio.
         * Esta será la que reproduce los convenios segun los datos que le hemos mandado en el intent.
+        * Revisa que si es Estatal no tengas la neceisdad de poner comunidad autonoma
         *
          */
         btnSiguiente.setOnClickListener(new View.OnClickListener() {
@@ -125,13 +143,18 @@ public class FirstFragment extends Fragment {
                 String comunidades = autoCompleteTextViewComunidades.getText().toString();
                 String sector = autoCompleteTextViewSectores.getText().toString();
 
-                if (comunidades.isEmpty() || sector.isEmpty()) {
+                boolean esEstatal = sectoresEstatales.contains(sector);
+
+                if ((comunidades.isEmpty() && !esEstatal) || sector.isEmpty()) {
                     textViewError.setVisibility(View.VISIBLE);
+                    textViewError.setText("Debes seleccionar un sector y, si no es estatal, una comunidad.");
                 } else {
                     textViewError.setVisibility(View.INVISIBLE);
 
-                    String nombreArchivo = obtenerNombreArchivoConvenio(comunidades, sector);
+                    // Si es estatal, le pasamos una comunidad genérica como "estatal"
+                    String comunidadFinal = esEstatal ? "estatal" : comunidades;
 
+                    String nombreArchivo = obtenerNombreArchivoConvenio(comunidadFinal, sector);
 
                     if (nombreArchivo == null) {
                         textViewError.setText("No se encontró un convenio para esta combinación.");
@@ -144,6 +167,7 @@ public class FirstFragment extends Fragment {
                 }
             }
         });
+
         return view;
     }
 
@@ -208,7 +232,11 @@ public class FirstFragment extends Fragment {
                 nombreSimplificado = "baleares";
                 break;
             case "País Vasco":
+
+                nombreSimplificado = "pais_vasco";
+
                 nombreSimplificado = "pais_vasco"; 
+
                 break;
             case "Andalucía":
                 nombreSimplificado = "andalucia";
@@ -223,10 +251,17 @@ public class FirstFragment extends Fragment {
                 nombreSimplificado = "cantabria";
                 break;
             case "Castilla-La Mancha":
+
+                nombreSimplificado = "castilla_la_mancha";
+                break;
+            case "Castilla y León":
+                nombreSimplificado = "castilla_y_leon";
+
                 nombreSimplificado = "castilla_la_mancha"; 
                 break;
             case "Castilla y León":
                 nombreSimplificado = "castilla_y_leon"; 
+
                 break;
             case "Cataluña":
                 nombreSimplificado = "cataluna";
@@ -241,7 +276,11 @@ public class FirstFragment extends Fragment {
                 nombreSimplificado = "canarias";
                 break;
             case "La Rioja":
+
+                nombreSimplificado = "la_rioja";
+
                 nombreSimplificado = "la_rioja"; 
+
                 break;
             case "Región de Murcia":
                 nombreSimplificado = "murcia";

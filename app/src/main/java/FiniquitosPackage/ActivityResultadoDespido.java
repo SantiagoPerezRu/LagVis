@@ -3,8 +3,13 @@ package FiniquitosPackage;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
@@ -19,6 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.lagvis_v1.R;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -130,7 +137,7 @@ public class ActivityResultadoDespido extends AppCompatActivity {
      * Genera el contenido HTML que representa la tabla de resultados.
      * @return String HTML con la tabla de resultados.
      */
-    private String generateResultsHtmlTable() {
+    private String generarTablaHTML() {
         StringBuilder htmlBuilder = new StringBuilder();
         htmlBuilder.append("<html>")
                 .append("<head>")
@@ -251,7 +258,7 @@ public class ActivityResultadoDespido extends AppCompatActivity {
         });
 
         // Generar el contenido HTML y cargarlo en el WebView
-        String htmlDocument = generateResultsHtmlTable();
+        String htmlDocument = generarTablaHTML();
         myWebView.loadDataWithBaseURL(null, htmlDocument, "text/html", "UTF-8", null);
 
         Toast.makeText(this, "Generando PDF...", Toast.LENGTH_SHORT).show();
@@ -269,4 +276,6 @@ public class ActivityResultadoDespido extends AppCompatActivity {
         }
         return "";
     }
+  }
 }
+
