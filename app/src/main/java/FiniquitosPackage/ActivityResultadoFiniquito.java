@@ -46,14 +46,15 @@ public class ActivityResultadoFiniquito extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_resultado_finiquito); // Asegúrate de que coincida con el nombre XML
+        setContentView(R.layout.activity_resultado_finiquito); 
 
-        // 1. Referencias a los TextView
+        
         tvVacaciones = findViewById(R.id.tvVacaciones);
         tvPagasExtras = findViewById(R.id.tvPagasExtras);
         tvFiniquito = findViewById(R.id.tvFiniquito);
         tvIndemnizacion = findViewById(R.id.tvIndemnizacion);
         tvTotal = findViewById(R.id.tvTotal);
+
 
         // Referencia al botón de exportar
         btnExportarPdfFiniquito = findViewById(R.id.btnExportarPdfFiniquito); // Asegúrate de que este ID exista en tu XML
@@ -214,5 +215,22 @@ public class ActivityResultadoFiniquito extends AppCompatActivity {
         myWebView.loadDataWithBaseURL(null, htmlDocument, "text/html", "UTF-8", null);
 
         Toast.makeText(this, "Generando PDF...", Toast.LENGTH_SHORT).show();
+
+        // Obtener los datos del Intent
+        double vacaciones = getIntent().getDoubleExtra("vacaciones", 0.0);
+        double pagasExtras = getIntent().getDoubleExtra("pagasExtras", 0.0);
+        double finiquito = getIntent().getDoubleExtra("finiquito", 0.0);
+        double indemnizacion = getIntent().getDoubleExtra("indemnizacion", 0.0);
+
+        //ostrar cada valor con formato €
+        tvVacaciones.setText(String.format("%.2f €", vacaciones));
+        tvPagasExtras.setText(String.format("%.2f €", pagasExtras));
+        tvFiniquito.setText(String.format("%.2f €", finiquito));
+        tvIndemnizacion.setText(String.format("%.2f €", indemnizacion));
+
+        //Calcular total
+        double total = finiquito + indemnizacion;
+        tvTotal.setText(String.format("%.2f €", total));
+
     }
 }

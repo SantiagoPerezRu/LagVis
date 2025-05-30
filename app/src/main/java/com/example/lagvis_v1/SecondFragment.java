@@ -66,7 +66,6 @@ public class SecondFragment extends BaseFragment implements NewsApiService.Notic
     private String uidUsuario;
 
     public SecondFragment() {
-        // Required empty public constructor
     }
 
     public static SecondFragment newInstance(String param1, String param2) {
@@ -96,7 +95,6 @@ public class SecondFragment extends BaseFragment implements NewsApiService.Notic
         enlaceNoticiaTextView = view.findViewById(R.id.enlaceNoticia);
         btnAnterior = view.findViewById(R.id.btnAnterior);
         btnSiguiente = view.findViewById(R.id.btnSiguiente);
-        //verMasTexto = view.findViewById(R.id.verMasTaexto);
         fechaNoticia = view.findViewById(R.id.fechaNoticia2);
         creadorNoticia = view.findViewById(R.id.creadorNoticia2);
         btnGuardarNoticia = view.findViewById(R.id.btnGuardarNoticia);
@@ -151,7 +149,6 @@ public class SecondFragment extends BaseFragment implements NewsApiService.Notic
             } else {
                 mostrarNoticiaActual();
                 actualizarEstadoBotones();
-               //verMasTexto.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -213,22 +210,21 @@ public class SecondFragment extends BaseFragment implements NewsApiService.Notic
                             startActivity(intent);
                         } catch (Exception e) {
                             Log.e("INTENT_ERROR", "Error al abrir la URL: " + noticia.link, e);
-                            // Muestra un mensaje al usuario (opcional)
                         }
                     }
 
                     @Override
                     public void updateDrawState(TextPaint ds) {
                         super.updateDrawState(ds);
-                        ds.setColor(Color.BLUE); // Color del enlace
-                        ds.setUnderlineText(true); // Subrayar el enlace
+                        ds.setColor(Color.BLUE); 
+                        ds.setUnderlineText(true); 
                     }
                 };
 
-                // Aplicar el ClickableSpan al texto "Pincha aquí"
-                spannableString.setSpan(clickableSpan, 0, 11, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE); // 0, 10 es la posición de "Pincha aquí"
+                // Aplicar el ClickableSpan al texto
+                spannableString.setSpan(clickableSpan, 0, 11, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
                 enlaceNoticiaTextView.setText(spannableString);
-                enlaceNoticiaTextView.setMovementMethod(LinkMovementMethod.getInstance()); // Necesario para que el ClickableSpan funcione
+                enlaceNoticiaTextView.setMovementMethod(LinkMovementMethod.getInstance()); 
             }
         }
     }

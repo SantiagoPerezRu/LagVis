@@ -40,13 +40,13 @@ public class ActivityDatosGeneralesDespido extends AppCompatActivity {
         etSalarioDiario = findViewById(R.id.etSalarioDiario);
         btnCalcular = findViewById(R.id.btnCalcular);
 
-        setupDatePicker(etFechaInicio);
-        setupDatePicker(etFechaFin);
+        crearCalendario(etFechaInicio);
+        crearCalendario(etFechaFin);
 
         btnCalcular.setOnClickListener(v -> procesarDatosYNavegar());
     }
 
-    private void setupDatePicker(EditText editText) {
+    private void crearCalendario(EditText editText) {
         editText.setInputType(InputType.TYPE_NULL);
         editText.setOnClickListener(v -> {
             final Calendar c = Calendar.getInstance();

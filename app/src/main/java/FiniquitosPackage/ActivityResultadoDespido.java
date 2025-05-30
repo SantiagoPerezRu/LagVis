@@ -1,6 +1,6 @@
-package FiniquitosPackage; // Asegúrate de que este sea tu paquete real
+package FiniquitosPackage;
 
-import android.content.Context; // Necesario para getSystemService
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -11,29 +11,27 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
-import android.print.PrintAttributes; // Para configurar el PDF
-import android.print.PrintDocumentAdapter; // Para el adaptador de impresión
-import android.print.PrintManager; // Para el servicio de impresión
+import android.print.PrintAttributes;
+import android.print.PrintDocumentAdapter;
+import android.print.PrintManager;
 import android.util.Base64;
-import android.webkit.WebView; // Necesario para renderizar HTML
-import android.webkit.WebViewClient; // Para controlar la carga del WebView
-import android.widget.Button; // Para el botón de exportar
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast; // Para mostrar mensajes al usuario
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.lagvis_v1.R; // Asegúrate de que este sea tu paquete de recursos real
+import com.example.lagvis_v1.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
-import java.util.Date; // Necesario para la fecha en el nombre del archivo PDF
+import java.util.Date;
 import java.util.Locale;
 
 public class ActivityResultadoDespido extends AppCompatActivity {
 
-    // TextViews para mostrar los resultados de cada tipo de indemnización
     private TextView tvResultadoDespidoImprocedente;
     private TextView tvResultadoExtincionIncumplimiento;
     private TextView tvResultadoExtincionObjetiva;
@@ -43,26 +41,20 @@ public class ActivityResultadoDespido extends AppCompatActivity {
     private TextView tvResultadoVictimasViolencia;
     private TextView tvResultadoExtincionTemporal;
 
-    // Variables para almacenar los datos recibidos del Intent
     private double salarioDiario;
     private int mesesTrabajados;
     private long diasTrabajados;
-    private String fechaInicioFormatted; // Variable para almacenar la fecha de inicio formateada
-    private String fechaFinFormatted;    // Variable para almacenar la fecha de fin formateada
+    private String fechaInicioFormatted;
+    private String fechaFinFormatted;
 
-    // Nuevo botón para exportar
     private Button btnExportarPdf;
-
-    // WebView auxiliar para la generación de PDF (puede ser nulo si no está en uso)
     private WebView myWebView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_resultado_despido); // Vincula con el nuevo layout de resultados
+        setContentView(R.layout.activity_resultado_despido);
 
-        // Inicialización de los TextViews de resultados
         tvResultadoDespidoImprocedente = findViewById(R.id.tvResultadoDespidoImprocedente);
         tvResultadoExtincionIncumplimiento = findViewById(R.id.tvResultadoExtincionIncumplimiento);
         tvResultadoExtincionObjetiva = findViewById(R.id.tvResultadoExtincionObjetiva);
@@ -72,31 +64,24 @@ public class ActivityResultadoDespido extends AppCompatActivity {
         tvResultadoVictimasViolencia = findViewById(R.id.tvResultadoVictimasViolencia);
         tvResultadoExtincionTemporal = findViewById(R.id.tvResultadoExtincionTemporal);
 
-        // Inicializar el nuevo botón
         btnExportarPdf = findViewById(R.id.btnExportarPdf);
-        btnExportarPdf.setOnClickListener(v -> createPdfFromHtml()); // Llama a la función de exportación
+        btnExportarPdf.setOnClickListener(v -> createPdfFromHtml());
 
-        // Obtener los datos pasados desde ActivityDatosGeneralesDespido
         Intent intent = getIntent();
         if (intent != null) {
             salarioDiario = intent.getDoubleExtra(ActivityDatosGeneralesDespido.EXTRA_SALARIO_DIARIO, 0.0);
             mesesTrabajados = intent.getIntExtra(ActivityDatosGeneralesDespido.EXTRA_MESES_TRABAJADOS, 0);
             diasTrabajados = intent.getLongExtra(ActivityDatosGeneralesDespido.EXTRA_DIAS_TRABAJADOS, 0);
-            // Obtener las fechas formateadas del Intent (necesario si quieres mostrarlas en el PDF)
             fechaInicioFormatted = intent.getStringExtra("fechaInicioFormatted");
             fechaFinFormatted = intent.getStringExtra("fechaFinFormatted");
-
-            // Realizar cálculos y mostrar resultados en la UI de la app
             mostrarResultados();
         } else {
             Toast.makeText(this, "No se recibieron datos para calcular.", Toast.LENGTH_SHORT).show();
-            finish(); // Cierra la actividad si no hay datos
+            finish();
         }
     }
 
-    /**
-     * Realiza los cálculos de indemnización y actualiza los TextViews en la UI.
-     */
+    /* Muestra los resultados calculados en los TextViews */
     private void mostrarResultados() {
         tvResultadoDespidoImprocedente.setText(String.format(Locale.getDefault(), "%.2f €", calcularDespidoImprocedente(salarioDiario, mesesTrabajados)));
         tvResultadoExtincionIncumplimiento.setText(String.format(Locale.getDefault(), "%.2f €", calcularExtincionPorIncumplimiento(salarioDiario, mesesTrabajados)));
@@ -108,36 +93,42 @@ public class ActivityResultadoDespido extends AppCompatActivity {
         tvResultadoExtincionTemporal.setText(String.format(Locale.getDefault(), "%.2f €", calcularExtincionTemporal(salarioDiario, (int) diasTrabajados)));
     }
 
-    // --- Funciones de Cálculo de Indemnizaciones (mantengo las mismas, sin cambios) ---
-
+    /* Calcula la indemnización por despido improcedente */
     public double calcularDespidoImprocedente(double salarioDiario, int mesesTrabajados) {
         return salarioDiario * mesesTrabajados * 2.75;
     }
 
+    /* Calcula la indemnización por incumplimiento del empleador */
     public double calcularExtincionPorIncumplimiento(double salarioDiario, int mesesTrabajados) {
         return salarioDiario * mesesTrabajados * 2.75;
     }
 
+    /* Calcula la indemnización por extinción objetiva */
     public double calcularExtincionObjetiva(double salarioDiario, int mesesTrabajados) {
         return (salarioDiario * mesesTrabajados * 20.0) / 12.0;
     }
 
+    /* Calcula la indemnización por despido colectivo */
     public double calcularDespidoColectivo(double salarioDiario, int mesesTrabajados) {
         return (salarioDiario * mesesTrabajados * 20.0) / 12.0;
     }
 
+    /* Calcula la indemnización por movilidad geográfica */
     public double calcularMovilidadGeografica(double salarioDiario, int mesesTrabajados) {
         return (salarioDiario * mesesTrabajados * 20.0) / 12.0;
     }
 
+    /* Calcula la indemnización por modificación de condiciones laborales */
     public double calcularModificacionCondiciones(double salarioDiario, int mesesTrabajados) {
         return (salarioDiario * mesesTrabajados * 20.0) / 12.0;
     }
 
+    /* Calcula la indemnización para víctimas de violencia o terrorismo */
     public double calcularVictimasViolencia(double salarioDiario, int mesesTrabajados) {
         return (salarioDiario * mesesTrabajados * 20.0) / 12.0;
     }
 
+    /* Calcula la indemnización por extinción de contrato temporal */
     public double calcularExtincionTemporal(double salarioDiario, int diasTrabajados) {
         return (salarioDiario * diasTrabajados * 12.0) / 365.0;
     }
@@ -273,18 +264,18 @@ public class ActivityResultadoDespido extends AppCompatActivity {
         Toast.makeText(this, "Generando PDF...", Toast.LENGTH_SHORT).show();
     }
 
+    /* Convierte un recurso drawable a base64 para insertarlo en el HTML */
     private String drawableToBase64(int drawableResId) {
         Drawable drawable = getResources().getDrawable(drawableResId, null);
         if (drawable instanceof BitmapDrawable) {
             Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            // Comprime el bitmap a PNG (o JPEG si prefieres)
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
             byte[] byteArray = byteArrayOutputStream.toByteArray();
             return "data:image/png;base64," + Base64.encodeToString(byteArray, Base64.NO_WRAP);
         }
-        return ""; // Retorna vacío si no es un BitmapDrawable
+        return "";
     }
-
-
+  }
 }
+

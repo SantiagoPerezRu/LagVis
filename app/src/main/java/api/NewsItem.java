@@ -1,16 +1,19 @@
 package api;
 
+
+/* Constructor clase Noticia para luego poder hacer una lista de noticias.*/
+
 public class NewsItem {
     public String title;
     public String link;
     public String pubDate;
-    public String creator; // Añadir esta línea
+    public String creator; 
 
-    public NewsItem(String title, String link, String pubDate, String creator) { // Modificar el constructor
+    public NewsItem(String title, String link, String pubDate, String creator) { 
         this.title = title;
         this.link = link;
         this.pubDate = pubDate;
-        this.creator = creator; // Inicializar el nuevo campo
+        this.creator = creator; 
     }
 
     @Override

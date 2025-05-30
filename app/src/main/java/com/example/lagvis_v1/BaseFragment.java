@@ -10,22 +10,22 @@ import android.widget.Toast;
 import android.view.Gravity;
 import androidx.fragment.app.Fragment;
 import android.graphics.drawable.Drawable;
-import android.content.Context; // Import Context
+import android.content.Context; 
 
 public class BaseFragment extends Fragment {
 
-    private Context context; // Store context
+    private Context context; 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //  inicialización común a todos los fragments.
-        context = getContext(); // Get context in onCreate
+        context = getContext(); 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //  inflar el diseño base o realizar acciones comunes
+        
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -49,7 +49,7 @@ public class BaseFragment extends Fragment {
         } else {
             toastIcon.setVisibility(View.GONE);
         }
-        Toast toast = new Toast(context); // Usa context
+        Toast toast = new Toast(context); 
         toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 100);
         toast.setDuration(Toast.LENGTH_LONG);
         toast.setView(layout);
@@ -59,13 +59,13 @@ public class BaseFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.context = context; // Store context when attached
+        this.context = context; 
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        this.context = null; // Clear context when detached
+        this.context = null;
     }
 }
 

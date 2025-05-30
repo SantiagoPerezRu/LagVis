@@ -28,20 +28,15 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        // Initialize FirebaseAuth instance
         auth = FirebaseAuth.getInstance();
-
         emailTextView = findViewById(R.id.email_edittext);
         passwordTextView = findViewById(R.id.password_edittext);
         button = findViewById(R.id.login_button);
-
         button.setOnClickListener(v -> loginUserAccount());
-
         txtRegistro = findViewById(R.id.textoRegistro);
-
         txtRecuperarContraseña1 = findViewById(R.id.textoPerdidaContra1);
         txtRecuperarContraseña2 = findViewById(R.id.textoPerdidaContra2);
 
@@ -68,13 +63,11 @@ public class LoginActivity extends BaseActivity {
         String email = emailTextView.getText().toString().trim();
         String password = passwordTextView.getText().toString().trim();
 
-        // Validate input
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please enter credentials", Toast.LENGTH_LONG).show();
             return;
         }
 
-        // Login existing user
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
