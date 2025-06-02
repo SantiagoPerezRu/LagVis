@@ -46,16 +46,14 @@ public class ActivityResultadoFiniquito extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_resultado_finiquito); 
+        setContentView(R.layout.activity_resultado_finiquito); // Asegúrate de que coincida con el nombre XML
 
-        
+        // 1. Referencias a los TextView
         tvVacaciones = findViewById(R.id.tvVacaciones);
         tvPagasExtras = findViewById(R.id.tvPagasExtras);
         tvFiniquito = findViewById(R.id.tvFiniquito);
         tvIndemnizacion = findViewById(R.id.tvIndemnizacion);
         tvTotal = findViewById(R.id.tvTotal);
-
-
         // Referencia al botón de exportar
         btnExportarPdfFiniquito = findViewById(R.id.btnExportarPdfFiniquito); // Asegúrate de que este ID exista en tu XML
         // Ahora el botón llama al método que usa WebView para generar el PDF
@@ -231,6 +229,5 @@ public class ActivityResultadoFiniquito extends AppCompatActivity {
         //Calcular total
         double total = finiquito + indemnizacion;
         tvTotal.setText(String.format("%.2f €", total));
-
     }
 }

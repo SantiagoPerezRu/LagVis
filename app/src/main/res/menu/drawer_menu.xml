@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+    tools:showIn="navigation_view"
+    >
 
     <group android:checkableBehavior="single">
         <item
@@ -14,16 +15,20 @@
             android:title="Noticias" />
         <item
             android:id="@+id/noticiasGuardadas"
-            android:icon="@drawable/ic_guardar"
+            android:icon="@drawable/baseline_save_alt_24"
             android:title="Noticias Guardadas" />
         <item
             android:id="@+id/calc"
-            android:icon="@drawable/baseline_calculate_24"
+            android:icon="@drawable/baseline_euro_24"
             android:title="Calculadora de finiquitos" />
         <item
             android:id="@+id/nav_calculadoraDespidos"
             android:icon="@drawable/baseline_calculate_24"
             android:title="Calculadora de despidos" />
+        <item
+            android:id="@+id/calendarioLaboral"
+            android:icon="@drawable/baseline_calendar_month_24"
+            android:title="Calendario Laboral" />
         <item
             android:id="@+id/nav_vida_laboral"
             android:icon="@drawable/ic_info_outline"

@@ -138,7 +138,9 @@
                     android:textStyle="bold"
                     android:minHeight="20dp"
                     android:text="Pincha aquí para ir al enlace de la noticia!"
-                    android:visibility="gone"/> <LinearLayout
+                    android:visibility="gone"/>
+
+                    <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"

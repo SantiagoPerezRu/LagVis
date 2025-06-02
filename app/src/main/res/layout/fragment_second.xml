@@ -166,19 +166,20 @@
                              android:backgroundTint="#3333cc"
                              android:fontFamily="@font/inter"
                              android:text="Anterior"
-                             android:layout_marginRight="10dp"
+                             android:textSize="10dp"
+                             android:layout_marginRight="5dp"
                              android:textColor="@android:color/white"
                              app:cornerRadius="8dp" />
                          <Button
                              android:id="@+id/btnGuardarNoticia"
-                             android:layout_width="100dp"
+                             android:layout_width="90dp"
                              android:layout_height="wrap_content"
                              android:layout_gravity="center"
                              android:backgroundTint="#3333cc"
                              android:fontFamily="@font/inter"
-                             android:textSize="12dp"
+                             android:textSize="10dp"
                              android:text="Guardar"
-                             android:layout_marginRight="10dp"
+                             android:layout_marginRight="5dp"
                              android:textColor="@android:color/white"
                              app:cornerRadius="8dp" />
 
@@ -190,6 +191,7 @@
                              android:backgroundTint="#3333cc"
                              android:fontFamily="@font/inter"
                              android:text="Siguiente"
+                             android:textSize="10dp"
                              android:textColor="@android:color/white"
                              app:cornerRadius="8dp" />
                 </LinearLayout>
