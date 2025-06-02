@@ -23,9 +23,6 @@
             android:name="FiniquitosPackage.ActivityDatosGeneralesDespido"
             android:exported="false" />
         <activity
-            android:name="VisualizadorPaginas.ActivityPaginaVidaLaboral"
-            android:exported="false" />
-        <activity
             android:name="FiniquitosPackage.ActivityResultadoFiniquito"
             android:exported="false" />
         <activity

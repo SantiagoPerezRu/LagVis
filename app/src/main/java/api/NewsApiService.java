@@ -13,7 +13,7 @@ import java.util.List;
 
 public class NewsApiService {
 
-    private static final String API_KEY = "pub_859010197238a46b7699c07ede5c156d273a2";
+    private static final String API_KEY = "pub_625e82e38c8841678c53f422a92f2d13";
     private static final String BASE_URL = "https://newsdata.io/api/1/news";
 
     public interface NoticiasCallback {

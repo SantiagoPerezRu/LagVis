@@ -1,6 +1,5 @@
 package com.example.lagvis_v1;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -14,8 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
 
-import FiniquitosPackage.ActivityDatosGeneralesDespido;
-import VisualizadorPaginas.ActivityPaginaVidaLaboral;
+import FiniquitosPackage.DatosGeneralesDespidoFragment;
+import VisualizadorPaginas.PaginaVidaLaboralFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -28,9 +27,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     SecondFragment secondFragment = new SecondFragment();  // Noticias
     ThirdFragment thirdFragment = new ThirdFragment();     // Finiquitos
     FourthFragment fourthFragment = new FourthFragment();  // Tú perfil
-
+    DatosGeneralesDespidoFragment fifhtFragment = new DatosGeneralesDespidoFragment(); // Despidos
     NoticiasGuardadasFragment fragmentNoticiasGuaradas = new NoticiasGuardadasFragment(); // Noticias guardadas fragment
-    ActivityPaginaVidaLaboral activityNavegador = new ActivityPaginaVidaLaboral(); // Vida Laboral
+    PaginaVidaLaboralFragment fragmentVidaLaboral = new PaginaVidaLaboralFragment(); // Vida Laboral Fragment
+    CalendarioLaboral fragmentCalendarioLaboral = new CalendarioLaboral(); // Calendario laboral fragment
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,15 +83,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 loadFragment(fourthFragment);
                 break;
             case R.id.nav_vida_laboral:
-                Intent intentNavegador = new Intent(this, ActivityPaginaVidaLaboral.class);
-                startActivity(intentNavegador);
+                loadFragment(fragmentVidaLaboral);
                 break;
             case R.id.nav_calculadoraDespidos:
-                Intent intentCalcDespidos = new Intent(this, ActivityDatosGeneralesDespido.class);
-                startActivity(intentCalcDespidos);
+                loadFragment(fifhtFragment);
                 break;
             case R.id.noticiasGuardadas:
                 loadFragment(fragmentNoticiasGuaradas);
+                break;
+            case R.id.calendarioLaboral:
+                loadFragment(fragmentCalendarioLaboral);
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);

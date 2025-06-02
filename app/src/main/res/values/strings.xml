@@ -1,4 +1,5 @@
 <resources>
+    <string name="client_id">235946334870-dlbj8vc2udtlcu4tlhntg5347qk7bee0.apps.googleusercontent.com</string>
     <string name="app_name">Menú de navegación</string>
     <string name="navigation_drawer_open">Abrir menú de navegación</string>
     <string name="navigation_drawer_close">Cerrar menú de navegación</string>
@@ -26,6 +27,28 @@
         <item>Región de Murcia</item>
         <item>Navarra</item>
         <item>País Vasco</item>
+    </string-array>
+
+    <string-array name="comunidades_autonomas_api">
+        <item>Andalucía</item>
+        <item>Aragón</item>
+        <item>Principado de Asturias</item>
+        <item>Cantabria</item>
+        <item>Castilla y León</item>
+        <item>Castilla-La Mancha</item>
+        <item>Cataluña</item>
+        <item>Comunidad de Madrid</item>
+        <item>Comunidad Valenciana</item>
+        <item>Extremadura</item>
+        <item>Galicia</item>
+        <item>Islas Baleares</item>
+        <item>Islas Canarias</item>
+        <item>La Rioja</item>
+        <item>Región de Murcia</item>
+        <item>Comunidad Foral de Navarra</item>
+        <item>País Vasco</item>
+        <item>Ceuta</item>
+        <item>Melilla</item>
     </string-array>
 
 

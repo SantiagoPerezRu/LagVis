@@ -80,11 +80,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="#02187B"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/inter"
         android:textSize="20dp"
         android:textStyle="bold"
         android:text="Iniciar sesión" />
+
+<!--    <com.google.android.gms.common.SignInButton
+        android:layout_width="345dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="5dp"
+        >
+
+    </com.google.android.gms.common.SignInButton>
+!-->
+
+    <CheckBox
+        android:id="@+id/checkbox_remember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recordar contraseña" />
 
 
     <LinearLayout
