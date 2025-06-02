@@ -19,11 +19,10 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FirstFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 public class FirstFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -40,7 +39,6 @@ public class FirstFragment extends Fragment {
             "Perfumería",
             "Estaciones de Servicio"
     ));
-
 
 
     // TODO: Rename and change types of parameters
