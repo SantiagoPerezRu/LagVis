@@ -50,11 +50,10 @@ public class PublicHoliday {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PublicHoliday that = (PublicHoliday) o;
-        // Para festivos, la fecha, el nombre local y el nombre son buenos para la igualdad
         return Objects.equals(date, that.date) &&
                 Objects.equals(localName, that.localName) &&
                 Objects.equals(name, that.name) &&
-                Objects.equals(countryCode, that.countryCode); // Añadir countryCode para mayor seguridad si no se filtra bien por county
+                Objects.equals(countryCode, that.countryCode);
     }
 
     @Override

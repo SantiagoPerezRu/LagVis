@@ -58,9 +58,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="📝 A continuación seleccione su comunidad autónoma para poder ver los festivos"
+                        android:text="📝 A continuación seleccione su comunidad autónoma para poder ver los festivos
+                        \n⚠️ Recuerde que estos festivos son unicamente de su comunidad autonónoma"
                         android:textColor="#2C3E50"
-                        android:textAlignment="center"
+                        android:textAlignment="textStart"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                 </LinearLayout>

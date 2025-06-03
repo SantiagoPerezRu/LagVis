@@ -1,6 +1,8 @@
 package api;
 
 import android.os.AsyncTask;
+
+import com.example.lagvis_v1.BuildConfig;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -12,8 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewsApiService {
-
-    private static final String API_KEY = "pub_625e82e38c8841678c53f422a92f2d13";
+      public static final String API_KEY = BuildConfig.API_KEY_NEWS;
     private static final String BASE_URL = "https://newsdata.io/api/1/news";
 
     public interface NoticiasCallback {

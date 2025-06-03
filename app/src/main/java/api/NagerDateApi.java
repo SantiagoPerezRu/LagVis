@@ -10,6 +10,6 @@ public interface NagerDateApi {
     Call<List<PublicHoliday>> getPublicHolidays(
             @Path("year") int year,
             @Path("countryCode") String countryCode,
-            @Query("countyCode") String countyCode // Este es el que usaremos para las CCAA
+            @Query("countyCode") String countyCode
     );
 }

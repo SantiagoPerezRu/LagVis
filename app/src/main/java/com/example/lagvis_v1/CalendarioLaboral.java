@@ -63,9 +63,9 @@ public class CalendarioLaboral extends Fragment {
 
         autoCompleteTextViewComunidades = view.findViewById(R.id.autoCompleteTextViewComunidades);
         btnEnviar = view.findViewById(R.id.btnEnviar);
-        tvNoFestivos = view.findViewById(R.id.tvNoFestivos);
-        recyclerViewFestivos = view.findViewById(R.id.recyclerViewFestivos);
 
+        recyclerViewFestivos = view.findViewById(R.id.recyclerViewFestivos);
+        tvNoFestivos = view.findViewById(R.id.tvNoFestivos);
         recyclerViewFestivos.setLayoutManager(new LinearLayoutManager(getContext()));
         holidayAdapter = new HolidayAdapter(holidayList);
         recyclerViewFestivos.setAdapter(holidayAdapter);
@@ -77,7 +77,7 @@ public class CalendarioLaboral extends Fragment {
         autoCompleteTextViewComunidades.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // Lógica si se necesita al seleccionar un ítem
+
             }
         });
 
@@ -140,15 +140,11 @@ public class CalendarioLaboral extends Fragment {
                 if (response.isSuccessful()) {
                     List<PublicHoliday> rawHolidays = response.body();
                     List<PublicHoliday> filteredHolidays = new ArrayList<>();
-                    Set<PublicHoliday> uniqueHolidays = new HashSet<>(); // Para desduplicar
+                    Set<PublicHoliday> uniqueHolidays = new HashSet<>();
 
                     if (rawHolidays != null && !rawHolidays.isEmpty()) {
                         for (PublicHoliday holiday : rawHolidays) {
-                            // Criterio de filtrado:
-                            // Incluir festivos nacionales (global=true)
-                            // O festivos específicos de la CCAA/countyCode solicitado
                             boolean isSpecificToCounty = (holiday.getCounties() != null && holiday.getCounties().contains(countyCode));
-
                             if (holiday.isGlobal() || isSpecificToCounty) {
                                 uniqueHolidays.add(holiday);
                             }

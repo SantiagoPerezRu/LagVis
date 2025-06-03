@@ -286,4 +286,4 @@ public class ActivityResultadoDespido extends AppCompatActivity {
         return ""; // Retorna vacío si no es un BitmapDrawable
     }
   }
-}
+

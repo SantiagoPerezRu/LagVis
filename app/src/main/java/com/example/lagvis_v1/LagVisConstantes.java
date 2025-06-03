@@ -1,8 +1,9 @@
 package com.example.lagvis_v1;
 
-public class LagVisConstantes {
+import android.os.Build;
 
-    public static final String BASE_URL = "https://lagvis-backend-service-160368818046.europe-southwest1.run.app";
+public class LagVisConstantes {
+    public static final String BASE_URL = BuildConfig.API_BASE_URL;
 
     // Url para scripts php
     public static final String ENDPOINT_MOSTRAR = BASE_URL + "/mostrar_.php";
