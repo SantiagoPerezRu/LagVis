@@ -142,7 +142,8 @@ public class FirstFragment extends Fragment {
             public void onClick(View view) {
                 String comunidades = autoCompleteTextViewComunidades.getText().toString();
                 String sector = autoCompleteTextViewSectores.getText().toString();
-
+                Toast.makeText(getContext(), sector, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), comunidades, Toast.LENGTH_SHORT).show();
                 boolean esEstatal = sectoresEstatales.contains(sector);
 
                 if ((comunidades.isEmpty() && !esEstatal) || sector.isEmpty()) {
@@ -172,18 +173,12 @@ public class FirstFragment extends Fragment {
     }
 
 
-    /*
-
-
-
-
-
     /**
      * Consigue el nombre del archivo XML del convenio según la comunidad y el sector.
      * Junta la comunidad y el sector en minúsculas y cambia las letras con acentos o la 'ñ' y los espacios por guiones bajos.
      * Después mira si existe un archivo con ese nombre (.xml) en la carpeta 'raw'.
      *
-     * @param comunidades La comunidad que eligió el usuario.
+     * @param comunidad La comunidad que eligió el usuario.
      * @param sector      El sector de trabajo que eligió el usuario.
      * @return El nombre completo del archivo XML
      *

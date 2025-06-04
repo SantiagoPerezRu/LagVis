@@ -18,7 +18,8 @@ public class Convenio extends BaseActivity {
             tvNumeroFestivos, tvDetalleFestivos, tvRegulacionHorasExtra,
             tvLicenciaMatrimonio, tvLicenciaFallecimiento, tvLicenciaFormacion, tvLicenciaOtros,
             tvCoberturaSeguro, tvImporteSeguro, tvDetalleManutencion,
-            tvIgualdad, tvFormacion, tvSaludLaboral, tvConciliacion, tvRepresentacion;
+            tvIgualdad, tvFormacion, tvSaludLaboral, tvConciliacion, tvRepresentacion,
+            tvSalario, tvSalarioInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +50,15 @@ public class Convenio extends BaseActivity {
         tvSaludLaboral = findViewById(R.id.tvSaludLaboral);
         tvConciliacion = findViewById(R.id.tvConciliacion);
         tvRepresentacion = findViewById(R.id.tvRepresentacion);
+        tvSalario = findViewById(R.id.tvSalario);
+        tvSalarioInfo = findViewById(R.id.tvSalarioInfo);
     }
 
     private void cargarConvenioDesdeXML() {
         try {
             // 1. Obtener el nombre del archivo desde el Intent
             String nombreArchivo = getIntent().getStringExtra("archivo_convenio");
-           // Toast.makeText(this, "Primer nombre: " + nombreArchivo, Toast.LENGTH_SHORT).show();
+            // Toast.makeText(this, "Primer nombre: " + nombreArchivo, Toast.LENGTH_SHORT).show();
 
             if (nombreArchivo == null || nombreArchivo.isEmpty()) {
                 return;
@@ -122,6 +125,12 @@ public class Convenio extends BaseActivity {
                                 break;
                             case "regulacion":
                                 tvRegulacionHorasExtra.setText(contenido);
+                                break;
+                            case "salario": // Add this case for the new tag
+                                tvSalarioInfo.setText(contenido);
+                                break;
+                            case "salario_aproximado": // Handle the nested salary tag
+                                tvSalario.setText("Salario Aproximado: " + contenido);
                                 break;
                             case "matrimonio":
                                 tvLicenciaMatrimonio.setText("Matrimonio: " + contenido);

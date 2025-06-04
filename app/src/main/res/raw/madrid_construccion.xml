@@ -1,71 +1,50 @@
 <convenio_colectivo>
-    <titulo>Convenio Colectivo General del Sector de la Construcción</titulo>
-
-    <resumen_general>
-        Este convenio establece las condiciones laborales básicas aplicables en todo el territorio nacional para el personal del sector de la construcción. Regula jornadas, descansos, licencias, retribuciones, formación, salud laboral, y otras condiciones laborales y sociales.
-    </resumen_general>
-
+    <titulo>Convenio Colectivo del Sector de Construcción y Obras Públicas de la Autonomía de Madrid para el año 2021</titulo>
+    <resumen_general>El Convenio Colectivo del Sector de Construcción y Obras Públicas de la Comunidad de Madrid para el año 2021 fue suscrito el 5 de marzo de 2021 por la Asociación de Empresas de la Construcción de Madrid (AECOM) y los sindicatos CCOO Construcción y Servicios de Madrid y UGT FICA Madrid. Su vigencia se extiende hasta el 31 de diciembre de 2021, con efectos económicos retroactivos al 1 de enero de 2021 para las tablas salariales[cite: 11, 12]. El convenio establece una jornada laboral de 40 horas semanales de trabajo efectivo, distribuidas de lunes a viernes, con una duración anual de 1.736 horas[cite: 319, 320]. Regula el contrato fijo de obra, otras modalidades de contratación temporal, la subrogación de personal en contratas de mantenimiento de carreteras o vías férreas, y un régimen de pruebas de aptitud y periodos de prueba[cite: 13, 14, 16, 17, 19]. En materia económica, define el salario base, pluses salariales (actividad y asistencia), plus extrasalarial (transporte y distancia), y gratificaciones extraordinarias[cite: 233, 235, 243, 255]. Se contemplan indemnizaciones por muerte o incapacidad y complementos por hospitalización o accidente[cite: 310, 311, 312]. También aborda aspectos de seguridad y salud laboral, igualdad de oportunidades y no discriminación, permisos, licencias, vacaciones y excedencias[cite: 366, 390, 419, 446, 457]. Se establece una Comisión Paritaria para la vigilancia e interpretación del convenio y la solución de conflictos[cite: 30, 35, 36, 37, 38, 39].</resumen_general>
+    <salario>
+        <salario_aproximado>El salario base mensual para el año 2021 varía según el nivel, desde aproximadamente 643,68€ (Nivel XIII) hasta 1.364,10€ (Nivel II)[cite: 547]. El salario anual total, incluyendo pluses y pagas extras, para 2021, varía desde 15.131,01€ (Nivel XIII operario) hasta 30.133,07€ (Nivel II empleado)[cite: 547, 551].</salario_aproximado>
+        <informacion_importante>Este salario es aproximado, está calculado haciendo una media. Consulte las tablas salariales de su convenio para más información.</informacion_importante>
+    </salario>
     <vacaciones>
-        <dias>30 días naturales por año trabajado</dias>
-        <observaciones>
-            Las vacaciones serán retribuidas y no podrán ser sustituidas por compensación económica.
-            Se disfrutarán preferentemente entre los meses de junio a septiembre, salvo pacto en contrario.
-            El calendario de vacaciones se acordará en cada empresa conforme a la representación de los trabajadores.
-            Los días festivos no se computarán dentro del periodo vacacional.
-        </observaciones>
+        <dias>31 días naturales, de los cuales 22 días deben ser laborables[cite: 366].</dias>
+        <observaciones>Las vacaciones se pueden distribuir en más de un período, siendo estos de un mínimo de diez días laborables, y se inician en día laborable que no sea viernes[cite: 367, 368]. Se disfrutan por años naturales, y el primer año de prestación de servicios se tiene derecho a la parte proporcional[cite: 369]. No son compensables económicamente, salvo por cese. El tiempo de incapacidad temporal cuenta como tiempo trabajado a efectos de devengo de vacaciones[cite: 371, 373]. Si el período de vacaciones coincide con IT por embarazo, parto o lactancia, o suspensión de contrato por ciertos artículos del ET, se tendrá derecho a disfrutarlas en fecha distinta. Si coincide con IT por otras contingencias, se pueden disfrutar una vez finalice la incapacidad y siempre que no hayan transcurrido más de dieciocho meses a partir del final del año en que se originaron[cite: 374, 376, 377, 379].</observaciones>
     </vacaciones>
-
     <festivos>
-        <numero_dias>14 festivos al año</numero_dias>
-        <detalle>
-            En caso de trabajo en festivo, se compensará con descanso equivalente o retribución, según acuerdo entre empresa y trabajador.
-        </detalle>
+        <numero_dias>No especifica un número concreto de festivos nacionales o autonómicos, pero sí locales.</numero_dias>
+        <detalle>Para Madrid-Capital, se han establecido como días festivos el 15 de mayo (San Isidro Labrador) y el día laborable que no sea sábado anterior o posterior a dicha festividad[cite: 386]. En las demás localidades de la provincia, serán festivos los de su Patrón respectivo y el día laborable anterior o posterior[cite: 387]. Las fiestas para 2021 están fijadas en el Calendario Laboral y Cuadro Horario (Anexo X del convenio)[cite: 385].</detalle>
     </festivos>
-
     <horas_extraordinarias>
-        <regulacion>
-            Se procurará evitar su realización.
-            Tendrán carácter voluntario salvo pacto expreso.
-            Serán compensadas preferentemente con descanso equivalente dentro de los 4 meses siguientes.
-        </regulacion>
+        <regulacion>Las horas extraordinarias son voluntarias, excepto por fuerza mayor[cite: 296]. Requieren petición escrita y consentimiento expreso y previo de la empresa y aceptación expresa de la persona trabajadora[cite: 297]. Se busca reducirlas al mínimo indispensable[cite: 298]. Se suprimen las horas extraordinarias habituales. Se realizan las exigidas por necesidad de reparar siniestros, daños urgentes o riesgo de pérdida de materias primas. Las horas extraordinarias necesarias por contratos o picos de producción, ausencias imprevistas, cambios de turno y otras circunstancias estructurales o técnicas se realizarán siempre que no quepa la utilización de modalidades de contratación temporal o parcial[cite: 298, 299]. La retribución por hora extra para el año 2021 varía según el nivel y el tipo de día (laborable o festivo)[cite: 300, 562]. Las empresas pueden compensarlas con tiempos equivalentes de descanso, sin que computen a efectos de límites legales si son compensadas en los cuatro meses siguientes a su realización[cite: 301, 302].</regulacion>
     </horas_extraordinarias>
-
     <licencias>
         <retribuidas>
-            <matrimonio>15 días naturales</matrimonio>
-            <fallecimiento_familiares>2 días (ampliables a 4 si hay desplazamiento)</fallecimiento_familiares>
-            <nacimiento_hijos>2 días</nacimiento_hijos>
-            <mudanza>1 día</mudanza>
-            <deber_inexcusable>Por el tiempo indispensable</deber_inexcusable>
+            <matrimonio>15 días naturales[cite: 390].</matrimonio>
+            <fallecimiento_familiares>3 días naturales por fallecimiento del cónyuge y parientes hasta el segundo grado de consanguinidad o afinidad[cite: 393]. Si se necesita un desplazamiento, los plazos se incrementarán en dos días naturales[cite: 399].</fallecimiento_familiares>
+            <nacimiento_hijos>2 días naturales (al menos uno laborable) por nacimiento o adopción de un hijo[cite: 391]. Para trabajadores no comunitarios o de países no colindantes con España que acrediten desplazamiento a su país de origen, el permiso será de cinco días naturales (pudiendo ampliarse a ocho con consentimiento de la empresa, pero solo cinco retribuidos)[cite: 392]. Se incrementa en dos días naturales si se necesita desplazamiento[cite: 399].</nacimiento_hijos>
+            <mudanza>1 día por traslado del domicilio habitual[cite: 395].</mudanza>
+            <deber_inexcusable>Tiempo necesario para el cumplimiento de un deber inexcusable de carácter público y personal[cite: 401].</deber_inexcusable>
         </retribuidas>
         <no_retribuidas>
-            <formacion>
-                Hasta 20 horas anuales para formación profesional del sector.
-            </formacion>
-            <otros>
-                Se podrán acordar entre la empresa y la persona trabajadora.
-            </otros>
+            <formacion>Tiempo necesario para concurrir a exámenes derivados de estudios en centros de enseñanza, universitarios o de formación profesional, públicos o privados reconocidos[cite: 396].</formacion>
+            <otros>Las excedencias voluntarias, por cuidado de familiares y las reguladas por pacto de las partes son sin sueldo[cite: 419, 422, 435].</otros>
         </no_retribuidas>
     </licencias>
-
     <seguro>
-        <cobertura>
-            Seguro obligatorio de accidentes para el personal por muerte o invalidez permanente derivada de accidente laboral o no laboral.
-        </cobertura>
-        <importe>47.000 € por fallecimiento y 47.000 € por incapacidad permanente absoluta o gran invalidez</importe>
+        <cobertura>El convenio establece indemnizaciones para los trabajadores afectados:
+            * En caso de muerte derivada de enfermedad común o accidente no laboral: 4 mensualidades de todos los conceptos de las tablas del convenio aplicable[cite: 312].
+            * En caso de muerte, incapacidad permanente absoluta o gran invalidez, derivadas de accidente de trabajo o enfermedad profesional: 47.000 euros para el año 2021[cite: 312].
+            * En caso de incapacidad permanente total derivada de accidente de trabajo o enfermedad profesional: 28.000 euros para el año 2021[cite: 312].
+            Estas indemnizaciones se consideran a cuenta de otras cantidades que pudieran ser reconocidas por responsabilidades civiles, si no derivan de condenas penales[cite: 314].</cobertura>
+        <importe>47.000 euros por muerte, incapacidad permanente absoluta o gran invalidez derivadas de accidente de trabajo o enfermedad profesional[cite: 312]. 28.000 euros por incapacidad permanente total derivada de accidente de trabajo o enfermedad profesional[cite: 312].</importe>
     </seguro>
-
     <manutencion>
-        <detalleManun>
-            El convenio no establece un derecho general a manutención, pero podrá contemplarse en convenios provinciales o acuerdos de empresa.
-        </detalleManun>
+        <detalleManun>Dieta completa para todos los niveles: 50,23 € diarios para el año 2021[cite: 306, 563]. Media dieta para todos los niveles: 12,30 € diarios para el año 2021[cite: 306, 564]. Las personas trabajadoras que utilicen automóvil de su propiedad para desplazamientos laborales autorizados por la empresa, tendrán derecho a una compensación económica de carácter extrasalarial de 0,19 € por kilómetro recorrido para el año 2021[cite: 308, 309].</detalleManun>
     </manutencion>
-
     <derechos_generales>
-        <igualdad>Compromiso con la igualdad de trato y oportunidades entre mujeres y hombres.</igualdad>
-        <formacion>Derecho a la formación profesional continua y reciclaje profesional.</formacion>
-        <salud_laboral>Protección efectiva en materia de seguridad y salud laboral, con formación obligatoria en prevención.</salud_laboral>
-        <conciliacion>Fomento de la conciliación de la vida laboral, personal y familiar conforme a la normativa vigente.</conciliacion>
-        <representacion>Derecho a la representación colectiva para la negociación y defensa de intereses laborales.</representacion>
+        <igualdad>Las partes firmantes se comprometen a promover la aplicación efectiva de la igualdad de oportunidades en el empleo, la formación, la promoción, la protección a la maternidad y las condiciones de trabajo, así como a prevenir y erradicar cualquier discriminación directa o indirecta y fomentar el igual valor de hombres y mujeres[cite: 436, 437, 438, 439, 440]. Las empresas con más de 100 trabajadores deben elaborar y aplicar un Plan de Igualdad, que fijará objetivos y estrategias para lograr la igualdad de trato y oportunidades, incluyendo materias como acceso al empleo, clasificación profesional, promoción, formación, retribuciones, conciliación y prevención del acoso sexual y por razón de sexo[cite: 441, 442, 443, 444]. Se recuerda a las empresas que deben cumplir con la obligación de establecer medidas o planes de igualdad según la Ley Orgánica 3/2007[cite: 519].</igualdad>
+        <formacion>Las empresas, previamente al ingreso, podrán realizar pruebas de selección, prácticas y psicotécnicas para comprobar la aptitud y preparación[cite: 67]. El contrato para la formación y el aprendizaje tiene como objeto la cualificación profesional en alternancia con actividad laboral. Se puede celebrar con personas de 16 a 25 años sin cualificación profesional reconocida. La duración mínima es de un año y máxima de dos, prorrogable[cite: 142, 143, 146, 147]. La formación debe recibirse en un centro formativo reconocido[cite: 155]. El empresario debe designar un tutor[cite: 159]. Se establecen las retribuciones para estos contratos[cite: 161, 534].</formacion>
+        <salud_laboral>Se aplicará lo dispuesto en el Libro II del VI Convenio General del Sector de la Construcción[cite: 446]. La empresa garantizará la vigilancia de la salud en función de los riesgos inherentes al puesto de trabajo, obligatoria antes de la admisión y periódicamente (libre aceptación salvo excepciones). La vigilancia de la salud será obligatoria en trabajos con exposición a amianto[cite: 72, 73, 74, 75, 76]. Los costes de reconocimientos médicos serán a cargo de la empresa. Las evaluaciones de riesgos deben comprender la exposición de trabajadoras en situación de embarazo o parto reciente, adoptando medidas para evitar riesgos, incluyendo la adaptación de condiciones o tiempo de trabajo, cambio de puesto o suspensión del contrato por riesgo durante el embarazo o lactancia[cite: 448, 449, 450, 451, 452, 453, 454, 455, 456]. Las empresas entregarán equipos de ropa de trabajo de buena calidad, cuyo uso será obligatorio[cite: 457]. Se instalarán calentadores de comidas y frigorífico en centros con más de 15 trabajadores[cite: 468]. Se debe disponer de agua potable en cantidad suficiente cerca de los puestos de trabajo[cite: 469]. Las empresas facilitarán las herramientas de mano necesarias[cite: 471].</salud_laboral>
+        <conciliacion>Las vacaciones pueden distribuirse en más de un período para conciliar necesidades productivas y personales/familiares[cite: 367]. Las personas trabajadoras tienen derecho a una hora de ausencia del trabajo, dividida en dos fracciones, para el cuidado del lactante hasta que cumpla nueve meses, o su reducción a media hora diaria, o acumulación en jornadas completas[cite: 405, 407]. Se incrementa proporcionalmente en partos o adopciones múltiples[cite: 406]. Quienes, por guarda legal, tengan a su cuidado directo un menor de doce años o una persona con discapacidad que no desempeñe actividad retribuida, o un familiar hasta segundo grado que no pueda valerse por sí mismo, tendrán derecho a una reducción de jornada de entre un octavo y la mitad del salario proporcional[cite: 411, 412]. El ejercicio simultáneo de este derecho por dos o más trabajadores de la misma empresa puede ser limitado por el empresario por razones justificadas[cite: 409, 414].</conciliacion>
+        <representacion>Los trabajadores tienen derecho a participar en la empresa a través de comités de empresa o delegados de personal[cite: 484]. La antigüedad mínima para ser elegible se reduce a tres meses[cite: 485]. Los representantes legales pueden acumular hasta el 75% de las horas retribuidas para sus funciones[cite: 488]. Se aplicará lo dispuesto en la Ley Orgánica 11/1985 de Libertad Sindical. Los Delegados Sindicales tienen derecho a la acumulación de horas retribuidas. Se establecerá un tablón de anuncios en los centros de trabajo para comunicaciones de interés laboral, y se dará copia a la empresa de todo lo publicado[cite: 477, 478]. La empresa debe facilitar copia del parte de alta en la seguridad social, y publicar los modelos TC-1 y TC-2, así como el recibo de estar al corriente en el pago de la cuota a la entidad aseguradora de las pólizas de los trabajadores[cite: 479, 480, 481, 482].</representacion>
     </derechos_generales>
 </convenio_colectivo>
