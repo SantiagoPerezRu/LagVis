@@ -1,4 +1,82 @@
+# LagVis - Tu Guía de Derechos Laborales en España
+
+[![GitHub license](https://img.shields.io/badge/license-Proprietary-blue.svg)](LICENSE.md)
+[![Build Status](https://github.com/SantiagoPerezRu/LagVis/actions/workflows/android.yml/badge.svg)](https://github.com/SantiagoPerezRu/LagVis/actions/workflows/android.yml)
+[![GitHub last commit](https://img.shields.io/github/last-commit/SantiagoPerezRu/LagVis)](https://github.com/SantiagoPerezRu/LagVis/commits/main)
+
+## 💡 Sobre el Proyecto
+
+**LagVis** es una aplicación móvil diseñada para simplificar el acceso a la información laboral en España. Nace de la necesidad de hacer más comprensibles los derechos y deberes tanto para trabajadores como para empleadores, evitando así conflictos y malentendidos causados por el desconocimiento de la normativa, especialmente de los complejos convenios colectivos.
+
+La aplicación ofrece una interfaz intuitiva y fácil de usar, donde cualquier persona puede consultar de forma rápida y sencilla aspectos clave de la legislación laboral, como salarios, vacaciones, permisos y procedimientos en caso de despido. Mi objetivo es democratizar el acceso a esta información crucial, presentándola de forma clara, con resúmenes comprensibles y ejemplos prácticos.
+
+Este proyecto ha sido desarrollado como mi Trabajo de Fin de Grado (TFG) para el Ciclo Formativo de Grado Superior en Desarrollo de Aplicaciones Multiplataforma (DAM).
+
+## ✨ Características Principales
+
+* **Registro y Autenticación Segura:** Permite a los usuarios crear y gestionar sus cuentas de forma segura.
+* **Buscador de Convenios Colectivos:** Localiza convenios específicos filtrando por sector laboral y comunidad autónoma.
+* **Visualización Simplificada de Convenios:** Presenta los puntos clave de cada convenio (salarios mínimos, días libres, derechos básicos) de manera clara y resumida.
+* **Noticias Laborales Actualizadas:** Acceso a una sección con las últimas novedades y cambios en la normativa laboral.
+* **Calculadoras Integradas:** Herramientas para estimar indemnizaciones por despido (para trabajadores) y costes de despido (para empleadores).
+* **Acceso Directo a la Vida Laboral:** Redirección a la web oficial de la Seguridad Social para consultar el informe de vida laboral.
+* **Calendario Laboral por Comunidad Autónoma:** Una funcionalidad extra que muestra los festivos y días importantes específicos de cada región.
+
+## 🛠️ Tecnologías Utilizadas
+
+El desarrollo de LagVis se ha realizado utilizando un conjunto de tecnologías modernas y eficientes para garantizar la robustez y escalabilidad de la aplicación:
+
+* **Frontend (Aplicación Android):**
+    * **Lenguaje:** Java
+    * **IDE:** Android Studio
+    * **Diseño de UI:** XML
+* **Backend (Servicio en la Nube):**
+    * **Tecnología:** PHP (asumiendo que es PHP para el backend según la fuente 238 en el PDF. Si es Java, por favor, edita esto en tu README).
+    * **Despliegue Serverless:** Google Cloud Run
+    * **Contenerización:** Docker
+* **Base de Datos:**
+    * **Tipo:** MySQL
+    * **Servicio en la Nube:** Google Cloud SQL
+* **Autenticación y Datos Básicos:**
+    * **Plataforma:** Firebase
+* **Control de Versiones:**
+    * **Plataforma:** Git & GitHub
+
+## Instalación y Puesta en Marcha
+
+Para que la aplicación "LagVis" funcione correctamente, es necesario seguir una serie de pasos que incluyen la preparación del entorno, la configuración de la base de datos y el despliegue del servicio backend. Esta guía detallada cubre los requisitos del sistema y las instrucciones para cada componente.
+
+### 1. Requisitos del Sistema
+
+* **Hardware de Desarrollo:**
+    * PC o portátil con al menos 8 GB de RAM (recomendado 16 GB+), procesador Intel Core i5 / AMD Ryzen 5 o superior, y SSD.
+    * Smartphone Android físico para pruebas (Android 8.0 Oreo o superior).
+* **Software de Desarrollo:**
+    * Sistema Operativo (Windows, macOS, Linux).
+    * Android Studio (última versión estable).
+    * Java Development Kit (JDK) compatible con Android Studio.
+    * SDK de Android (instalado vía Android Studio).
+    * Docker Desktop. (No ncesario pero recomendable.)
+    * Google Cloud SDK (gcloud CLI). (No ncesario pero recomendable.)
+    * Git. (No ncesario pero recomendable.)
+    * Navegador Web (para GCP Console). (No ncesario pero recomendable.)
+
+## 📄 Licencia
+
+Este proyecto está bajo una **Licencia Propietaria Comercial**. Esto significa que el software es propiedad exclusiva de Santiago Pérez Díaz-Rubín. No se permite la modificación, copia, distribución o uso con fines comerciales sin un permiso expreso. Para redistribuir o usar la aplicación comercialmente, se debe negociar una licencia directamente con el autor.
+
+## 📧 Contacto
+
+Para cualquier consulta o colaboración, no dudes en contactarme: 
+
+**Santiago Pérez Díaz-Rubín**
+Email: `santiago.perez.rub@gmail.com`
+
+
+
+
 # LagVis Documentación
+
 
 ## Diagrama de Clases
 
