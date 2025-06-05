@@ -62,7 +62,16 @@ Para que la aplicación "LagVis" funcione correctamente, es necesario seguir una
 
 ## 📄 Licencia
 
-Este proyecto está bajo una **Licencia Propietaria Comercial**. Esto significa que el software es propiedad exclusiva de Santiago Pérez Díaz-Rubín. No se permite la modificación, copia, distribución o uso con fines comerciales sin un permiso expreso. Para redistribuir o usar la aplicación comercialmente, se debe negociar una licencia directamente con el autor.
+Este proyecto está protegido bajo la **LagVis License - Uso No Comercial** (2025) escrita por Santiago Pérez Díaz-Rubín.
+
+El software está disponible únicamente para fines educativos, personales y académicos. Se permite su visualización, estudio, ejecución y modificación bajo estas condiciones:
+
+- Está terminantemente prohibido cualquier uso comercial del software sin autorización expresa y por escrito del autor.
+- No se permite la redistribución ni la venta, total o parcial, del software o de sus derivados, sin el consentimiento del autor.
+- Se debe conservar el aviso de copyright en todas las copias o porciones sustanciales del software.
+
+Para obtener permisos comerciales, distribución o licencias especiales, contacte al autor directamente.
+
 
 ## 📧 Contacto
 
