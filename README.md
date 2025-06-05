@@ -1,7 +1,6 @@
 # LagVis - Tu Guía de Derechos Laborales en España
 
 [![GitHub license](https://img.shields.io/badge/license-Proprietary-blue.svg)](LICENSE)
-[![Build Status](https://github.com/SantiagoPerezRu/LagVis/actions/workflows/android.yml/badge.svg)](https://github.com/SantiagoPerezRu/LagVis/actions/workflows/android.yml)
 [![GitHub last commit](https://img.shields.io/github/last-commit/SantiagoPerezRu/LagVis)](https://github.com/SantiagoPerezRu/LagVis/commits/main)
 
 ## 💡 Sobre el Proyecto
