@@ -18,7 +18,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-
+  
 rootProject.name = "LagVis_V1"
 include(":app")
  
