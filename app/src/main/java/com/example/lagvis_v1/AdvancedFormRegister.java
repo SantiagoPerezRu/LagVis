@@ -109,7 +109,7 @@ public class AdvancedFormRegister extends BaseActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        String[] comunidades = getResources().getStringArray(R.array.comunidades_autonomas);
+        String[] comunidades = getResources().getStringArray(R.array.comunidades_autonomas_registro);
         String[] sectores = getResources().getStringArray(R.array.sectores);
 
         btnSiguiente = findViewById(R.id.btnEnviar);
@@ -221,7 +221,8 @@ public class AdvancedFormRegister extends BaseActivity {
             String sectorLaboral = _autoCompleteTextViewSectores.getText().toString().trim();
             String fecha2Nacimiento = btnFecha.getText().toString();
             String idComunidad = String.valueOf(obtenerIdComunidadAutonoma(comunidad));
-            String idSector = String.valueOf(obtenerIdSector(sectorLaboral));
+            //String idSector = String.valueOf(obtenerIdSector(sectorLaboral));
+            String idSector = String.valueOf(LagVisConstantes.getSectorId(sectorLaboral));
             FirebaseUser usuarioFireBase = auth.getCurrentUser();
             String uidFireBase = usuarioFireBase.getUid();
 
@@ -234,6 +235,7 @@ public class AdvancedFormRegister extends BaseActivity {
                         finish();
                     } else {
                         progressDialog.dismiss();
+                        //Toast.makeText(AdvancedFormRegister.this, "Error en el registro!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }, new Response.ErrorListener() {
@@ -256,7 +258,7 @@ public class AdvancedFormRegister extends BaseActivity {
                     params.put("apellido2", surName2);
                     params.put("comunidad_id", idComunidad);
                     params.put("sector_id", idSector);
-                        params.put("fechaNacimiento", fecha2Nacimiento);
+                    params.put("fechaNacimiento", fecha2Nacimiento);
                     return params;
                 }
             };
@@ -294,7 +296,8 @@ public class AdvancedFormRegister extends BaseActivity {
         switch (sector) {
             case "Hosteleria": return 1;
             case "Construcción": return 2;
-            case "Informatica": return 3;
+            case "Call Center": return 3;
+            case"Oficinas y Despachos": return 4;
             default: return -1;
         }
     }

@@ -1,9 +1,11 @@
 package com.example.lagvis_v1;
 
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log; // Para depuración en caso de errores
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.GsonBuilder;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;

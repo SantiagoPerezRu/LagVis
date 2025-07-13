@@ -28,21 +28,21 @@ public class PublicHoliday {
     public String getDate() { return date; }
     public String getLocalName() { return localName; }
     public String getName() { return name; }
-    public String getCountryCode() { return countryCode; }
-    public boolean isFixed() { return fixed; }
+    //  public String getCountryCode() { return countryCode; }
+    //  public boolean isFixed() { return fixed; }
     public boolean isGlobal() { return global; }
     public List<String> getCounties() { return counties; }
-    public Integer getLaunchYear() { return launchYear; }
+    // public Integer getLaunchYear() { return launchYear; }
 
 
     public void setDate(String date) { this.date = date; }
-    public void setLocalName(String localName) { this.localName = localName; }
+    // public void setLocalName(String localName) { this.localName = localName; }
     public void setName(String name) { this.name = name; }
-    public void setCountryCode(String countryCode) { this.countryCode = countryCode; }
-    public void setFixed(boolean fixed) { this.fixed = fixed; }
-    public void setGlobal(boolean global) { this.global = global; }
-    public void setCounties(List<String> counties) { this.counties = counties; }
-    public void setLaunchYear(Integer launchYear) { this.launchYear = launchYear; }
+    // public void setCountryCode(String countryCode) { this.countryCode = countryCode; }
+    //  public void setFixed(boolean fixed) { this.fixed = fixed; }
+    //  public void setGlobal(boolean global) { this.global = global; }
+    // public void setCounties(List<String> counties) { this.counties = counties; }
+   // public void setLaunchYear(Integer launchYear) { this.launchYear = launchYear; }
 
 
     @Override

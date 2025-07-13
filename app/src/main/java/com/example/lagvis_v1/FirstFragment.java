@@ -25,16 +25,13 @@ import java.util.Set;
 
 public class FirstFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     private final Set<String> sectoresEstatales = new HashSet<>(Arrays.asList(
             "Call Center",
-            "Conservas de Pescado",
-            "Química",
-            "Calzado",
+            "Centros Enseñanza Privada",
+            "Seguridad Privada",
             "Textil y Confección",
             "Perfumería",
             "Estaciones de Servicio"
@@ -142,8 +139,12 @@ public class FirstFragment extends Fragment {
             public void onClick(View view) {
                 String comunidades = autoCompleteTextViewComunidades.getText().toString();
                 String sector = autoCompleteTextViewSectores.getText().toString();
-                Toast.makeText(getContext(), sector, Toast.LENGTH_SHORT).show();
-                Toast.makeText(getContext(), comunidades, Toast.LENGTH_SHORT).show();
+
+                int comunidadId = LagVisConstantes.getComunidadId(comunidades);
+                int sectorId = LagVisConstantes.getSectorId(sector);
+
+
+
                 boolean esEstatal = sectoresEstatales.contains(sector);
 
                 if ((comunidades.isEmpty() && !esEstatal) || sector.isEmpty()) {
@@ -162,7 +163,9 @@ public class FirstFragment extends Fragment {
                         textViewError.setVisibility(View.VISIBLE);
                     } else {
                         Intent i = new Intent(requireActivity(), Convenio.class);
-                        i.putExtra("archivo_convenio", nombreArchivo); // <- Lo pasas a la siguiente actividad
+                        i.putExtra("archivo_convenio", nombreArchivo);
+                        i.putExtra("comunidadId", comunidadId);
+                        i.putExtra("sectorId", sectorId);
                         startActivity(i);
                     }
                 }
@@ -270,6 +273,9 @@ public class FirstFragment extends Fragment {
                 break;
             case "Navarra":
                 nombreSimplificado = "navarra";
+                break;
+            case "Estatal":
+                nombreSimplificado = "estatal";
                 break;
             default:
                 nombreSimplificado = comunidad.toLowerCase().replace(" ", "_");

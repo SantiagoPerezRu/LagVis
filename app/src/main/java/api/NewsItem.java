@@ -18,6 +18,6 @@ public class NewsItem {
 
     @Override
     public String toString() {
-        return String.format("%s (%s) por %s\nEnlace: %s", title, pubDate, creator, link); // Modificar toString para incluir el creador
+        return String.format("%s (%s) por %s\nEnlace: %s", title, pubDate, creator, link);
     }
 }
