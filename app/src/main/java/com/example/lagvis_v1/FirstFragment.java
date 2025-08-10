@@ -274,9 +274,6 @@ public class FirstFragment extends Fragment {
             case "Navarra":
                 nombreSimplificado = "navarra";
                 break;
-            case "Estatal":
-                nombreSimplificado = "estatal";
-                break;
             default:
                 nombreSimplificado = comunidad.toLowerCase().replace(" ", "_");
                 break;
