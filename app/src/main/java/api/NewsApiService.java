@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewsApiService {
-      public static final String API_KEY = BuildConfig.API_KEY_NEWS;
+    //public static final String API_KEY = BuildConfig.API_KEY_NEWS;
+
+    public static final String API_KEY = "pub_859010197238a46b7699c07ede5c156d273a2";
     private static final String BASE_URL = "https://newsdata.io/api/1/news";
 
     public interface NoticiasCallback {
@@ -90,7 +92,7 @@ public class NewsApiService {
                     String title = article.has("title") && !article.get("title").isJsonNull() ? article.get("title").getAsString() : "Sin título";
                     String link = article.has("link") && !article.get("link").isJsonNull() ? article.get("link").getAsString() : "";
                     String pubDate = article.has("pubDate") && !article.get("pubDate").isJsonNull() ? article.get("pubDate").getAsString() : "Fecha desconocida";
-                    String creator = article.has("creator") && !article.get("creator").isJsonNull() ? article.get("creator").getAsString() : "Anónimo"; // Obtener el creador
+                    String creator = article.has("creator") && !article.get("creator").isJsonNull() ? article.get("creator").getAsString() : "Anónimo";
                     noticias.add(new NewsItem(title, link, pubDate, creator)); 
                 }
             }

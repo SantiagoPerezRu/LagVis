@@ -1,0 +1,73 @@
+<convenio_colectivo>
+    <titulo>Convenio Colectivo del Sector de Ayuda a Domicilio de la Comunidad de Madrid</titulo>
+    <resumen_general>
+        Este convenio colectivo regula las condiciones laborales de las empresas y trabajadores que prestan servicios de ayuda a domicilio en la Comunidad de Madrid. Fue suscrito por las organizaciones empresariales ASEMAD y ASADE, y por las organizaciones sindicales CC.OO. y UGT, el 10 de diciembre de 2021. Su ámbito de aplicación es la Comunidad de Madrid y tiene una vigencia del 1 de enero de 2021 al 31 de diciembre de 2025.
+    </resumen_general>
+    <salario>
+        <salario_aproximado>
+            Las tablas salariales varían según el año y la categoría. Por ejemplo, para el periodo del 1 de enero de 2023 al 30 de septiembre de 2023, un Auxiliar de Ayuda a Domicilio (jornada completa) tenía un Salario Base de 920,72€ (en 15 pagas), más un Plus Convenio de 90,29€ y un Plus Transporte de 52,17€. Un Coordinador/a tenía un Salario Base de 1.365,07€, un Plus Convenio de 111,28€ y un Plus Transporte de 91,32€. El convenio establece 15 pagas anuales.
+        </salario_aproximado>
+        <informacion_importante>
+            El convenio establece tablas salariales específicas para diferentes periodos dentro de su vigencia. Se contemplan actualizaciones salariales anuales. Por ejemplo, se detallan tablas para el periodo del 1 de enero de 2023 al 30 de septiembre de 2023, y del 1 de octubre de 2023 al 30 de septiembre de 2024. Los incrementos para los años siguientes (hasta 2025) se definirán en función de lo acordado en el propio convenio y sus anexos de tablas salariales. Se contempla un "Plus Fines de Semana y Festivos" de 135,91€ para jornada completa.
+        </informacion_importante>
+    </salario>
+    <vacaciones>
+        <dias>El personal tendrá derecho a 31 días naturales de vacaciones al año.</dias>
+        <observaciones>El período de disfrute será pactado entre la empresa y la persona trabajadora, publicándose el calendario anual de vacaciones en el primer trimestre del año. Las vacaciones no podrán ser compensadas económicamente. Si coinciden con una incapacidad temporal o maternidad/paternidad, se disfrutarán una vez finalizada dicha situación.</observaciones>
+    </vacaciones>
+    <festivos>
+        <numero_dias>Se respetarán los festivos de carácter nacional, autonómico y local.</numero_dias>
+        <detalle>
+            Las horas trabajadas en domingos y festivos serán compensadas con un "Plus Fines de Semana y Festivos" de 135,91€ para jornada completa (o la parte proporcional en jornada parcial). También se establece la compensación con días de descanso alternativos.
+        </detalle>
+    </festivos>
+    <horas_extraordinarias>
+        <regulacion>
+            Se prohíben las horas extraordinarias habituales. Las que se realicen, previa justificación, se compensarán preferentemente con tiempo de descanso (1,75 horas por cada hora extra trabajada) o mediante abono económico, incrementadas en un 75% sobre el valor de la hora ordinaria.
+        </regulacion>
+    </horas_extraordinarias>
+    <licencias>
+        <retribuidas>
+            <matrimonio>15 días naturales.</matrimonio>
+            <fallecimiento_familiares>
+                - 3 días por fallecimiento de cónyuge, padres, hijos, hermanos, abuelos o nietos. Si hay desplazamiento a otra localidad, se amplía a 5 días.
+                - 2 días por fallecimiento de tíos o cuñados. Si hay desplazamiento a otra localidad, se amplía a 4 días.
+            </fallecimiento_familiares>
+            <nacimiento_hijos>
+                - 3 días por nacimiento de hijo/a. Si hay desplazamiento, se amplía a 5 días.
+                - Tiempo indispensable para asistencia a exámenes prenatales y preparación al parto.
+            </nacimiento_hijos>
+            <mudanza>1 día natural por traslado del domicilio habitual.</mudanza>
+            <deber_inexcusable>El tiempo indispensable para el cumplimiento de un deber inexcusable de carácter público y personal.</deber_inexcusable>
+        </retribuidas>
+        <no_retribuidas>
+            <formacion>Se podrán conceder licencias no retribuidas para la asistencia a cursos de formación relacionados con la actividad profesional, previa solicitud y justificación.</formacion>
+            <otros>
+                - 2 días por matrimonio de hijo/a, hermano/a.
+                - Permiso no retribuido de hasta 15 días al año por asuntos propios.
+                - Tiempo necesario para asistencia a exámenes oficiales.
+                - Tiempo indispensable para la asistencia a consultas médicas, siempre que no puedan realizarse fuera del horario de trabajo.
+            </otros>
+        </no_retribuidas>
+    </licencias>
+    <seguro>
+        <cobertura>
+            Las empresas están obligadas a suscribir un seguro que cubra las contingencias de fallecimiento e invalidez permanente (total, absoluta o gran invalidez) derivadas de accidente de trabajo o enfermedad profesional.
+        </cobertura>
+        <importe>
+            La indemnización será de 20.000€ en caso de fallecimiento y de 25.000€ en caso de incapacidad permanente total, absoluta o gran invalidez.
+        </importe>
+    </seguro>
+    <manutencion>
+        <detalleManun>
+            El convenio no establece un concepto de "manutención" generalizado. Sin embargo, se prevé una compensación por "Plus Transporte" que se abona mensualmente y que ayuda a cubrir parte de los gastos de desplazamiento.
+        </detalleManun>
+    </manutencion>
+    <derechos_generales>
+        <igualdad>Se promoverá la igualdad de oportunidades entre hombres y mujeres y la no discriminación por razón de sexo, origen racial o étnico, religión, convicciones, discapacidad, edad u orientación sexual.</igualdad>
+        <formacion>Se fomentará la formación continua de los trabajadores para su adaptación a las nuevas tecnologías y la mejora de sus competencias profesionales.</formacion>
+        <salud_laboral>Las empresas garantizarán la seguridad y salud de los trabajadores, cumpliendo con la normativa de prevención de riesgos laborales.</salud_laboral>
+        <conciliacion>Se adoptarán medidas para facilitar la conciliación de la vida familiar y laboral, como excedencias por cuidado de hijos o familiares, y reducciones de jornada.</conciliacion>
+        <representacion>Se reconoce la libertad sindical y el derecho a la negociación colectiva, así como la acción de los representantes de los trabajadores en la empresa.</representacion>
+    </derechos_generales>
+</convenio_colectivo>

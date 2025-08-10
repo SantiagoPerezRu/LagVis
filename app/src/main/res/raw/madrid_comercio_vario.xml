@@ -1,0 +1,66 @@
+<convenio_colectivo>
+    <titulo>Convenio Colectivo del Sector Comercio Vario de la Comunidad de Madrid</titulo>
+    <resumen_general>
+        Este convenio colectivo regula las condiciones laborales del sector comercio vario en la Comunidad de Madrid, afectando a las relaciones laborales entre las empresas y sus trabajadores. Fue suscrito por la organización empresarial COPYME y las organizaciones sindicales UGT y CC.OO. el 18 de octubre de 2022.
+    </resumen_general>
+    <salario>
+        <salario_aproximado>
+            Las tablas salariales para el año 2022 se detallan en el convenio. A modo de ejemplo, el salario mensual del Grupo VI es de 1616,12€, con un total anual de 24.242,16€. El Grupo V tiene un salario mensual de 1557,36€ y anual de 23.359,85€. El Grupo IV, 1469,21€ mensuales y 22.038,56€ anuales. El Grupo III, 1403,63€ mensuales y 21.054,46€ anuales. El Grupo II, 1341,29€ mensuales y 20.119,30€ anuales. El Grupo I, 1279,79€ mensuales y 19.196,87€ anuales. Se establecen 15 pagas anuales.
+        </salario_aproximado>
+        <informacion_importante>
+            Se establecen revisiones salariales anuales. El convenio detalla incrementos específicos y cláusulas de revisión para mantener el poder adquisitivo. Para 2023, se aplica un incremento del 4%, y para 2024, un 3%. Se incluye una cláusula de garantía salarial para el caso de que la suma de los IPCs de 2022, 2023 y 2024 supere el incremento salarial pactado, con un límite del 2%.
+        </informacion_importante>
+    </salario>
+    <vacaciones>
+        <dias>El personal afectado por este convenio tendrá derecho a un período de vacaciones anuales retribuidas de 31 días naturales.</dias>
+        <observaciones>Las vacaciones se disfrutarán preferentemente en verano (junio, julio, agosto y septiembre). El período de disfrute será pactado entre la empresa y el trabajador, y se publicará el calendario de vacaciones con al menos dos meses de antelación al inicio del año natural. En caso de desacuerdo, 20 días se disfrutarán en el periodo preferente y 11 días en otro periodo, a concretar.</observaciones>
+    </vacaciones>
+    <festivos>
+        <numero_dias>Se respetarán los festivos establecidos en el calendario laboral oficial.</numero_dias>
+        <detalle>Para el personal que preste servicios en domingos y festivos, se compensará con un descanso alternativo equivalente a las horas trabajadas en dicho día, más un incremento del 75% sobre el valor de la hora ordinaria, o con la retribución económica correspondiente. El convenio establece la obligatoriedad de la apertura de los establecimientos en todos los festivos comerciales autorizados por la Comunidad de Madrid.</detalle>
+    </festivos>
+    <horas_extraordinarias>
+        <regulacion>
+            Se prohíben las horas extraordinarias habituales. Las que se realicen deberán ser justificadas por necesidades urgentes o imprevistas. La realización de horas extraordinarias se compensará preferentemente con tiempo de descanso equivalente, incrementado en un 75%, o con el abono económico, con el mismo recargo.
+        </regulacion>
+    </horas_extraordinarias>
+    <licencias>
+        <retribuidas>
+            <matrimonio>15 días naturales.</matrimonio>
+            <fallecimiento_familiares>
+                - 3 días por fallecimiento de cónyuge, padres, hijos, hermanos, nietos o abuelos (o 5 días si se necesita desplazamiento).
+                - 2 días por fallecimiento de tíos o sobrinos (o 4 días si se necesita desplazamiento).
+                - 2 días por fallecimiento de parientes hasta segundo grado de consanguinidad o afinidad.
+            </fallecimiento_familiares>
+            <nacimiento_hijos>El tiempo indispensable para la asistencia a los exámenes prenatales y técnicas de preparación al parto.</nacimiento_hijos>
+            <mudanza>1 día por traslado del domicilio habitual.</mudanza>
+            <deber_inexcusable>El tiempo indispensable para el cumplimiento de un deber inexcusable de carácter público y personal.</deber_inexcusable>
+        </retribuidas>
+        <no_retribuidas>
+            <formacion>Se podrán solicitar licencias no retribuidas para la asistencia a cursos de formación relacionados con la actividad profesional, siempre que lo permita la organización del trabajo.</formacion>
+            <otros>
+                Se contempla la posibilidad de solicitar licencias no retribuidas de hasta 15 días al año por asuntos propios, previa justificación y acuerdo con la empresa. También se establece una licencia de 2 días naturales por matrimonio de hijos o hermanos.
+            </otros>
+        </no_retribuidas>
+    </licencias>
+    <seguro>
+        <cobertura>
+            Las empresas afectadas por el presente convenio concertarán una póliza de seguro de accidentes que garantice a sus trabajadores una indemnización en caso de fallecimiento o invalidez permanente total, absoluta o gran invalidez, derivadas de accidente de trabajo o enfermedad profesional.
+        </cobertura>
+        <importe>
+            La cuantía de la indemnización será de 25.000€ en caso de fallecimiento, 30.000€ en caso de invalidez permanente total y 40.000€ en caso de invalidez permanente absoluta o gran invalidez.
+        </importe>
+    </seguro>
+    <manutencion>
+        <detalleManun>
+            El convenio no especifica cláusulas concretas de manutención. No obstante, se aplicará la legislación vigente y lo que se acuerde a nivel de empresa en esta materia.
+        </detalleManun>
+    </manutencion>
+    <derechos_generales>
+        <igualdad>Se promoverá la igualdad de oportunidades entre hombres y mujeres, evitando cualquier tipo de discriminación por razón de sexo, origen, raza, discapacidad, orientación sexual o cualquier otra condición o circunstancia personal o social.</igualdad>
+        <formacion>Se fomentará la formación continua de los trabajadores para su adaptación a las nuevas tecnologías y la mejora de sus competencias profesionales.</formacion>
+        <salud_laboral>Se garantizarán las condiciones de seguridad y salud en el trabajo, con el fin de prevenir riesgos laborales y promover un ambiente de trabajo seguro y saludable.</salud_laboral>
+        <conciliacion>Se promoverán medidas para facilitar la conciliación de la vida familiar y laboral de los trabajadores, como la adaptación de la jornada, reducciones de jornada por guarda legal, excedencias, etc.</conciliacion>
+        <representacion>Se reconoce el derecho a la representación de los trabajadores a través de los órganos legalmente establecidos (comités de empresa, delegados de personal).</representacion>
+    </derechos_generales>
+</convenio_colectivo>

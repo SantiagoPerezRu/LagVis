@@ -29,6 +29,27 @@
         <item>País Vasco</item>
     </string-array>
 
+    <string-array name="comunidades_autonomas_registro">
+        <item>Andalucía</item>
+        <item>Aragón</item>
+        <item>Asturias</item>
+        <item>Cantabria</item>
+        <item>Castilla-La Mancha</item>
+        <item>Castilla y León</item>
+        <item>Cataluña</item>
+        <item>Comunidad Valenciana</item>
+        <item>Extremadura</item>
+        <item>Galicia</item>
+        <item>Illes Balears</item>
+        <item>Canarias</item>
+        <item>La Rioja</item>
+        <item>Comunidad de Madrid</item>
+        <item>Región de Murcia</item>
+        <item>Navarra</item>
+        <item>País Vasco</item>
+    </string-array>
+
+
     <string-array name="comunidades_autonomas_api">
         <item>Andalucía</item>
         <item>Aragón</item>
@@ -49,6 +70,7 @@
         <item>País Vasco</item>
         <item>Ceuta</item>
         <item>Melilla</item>
+
     </string-array>
 
 
@@ -56,7 +78,14 @@
         <item>Hosteleria</item>
         <item>Construcción</item>
         <item>Call Center</item>
-        <item>Oficinas y Despachos</item>
+        <item>Ayuda a Domicilio</item>
+        <item>Comercio Vario</item>
+        <item>Limpieza Edificios Y Locales</item>
+        <item>Metal</item>
+        <item>Transporte de Mercancias</item>
+        <item>Centros Enseñanza Privada</item>
+        <item>Seguridad Privada</item>
+
 
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->

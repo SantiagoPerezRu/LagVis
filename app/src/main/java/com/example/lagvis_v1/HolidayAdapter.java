@@ -1,5 +1,5 @@
-// HolidayAdapter.java
-package com.example.lagvis_v1; // Ajusta tu paquete
+
+package com.example.lagvis_v1;
 
 import android.view.LayoutInflater;
 import android.view.View;
