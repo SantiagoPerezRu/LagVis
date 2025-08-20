@@ -30,7 +30,7 @@ El desarrollo de LagVis se ha realizado utilizando un conjunto de tecnologías m
     * **IDE:** Android Studio
     * **Diseño de UI:** XML
 * **Backend (Servicio en la Nube):**
-    * **Tecnología:** PHP (asumiendo que es PHP para el backend según la fuente 238 en el PDF. Si es Java, por favor, edita esto en tu README).
+    * **Tecnología:** PHP
     * **Despliegue Serverless:** Google Cloud Run
     * **Contenerización:** Docker
 * **Base de Datos:**
