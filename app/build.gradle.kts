@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -6,9 +7,10 @@ plugins {
     alias(libs.plugins.google.gms.google.services)
 }
 
-val localProperties = Properties().apply {
-    load(FileInputStream(rootProject.file("local.properties")))
-}
+val newsApiKey: String = providers.gradleProperty("NEWS_API_KEY").orNull
+    ?: gradleLocalProperties(rootDir, providers).getProperty("NEWS_API_KEY")
+    ?: System.getenv("NEWS_API_KEY")
+    ?: error("NEWS_API_KEY no definido (gradle.properties / local.properties / env)")
 
 
 android {
@@ -26,8 +28,8 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "API_BASE_URL", "\"${localProperties.getProperty("API_BASE_URL")}\"")
-        buildConfigField("String", "API_KEY_NEWS", "\"${localProperties.getProperty("API_KEY_NEWS")}\"")
+        buildConfigField("String", "API_KEY_NEWS", "\"$newsApiKey\"")
+
 
     }
 
@@ -44,6 +46,8 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    buildFeatures { viewBinding = true }
+
 }
 
 

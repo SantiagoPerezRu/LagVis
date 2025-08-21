@@ -9,7 +9,7 @@
     android:gravity="top|center"
     android:padding="32dp"
     android:orientation="vertical"
-    tools:context=".RegisterActivity">
+    tools:context=".ui.auth.RegisterActivity">
 
     <TextView
         android:layout_width="match_parent"
