@@ -27,6 +27,8 @@
         <activity
             android:name=".ui.despidos.ActivityDatosGeneralesDespido"
             android:exported="false" />
+        <activity android:name=".ui.compose.FragmentHostActivity" />
+
         <activity
             android:name=".ui.finiquitos.ActivityResultadoFiniquito"
             android:exported="false" />

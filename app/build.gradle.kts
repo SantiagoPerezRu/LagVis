@@ -82,6 +82,14 @@ dependencies {
 
     // Calendario con decoradores
     implementation("com.kizitonwose.calendar:view:2.8.0")
+
+
+    implementation("androidx.compose.material:material-icons-extended")
+
+    // Tu Material 3
+    implementation("androidx.compose.material3:material3")
+
+
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)
