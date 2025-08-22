@@ -9,6 +9,7 @@
     <string name="menu_home">Inicio</string>
     <string name="menu_gallery">Galería</string>
     <string name="menu_slideshow">Presentación</string>
+    <string name="info_finiquito_cd">Información sobre el finiquito</string>
     <string-array name="comunidades_autonomas">
         <item>Andalucía</item>
         <item>Aragón</item>
@@ -88,6 +89,7 @@
 
 
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_home_menu">HomeMenuActivity</string>
+
+
 </resources>

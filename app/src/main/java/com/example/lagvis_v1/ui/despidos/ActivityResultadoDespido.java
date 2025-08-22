@@ -13,14 +13,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.lagvis_v1.R;
 import com.example.lagvis_v1.databinding.ActivityResultadoDespidoBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
-import FiniquitosPackage.ActivityDatosGeneralesDespido;
 
 public class ActivityResultadoDespido extends AppCompatActivity {
 

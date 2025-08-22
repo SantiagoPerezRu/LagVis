@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- rombo (cuadrado rotado 45º) -->
+    <size android:width="12dp" android:height="12dp"/>
+    <solid android:color="@android:color/white"/>
+    <corners android:radius="2dp"/>
+    <rotate android:fromDegrees="45"/>
+</shape>

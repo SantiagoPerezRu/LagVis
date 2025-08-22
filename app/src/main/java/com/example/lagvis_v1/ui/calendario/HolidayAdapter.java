@@ -39,7 +39,7 @@ public class HolidayAdapter extends RecyclerView.Adapter<HolidayAdapter.HolidayV
     public void onBindViewHolder(@NonNull HolidayViewHolder holder, int position) {
         PublicHoliday holiday = holidayList.get(position);
         holder.tvHolidayDate.setText(holiday.getDate());
-        holder.tvHolidayLocalName.setText(holiday.getLocalName());
+        holder.tvHolidayLocalName.setText(holiday.getName());
         holder.tvHolidayName.setText(holiday.getName());
     }
 

@@ -12,6 +12,7 @@ import com.example.lagvis_v1.R;
 import com.example.lagvis_v1.core.ui.UiState;
 import com.example.lagvis_v1.core.util.BaseActivity;
 import com.example.lagvis_v1.databinding.ActivityLoginBinding;
+import com.example.lagvis_v1.ui.compose.HomeMenuActivityKt;
 import com.example.lagvis_v1.ui.main.MainActivity;
 
 public class LoginActivity extends BaseActivity {
@@ -62,7 +63,7 @@ public class LoginActivity extends BaseActivity {
 
                 Drawable checkIcon = getDrawable(R.drawable.ic_check_circle);
                 showCustomToast("¡Inicio de sesión exitoso!", checkIcon);
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                startActivity(new Intent(LoginActivity.this, com.example.lagvis_v1.ui.compose.HomeMenuActivity.class));
                 finish();
             } else if (state instanceof UiState.Error) {
                 binding.loginButton.setEnabled(true);

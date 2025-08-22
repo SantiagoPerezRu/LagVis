@@ -7,17 +7,14 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+
 import com.example.lagvis_v1.core.ui.UiState;
 import com.example.lagvis_v1.databinding.ActivityDatosGeneralesFiniquitoBinding;
-
-
-import FiniquitosPackage.ActivityResultadoFiniquito;
 
 public class ActivityDatosGeneralesFiniquito extends AppCompatActivity {
 
     private ActivityDatosGeneralesFiniquitoBinding binding;
     private DatosGeneralesFiniquitoViewModel vm;
-    private long diasTrabajados;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,19 +22,21 @@ public class ActivityDatosGeneralesFiniquito extends AppCompatActivity {
         binding = ActivityDatosGeneralesFiniquitoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // VM
         vm = new ViewModelProvider(this, new DatosGeneralesFiniquitoViewModelFactory())
                 .get(DatosGeneralesFiniquitoViewModel.class);
 
-        // Días trabajados del Intent
-        diasTrabajados = getIntent().getLongExtra("diasTrabajados", 0L);
-        vm.setDiasTrabajados(diasTrabajados);
+        // 🔴 FECHAS DESDE EL INTENT (vienen de CalculadoraFiniquitosFragment)
+        String fechaInicio = getIntent().getStringExtra("fechaInicio");
+        String fechaFin    = getIntent().getStringExtra("fechaFin");
+        if (fechaInicio == null || fechaFin == null) {
+            Toast.makeText(this, "Faltan fechas de inicio/fin", Toast.LENGTH_LONG).show();
+            finish(); return;
+        }
+        vm.setFechasContrato(fechaInicio, fechaFin); // << CLAVE
 
-        // Spinners
         configurarSpinnerPagas();
         configurarSpinnerTipoDespido();
 
-        // Observers
         vm.state.observe(this, state -> {
             if (state instanceof UiState.Loading) {
                 binding.btnCalcularFiniquito.setEnabled(false);
@@ -51,29 +50,32 @@ public class ActivityDatosGeneralesFiniquito extends AppCompatActivity {
                         ((UiState.Success<DatosGeneralesFiniquitoViewModel.ResultadoFiniquito>) state).data;
 
                 Intent i = new Intent(this, ActivityResultadoFiniquito.class);
-                i.putExtra("salario", r.salarioPorDiasTrabajados);
-                i.putExtra("vacaciones", r.importeVacaciones);
-                i.putExtra("pagasExtra", r.pagasExtra);
-                i.putExtra("finiquito", r.totalFiniquito);
+                i.putExtra("salario",       r.salarioPorDiasTrabajados);
+                i.putExtra("vacaciones",    r.importeVacaciones);
+                i.putExtra("pagasExtra",    r.pagasExtra);
+                i.putExtra("finiquito",     r.totalFiniquito);
                 i.putExtra("indemnizacion", r.indemnizacion);
-                i.putExtra("total", r.totalLiquidacion);
+                i.putExtra("total",         r.totalLiquidacion);
+                // (opcional) reenvía fechas para mostrarlas
+                i.putExtra("fechaInicio", fechaInicio);
+                i.putExtra("fechaFin",    fechaFin);
                 startActivity(i);
             }
         });
 
-        // Click calcular
         binding.btnCalcularFiniquito.setOnClickListener(v ->
                 vm.calcular(
                         binding.etSalarioAnual.getText().toString().trim(),
                         binding.etDiasVacaciones.getText().toString().trim(),
-                        binding.spinnerPagas.getSelectedItemPosition(),
-                        binding.spinnerTipoDespido.getSelectedItemPosition()
+                        binding.spinnerPagas.getSelectedItemPosition(),       // 0=12, 1=14(no prorr), 2=prorr
+                        binding.spinnerTipoDespido.getSelectedItemPosition()  // 0..3
                 )
         );
     }
 
     private void configurarSpinnerPagas() {
-        String[] opcionesPagas = {"12 pagas", "14 pagas", "Pagas prorrateadas"};
+        // Asegúrate de que el índice 1 sea "14 (no prorrateadas)"
+        String[] opcionesPagas = {"12 pagas", "14 (no prorrateadas)", "Pagas prorrateadas"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, opcionesPagas);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

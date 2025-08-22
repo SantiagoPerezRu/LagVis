@@ -1,4 +1,4 @@
-package FiniquitosPackage;
+package com.example.lagvis_v1.ui.despidos;
 
 
 import android.app.DatePickerDialog;
@@ -11,7 +11,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lagvis_v1.R;
-import com.example.lagvis_v1.ui.despidos.ActivityResultadoDespido;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

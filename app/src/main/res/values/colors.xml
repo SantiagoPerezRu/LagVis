@@ -14,4 +14,11 @@
     <color name="colorMismaImagenArriba">#3F47CC</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="festivo_nacional">#E53935</color>     <!-- rojo -->
+    <color name="festivo_autonomico">#FB8C00</color>  <!-- naranja -->
+    <color name="festivo_municipal">#1E88E5</color>   <!-- azul -->
+    <color name="festivo_local">#43A047</color>       <!-- verde -->
+    <color name="festivo_info">#757575</color>        <!-- gris -->
+
 </resources>
