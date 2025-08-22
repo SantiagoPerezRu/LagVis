@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Header -->
     <ImageView
         android:id="@+id/imageViewHeader"
         android:layout_width="0dp"
@@ -26,193 +26,259 @@
         android:fontFamily="@font/inter"
         android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imageViewHeader"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/layoutResultados"
+    <!-- 🔽 TODO el contenido scrollable va dentro de este NestedScrollView -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollResultados"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
         app:layout_constraintTop_toBottomOf="@id/imageViewHeader"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <androidx.cardview.widget.CardView
+        <LinearLayout
+            android:id="@+id/layoutResultados"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
-            <LinearLayout
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <!-- Vacaciones -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="12dp">
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
 
-                <TextView
-                    android:text="Vacaciones no disfrutadas 🌴"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/inter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/tvVacaciones"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/inter" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    android:orientation="vertical"
+                    android:padding="12dp">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
-            <LinearLayout
+                    <TextView
+                        android:text="Vacaciones no disfrutadas 🌴"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/inter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tvVacaciones"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/inter" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Salario del mes -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="12dp">
-
-                <TextView
-                    android:text="Pagas extras 🎁"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/inter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/tvPagasExtras"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/inter" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    android:orientation="vertical"
+                    android:padding="12dp">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
-            <LinearLayout
+                    <TextView
+                        android:text="Salario del mes trabajado 🗓️"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/inter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tvSalarioMes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/inter" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Pagas extra -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="12dp">
-
-                <TextView
-                    android:text="Finiquito 💰"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/inter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/tvFiniquito"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/inter" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    android:orientation="vertical"
+                    android:padding="12dp">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
-            <LinearLayout
+                    <TextView
+                        android:text="Pagas extras 🎁"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/inter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tvPagasExtras"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/inter" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Finiquito + icono info -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="12dp">
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
 
-                <TextView
-                    android:text="Indemnización ⚖️"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/inter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/tvIndemnizacion"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/inter" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    android:orientation="vertical"
+                    android:padding="12dp">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="6dp">
-            <LinearLayout
+                    <!-- 🔵 Cabecera con título + botón info a la derecha -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:text="Finiquito"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/inter"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <!-- Puedes usar tu propio vector. De momento: icono del sistema -->
+                        <ImageButton
+                            android:id="@+id/btnInfoFiniquito"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="@string/info_finiquito_cd"
+                            android:padding="4dp"
+                            android:src="@android:drawable/ic_dialog_info"
+                            app:tint="@color/black" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvFiniquito"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/inter" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Indemnización -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="12dp">
-
-                <TextView
-                    android:text="Total a recibir 📦"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/inter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/tvTotal"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="#2E7D32"
-                    android:fontFamily="@font/inter" />
+                    android:orientation="vertical"
+                    android:padding="12dp">
 
-                <TextView
+                    <TextView
+                        android:text="Indemnización ⚖️"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/inter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tvIndemnizacion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/inter" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Total -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="6dp">
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:textSize="12sp"
-                    android:textColor="#757575"
-                    android:fontFamily="@font/inter"
-                    android:text="Aviso: Cálculo estimado. La indemnización depende del tipo de despido. Consulte a un profesional." />
+                    android:orientation="vertical"
+                    android:padding="12dp">
 
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-        <Button
-            android:id="@+id/btnExportarPdfFiniquito"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="24dp"
-            android:backgroundTint="#3333cc"
-            android:fontFamily="@font/inter"
-            android:padding="16dp"
-            android:text="Exportar a PDF"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            app:cornerRadius="8dp" />
-    </LinearLayout>
+                    <TextView
+                        android:text="Total a recibir 📦"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/inter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tvTotal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="#2E7D32"
+                        android:fontFamily="@font/inter" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textSize="12sp"
+                        android:textColor="#757575"
+                        android:fontFamily="@font/inter"
+                        android:text="Aviso: Cálculo estimado. La indemnización depende del tipo de despido. Consulte a un profesional." />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/btnExportarPdfFiniquito"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="24dp"
+                android:backgroundTint="#3333cc"
+                android:fontFamily="@font/inter"
+                android:padding="16dp"
+                android:text="Exportar a PDF"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
