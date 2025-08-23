@@ -11,7 +11,6 @@
     <string name="menu_slideshow">Presentación</string>
     <string name="info_finiquito_cd">Información sobre el finiquito</string>
     <string-array name="comunidades_autonomas">
-        <item>Estatal</item>
         <item>Andalucía</item>
         <item>Aragón</item>
         <item>Asturias</item>
