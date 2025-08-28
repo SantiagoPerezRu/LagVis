@@ -90,7 +90,7 @@ private fun navigateTo(activity: Activity, id: FeatureId) {
 
             FeatureId.CALENDAR -> {
                 // Parece Activity (no 'Frag'), así que Intent directo
-                activity.startActivity(Intent(activity, CalendarioLaboral::class.java))
+                FragmentHostActivity.launch(activity, CalendarioLaboral::class.java)
             }
 
             FeatureId.FINIQUITO_CALC ->
