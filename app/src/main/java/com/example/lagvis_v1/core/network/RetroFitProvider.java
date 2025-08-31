@@ -1,6 +1,7 @@
 // core/network/RetroFitProvider.java
 package com.example.lagvis_v1.core.network;
 
+import com.example.lagvis_v1.core.util.LagVisConstantes;
 import com.example.lagvis_v1.data.remote.NewsApi;
 import com.example.lagvis_v1.data.remote.HolidaysApi;
 import com.example.lagvis_v1.data.remote.ProfileApi;
@@ -11,7 +12,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class RetroFitProvider {
-    private RetroFitProvider(){}
+    private RetroFitProvider() {
+    }
 
     public static NewsApi provideNewsApi() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -34,7 +36,7 @@ public final class RetroFitProvider {
     /**
      * API de CALENDARIO (Spring Boot propio)
      * - Por defecto apunta a tu backend local desde el emulador Android.
-     *   Usa http://10.0.2.2:8080/ (loopback del host)
+     * Usa http://10.0.2.2:8080/ (loopback del host)
      */
     public static HolidaysApi provideHolidaysApi() {
         return new Retrofit.Builder()
@@ -59,7 +61,7 @@ public final class RetroFitProvider {
     public static ProfileApi provideProfileApi() {
         // Base dummy válida; con @Url dinámico se ignora
         return new Retrofit.Builder()
-                .baseUrl("https://lagvis.invalid/")
+                .baseUrl("http://83.33.98.244/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(ProfileApi.class);
