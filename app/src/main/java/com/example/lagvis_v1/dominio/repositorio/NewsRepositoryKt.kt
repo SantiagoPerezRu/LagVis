@@ -15,5 +15,5 @@ interface NewsRepositoryKt {
     suspend fun saveNew(
         uid: String,
         item: NewsItemKt
-    ): Result<Void>
+    ): Result<Unit>
 }

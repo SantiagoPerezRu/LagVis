@@ -1,6 +1,7 @@
 package com.example.lagvis_v1.data.repository
 
 import com.example.lagvis_v1.BuildConfig
+import com.example.lagvis_v1.core.util.LagVisConstantes
 import com.example.lagvis_v1.data.mapper.toDomain
 import com.example.lagvis_v1.data.remote.NewsApiKt
 import com.example.lagvis_v1.data.remote.SaveNewsApiKt
@@ -40,24 +41,24 @@ class NewsRepositoryImplKt(
     override suspend fun saveNew(
         uid: String,
         item: NewsItemKt
-    ): Result<Void> = try {
-        val url = com.example.lagvis_v1.core.util.LagVisConstantes.ENDPOINT_GUARDAR_NOTICIA // debe ser URL absoluta
+    ): Result<Unit> = try {
+        val url = LagVisConstantes.ENDPOINT_GUARDAR_NOTICIA  // absoluta si usas @Url
         val resp = saveApi.save(
-            url = url,
             uid = uid,
-            title = item.title,
-            pubDate = item.pubDate,     // tus campos de dominio son no nulos → ok
-            link = item.link,
-            creator = item.creator
+            titulo = item.title,                  // <- CAMBIA a 'titulo'
+            fecha = item.pubDate,                // <- CAMBIA a 'fecha' (string)
+            enlace = item.link,                  // <- CAMBIA a 'enlace'
+            creador = item.creator ?: ""         // PHP lo maneja opcional
         )
         if (resp.isSuccessful) {
-            Result.Success(null as Void)       // Void -> devuelve null en el Success
+            Result.Success(Unit)   // ✅ nada que castear
         } else {
-            Result.Error("HTTP ${resp.code()}: ${resp.errorBody()?.string().orEmpty()}")
+            val err = resp.errorBody()?.string().orEmpty()
+            Result.Error("HTTP ${resp.code()} ${resp.message()}: $err")
         }
     } catch (e: IOException) {
-        Result.Error(e.message ?: "Error de red", e)
+        Result.Error("Error de red: ${e.message}", e)
     } catch (t: Throwable) {
-        Result.Error(t.message ?: "Error inesperado", t)
+        Result.Error("Error inesperado: ${t.message}", t)
     }
 }

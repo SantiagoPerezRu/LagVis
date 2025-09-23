@@ -10,14 +10,13 @@ import retrofit2.http.Url
 
 interface SaveNewsApiKt {
     @FormUrlEncoded
-    @POST
+    @POST("guardar_noticia.php")
     suspend fun save(
-        @Url url: String,
-        @Query("uid") uid: String,
-        @Query("title") title: String,
-        @Query("pubDate") pubDate: String?,
-        @Query("link") link: String,
-        @Query("creator") creator: String?
+        @Field("uid") uid: String,
+        @Field("titulo") titulo: String,
+        @Field("fecha") fecha: String,
+        @Field("enlace") enlace: String,
+        @Field("creador") creador: String?
     ): Response<Void>
 
 }
