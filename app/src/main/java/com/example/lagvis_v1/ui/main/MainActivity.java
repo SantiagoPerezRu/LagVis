@@ -14,12 +14,12 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.lagvis_v1.R;
 
+import com.example.lagvis_v1.ui.calendario.CalendarioLaboralKt;
 import com.example.lagvis_v1.ui.finiquitos.CalculadoraFiniquitosFragment;
-import com.example.lagvis_v1.ui.news.NewsViewFrag;
-import com.example.lagvis_v1.ui.calendario.CalendarioLaboral;
 import com.example.lagvis_v1.ui.convenio.ConvenioSelectorFrag;
+import com.example.lagvis_v1.ui.news.NewsViewFragKt;
+import com.example.lagvis_v1.ui.news.NoticiasGuardadasFragmentKt;
 import com.example.lagvis_v1.ui.profile.ProfileViewFrag;
-import com.example.lagvis_v1.ui.news.NoticiasGuardadasFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import com.example.lagvis_v1.ui.despidos.DatosGeneralesDespidoFragment;
@@ -33,13 +33,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FrameLayout frameLayout;
 
     ConvenioSelectorFrag convenioSelectorFrag = new ConvenioSelectorFrag();     // Inicio
-    NewsViewFrag newsViewFrag = new NewsViewFrag();  // Noticias
+    NewsViewFragKt newsViewFrag = new NewsViewFragKt();  // Noticias
     CalculadoraFiniquitosFragment calculadoraFiniquitosFragment = new CalculadoraFiniquitosFragment();     // Finiquitos
     ProfileViewFrag profileViewFrag = new ProfileViewFrag();  // Tú perfil
     DatosGeneralesDespidoFragment fifhtFragment = new DatosGeneralesDespidoFragment(); // Despidos
-    NoticiasGuardadasFragment fragmentNoticiasGuaradas = new NoticiasGuardadasFragment(); // Noticias guardadas fragment
+    NoticiasGuardadasFragmentKt fragmentNoticiasGuaradas = new NoticiasGuardadasFragmentKt(); // Noticias guardadas fragment
     PaginaVidaLaboralFragment fragmentVidaLaboral = new PaginaVidaLaboralFragment(); // Vida Laboral Fragment
-    CalendarioLaboral fragmentCalendarioLaboral = new CalendarioLaboral(); // Calendario laboral fragment
+    CalendarioLaboralKt fragmentCalendarioLaboral = new CalendarioLaboralKt(); // Calendario laboral fragment
 
 
     @Override

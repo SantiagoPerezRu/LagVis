@@ -1,5 +1,7 @@
 package com.example.lagvis_v1.data.remote;
 
+import com.example.lagvis_v1.data.remote.dto.user.UserResponse;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -22,7 +24,7 @@ public interface ProfileApi {
 
     @FormUrlEncoded
     @POST
-    Call<UserResponseDto> show(
+    Call<UserResponse> show(
             @Url String url,       // LagVisConstantes.ENDPOINT_MOSTRAR (URL completa)
             @Field("uid") String uid
     );

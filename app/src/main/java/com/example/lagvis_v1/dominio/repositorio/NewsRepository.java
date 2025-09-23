@@ -1,6 +1,6 @@
 package com.example.lagvis_v1.dominio.repositorio;
 
-import com.example.lagvis_v1.dominio.NewsItem;
+import com.example.lagvis_v1.dominio.model.NewsItem;
 
 import java.util.List;
 

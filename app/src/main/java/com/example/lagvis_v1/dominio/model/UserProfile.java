@@ -1,5 +1,5 @@
 // com/example/lagvis_v1/dominio/UserProfile.java
-package com.example.lagvis_v1.dominio;
+package com.example.lagvis_v1.dominio.model;
 
 public class UserProfile {
     public final String nombre, apellido, apellido2, sectorLaboral, comunidadAutonoma, fechaNacimiento;

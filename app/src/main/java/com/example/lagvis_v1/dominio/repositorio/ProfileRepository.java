@@ -1,6 +1,6 @@
 package com.example.lagvis_v1.dominio.repositorio;
 
-import com.example.lagvis_v1.dominio.UserProfile;
+import com.example.lagvis_v1.dominio.model.UserProfile;
 
 public interface ProfileRepository {
     Result<UserProfile> fetch(String uid);  // obtener perfil por UID

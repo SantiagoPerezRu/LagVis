@@ -3,8 +3,8 @@ package com.example.lagvis_v1.data.repository;
 import com.example.lagvis_v1.core.util.LagVisConstantes;
 import com.example.lagvis_v1.data.mapper.ProfileMappers;
 import com.example.lagvis_v1.data.remote.ProfileApi;
-import com.example.lagvis_v1.data.remote.UserResponseDto;
-import com.example.lagvis_v1.dominio.UserProfile;
+import com.example.lagvis_v1.data.remote.dto.user.UserResponse;
+import com.example.lagvis_v1.dominio.model.UserProfile;
 import com.example.lagvis_v1.dominio.repositorio.ProfileRepository;
 
 import java.io.IOException;
@@ -43,7 +43,7 @@ public class ProfileRepositoryImpl implements ProfileRepository {
     @Override
     public Result<UserProfile> fetch(String uid) {
         try {
-            Response<UserResponseDto> r = api.show(LagVisConstantes.ENDPOINT_MOSTRAR, uid).execute();
+            Response<UserResponse> r = api.show(LagVisConstantes.ENDPOINT_MOSTRAR, uid).execute();
             if (r.isSuccessful() && r.body()!=null && "1".equals(r.body().exito)) {
                 UserProfile p = ProfileMappers.toDomain(r.body());
                 if (p != null) return Result.success(p);

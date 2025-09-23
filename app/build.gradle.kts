@@ -24,6 +24,9 @@ android {
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "API_KEY_NEWS", "\"$newsApiKey\"")
+        buildConfigField("String", "NEWS_BASE_URL", "\"https://newsdata.io/api/1/\"")
+        buildConfigField("String", "HOLIDAYS_BASE_URL", "\"https://calendario-laboral-api.onrender.com/\"")
+        buildConfigField("String", "BACKEND_BASE_URL", "\"https://tu-backend.prod/\"")
     }
 
     buildTypes {

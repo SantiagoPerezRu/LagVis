@@ -1,5 +1,5 @@
 // com/example/lagvis_v1/data/remote/UserDataDto.java
-package com.example.lagvis_v1.data.remote;
+package com.example.lagvis_v1.data.remote.dto.user;
 
 public class UserDataDto {
     public String nombre;

@@ -13,7 +13,7 @@ import com.example.lagvis_v1.R;
 import com.example.lagvis_v1.core.ui.UiState;
 import com.example.lagvis_v1.core.util.BaseFragment;
 import com.example.lagvis_v1.databinding.FragmentFourBinding;
-import com.example.lagvis_v1.dominio.UserProfile;
+import com.example.lagvis_v1.dominio.model.UserProfile;
 import com.example.lagvis_v1.ui.auth.AuthViewModel;
 import com.example.lagvis_v1.ui.auth.AuthViewModelFactory;
 

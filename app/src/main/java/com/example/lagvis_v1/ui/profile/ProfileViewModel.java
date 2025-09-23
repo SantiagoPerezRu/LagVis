@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.lagvis_v1.core.ui.UiState;
-import com.example.lagvis_v1.dominio.UserProfile;
+import com.example.lagvis_v1.dominio.model.UserProfile;
 import com.example.lagvis_v1.dominio.repositorio.ProfileRepository;
 
 import java.util.concurrent.ExecutorService;

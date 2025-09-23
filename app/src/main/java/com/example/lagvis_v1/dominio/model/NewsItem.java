@@ -1,4 +1,4 @@
-package com.example.lagvis_v1.dominio;
+package com.example.lagvis_v1.dominio.model;
 
 
 /* Constructor clase Noticia para luego poder hacer una lista de noticias.*/

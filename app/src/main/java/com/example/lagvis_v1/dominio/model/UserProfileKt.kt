@@ -1,4 +1,4 @@
-package com.example.lagvis_v1.dominio
+package com.example.lagvis_v1.dominio.model
 
 data class UserProfileKt (
     val nombre: String,
