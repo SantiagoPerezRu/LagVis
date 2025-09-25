@@ -90,6 +90,10 @@
 
     </string-array>
     <string name="title_activity_home_menu">HomeMenuActivity</string>
+    <string name="title_activity_login_on_compose">LoginOnCompose</string>
+    <string name="title_activity_register_on_compsoe">RegisterOnCompsoe</string>
+    <string name="title_activity_register_on_compose">RegisterOnCompose</string>
+    <string name="title_activity_advanced_form_register">AdvancedFormRegister</string>
 
 
 </resources>

@@ -17,6 +17,27 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".uicompose.AdvancedFormRegisterCompose"
+            android:exported="false"
+            android:label="@string/title_activity_advanced_form_register"
+            android:theme="@style/Theme.LagVis_V1" />
+        <activity
+            android:name=".uicompose.RegisterOnCompose"
+            android:exported="false"
+            android:label="@string/title_activity_register_on_compose"
+            android:theme="@style/Theme.LagVis_V1" />
+        <activity
+            android:name=".uicompose.LoginOnCompose"
+            android:exported="true"
+            android:label="@string/title_activity_login_on_compose"
+            android:theme="@style/Theme.LagVis_V1">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".ui.compose.HomeMenuActivity"
             android:exported="false"
             android:label="@string/title_activity_home_menu"
@@ -44,13 +65,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.auth.LoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".ui.auth.RegisterActivity"
             android:exported="false" />

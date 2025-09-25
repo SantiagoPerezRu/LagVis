@@ -1,191 +1,168 @@
-// com/example/lagvis_v1/ui/auth/AdvancedFormRegister.java
-package com.example.lagvis_v1.ui.auth;
+// ui/auth/AdvancedFormRegister.kt
+package com.example.lagvis_v1.ui.auth
 
-import android.app.DatePickerDialog;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
+import android.app.DatePickerDialog
+import android.content.Intent
+import android.graphics.drawable.Drawable
+import android.os.Bundle
+import android.widget.ArrayAdapter
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
+import androidx.core.graphics.Insets
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.example.lagvis_v1.R
+import com.example.lagvis_v1.core.ui.UiState
+import com.example.lagvis_v1.core.util.BaseActivity
+import com.example.lagvis_v1.core.util.LagVisConstantesKt
+import com.example.lagvis_v1.databinding.ActivityAdvancedFormRegisterBinding
+import java.util.Calendar
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.lifecycle.ViewModelProvider;
+class AdvancedFormRegister : BaseActivity() {
 
-import com.example.lagvis_v1.R;
-import com.example.lagvis_v1.core.ui.UiState;
-import com.example.lagvis_v1.core.util.BaseActivity;
-import com.example.lagvis_v1.databinding.ActivityAdvancedFormRegisterBinding;
+    private lateinit var binding: ActivityAdvancedFormRegisterBinding
 
-import java.util.Calendar;
+    // ViewModels (usando delegados)
+    private val vm: AdvancedFormViewModel by viewModels { AdvancedFormViewModelFactory() }
+    private val authVm: AuthViewModel by viewModels { AuthViewModelFactory() }
 
-public class AdvancedFormRegister extends BaseActivity {
+    private var fechaNacimiento: String? = null // dd/MM/yyyy
 
-    private ActivityAdvancedFormRegisterBinding binding;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        binding = ActivityAdvancedFormRegisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-    private AdvancedFormViewModel vm;
-    private AuthViewModel authVm;
+        // Insets
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val bars: Insets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
+            insets
+        }
 
-    private String fechaNacimiento; // dd/MM/yyyy
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        binding = ActivityAdvancedFormRegisterBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-
-        // ViewModels
-        vm = new ViewModelProvider(this, new AdvancedFormViewModelFactory())
-                .get(AdvancedFormViewModel.class);
-        authVm = new ViewModelProvider(this, new AuthViewModelFactory())
-                .get(AuthViewModel.class);
-
-        // Autocomplete adapters
-        String[] comunidades = getResources().getStringArray(R.array.comunidades_autonomas_registro);
-        String[] sectores = getResources().getStringArray(R.array.sectores);
+        // Autocomplete adapters (arrays del resources)
+        val comunidades = resources.getStringArray(R.array.comunidades_autonomas_registro)
+        val sectores = resources.getStringArray(R.array.sectores)
 
         binding.autoCompleteTextViewComunidadAutonoma.setAdapter(
-                new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, comunidades)
-        );
+            ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, comunidades)
+        )
         binding.autoCompleteTextViewSectores.setAdapter(
-                new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, sectores)
-        );
+            ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, sectores)
+        )
 
         // Fecha
-        binding.btnFecha.setOnClickListener(v -> mostrarDatePicker());
+        binding.btnFecha.setOnClickListener { mostrarDatePicker() }
 
         // Enviar
-        binding.btnEnviar.setOnClickListener(v -> registrarNuevoUsuario());
+        binding.btnEnviar.setOnClickListener { registrarNuevoUsuario() }
 
         // Observa envío
-        vm.submit.observe(this, state -> {
-            if (state instanceof UiState.Loading) {
-                binding.btnEnviar.setEnabled(false);
-            } else if (state instanceof UiState.Success) {
-                binding.btnEnviar.setEnabled(true);
-                Drawable ok = getDrawable(R.drawable.ic_check_circle);
-                showCustomToast("Datos registrados correctamente", ok);
-                startActivity(new Intent(AdvancedFormRegister.this, LoginActivity.class));
-                finish();
-            } else if (state instanceof UiState.Error) {
-                binding.btnEnviar.setEnabled(true);
-                Drawable err = getDrawable(R.drawable.ic_error_outline);
-                String msg = ((UiState.Error<?>) state).message;
-                showCustomToast(msg != null ? msg : "Error en el registro", err);
+        vm.submit.observe(this) { state ->
+            when (state) {
+                is UiState.Loading -> binding.btnEnviar.isEnabled = false
+                is UiState.Success -> {
+                    binding.btnEnviar.isEnabled = true
+                    val ok: Drawable? = getDrawable(R.drawable.ic_check_circle)
+                    showCustomToast("Datos registrados correctamente", ok)
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    finish()
+                }
+                is UiState.Error -> {
+                    binding.btnEnviar.isEnabled = true
+                    val err: Drawable? = getDrawable(R.drawable.ic_error_outline)
+                    showCustomToast(state.message ?: "Error en el registro", err)
+                }
+                else -> Unit
             }
-        });
+        }
     }
 
-    private void mostrarDatePicker() {
-        Calendar calendar = Calendar.getInstance();
-        int dia = calendar.get(Calendar.DAY_OF_MONTH);
-        int mes = calendar.get(Calendar.MONTH);
-        int ano = calendar.get(Calendar.YEAR);
+    private fun mostrarDatePicker() {
+        val calendar = Calendar.getInstance()
+        val dia = calendar.get(Calendar.DAY_OF_MONTH)
+        val mes = calendar.get(Calendar.MONTH)
+        val ano = calendar.get(Calendar.YEAR)
 
-        DatePickerDialog dp = new DatePickerDialog(
-                AdvancedFormRegister.this,
-                (DatePicker view, int year, int month, int dayOfMonth) -> {
-                    Calendar seleccionada = Calendar.getInstance();
-                    seleccionada.set(year, month, dayOfMonth);
-                    if (seleccionada.after(Calendar.getInstance())) {
-                        Drawable err = getDrawable(R.drawable.ic_error_outline);
-                        showCustomToast("La fecha no puede ser futura!", err);
-                    } else {
-                        fechaNacimiento = dayOfMonth + "/" + (month + 1) + "/" + year;
-                        binding.btnFecha.setText(fechaNacimiento);
-                    }
-                },
-                ano, mes, dia
-        );
-        dp.show();
+        val dp = DatePickerDialog(
+            this,
+            { _, year, month, dayOfMonth ->
+                val seleccionada = Calendar.getInstance().apply { set(year, month, dayOfMonth) }
+                if (seleccionada.after(Calendar.getInstance())) {
+                    val err: Drawable? = getDrawable(R.drawable.ic_error_outline)
+                    showCustomToast("La fecha no puede ser futura!", err)
+                } else {
+                    // dd/MM/yyyy
+                    fechaNacimiento = "$dayOfMonth/${month + 1}/$year"
+                    binding.btnFecha.text = fechaNacimiento
+                }
+            },
+            ano, mes, dia
+        )
+        dp.show()
     }
 
-    private void registrarNuevoUsuario() {
+    private fun registrarNuevoUsuario() {
         // Validaciones de UI
-        if (fechaNacimiento == null || fechaNacimiento.isEmpty()) {
-            Drawable err = getDrawable(R.drawable.ic_error_outline);
-            showCustomToast("¡Debe seleccionar una fecha de nacimiento!", err);
-            return;
+        val fecha = fechaNacimiento
+        if (fecha.isNullOrEmpty()) {
+            val err: Drawable? = getDrawable(R.drawable.ic_error_outline)
+            showCustomToast("¡Debe seleccionar una fecha de nacimiento!", err)
+            return
         }
 
-        String nombre   = binding.nombreEditText.getText().toString().trim();
-        String ape1     = binding.apellidoEditText.getText().toString().trim();
-        String ape2     = binding.apellido2EditText.getText().toString().trim();
-        String comunidad= binding.autoCompleteTextViewComunidadAutonoma.getText().toString().trim();
-        String sector   = binding.autoCompleteTextViewSectores.getText().toString().trim();
+        val nombre = binding.nombreEditText.text.toString().trim()
+        val ape1 = binding.apellidoEditText.text.toString().trim()
+        val ape2 = binding.apellido2EditText.text.toString().trim()
+        val comunidad = binding.autoCompleteTextViewComunidadAutonoma.text.toString().trim()
+        val sector = binding.autoCompleteTextViewSectores.text.toString().trim()
 
         if (nombre.isEmpty() || ape1.isEmpty() || ape2.isEmpty() ||
-                comunidad.isEmpty() || sector.isEmpty()) {
-            Drawable err = getDrawable(R.drawable.ic_error_outline);
-            showCustomToast("Debe introducir todos los campos!", err);
-            return;
+            comunidad.isEmpty() || sector.isEmpty()
+        ) {
+            val err: Drawable? = getDrawable(R.drawable.ic_error_outline)
+            showCustomToast("Debe introducir todos los campos!", err)
+            return
         }
 
-        // Validación fecha (no futura)
+        // Validación fecha no futura (simple)
         try {
-            String[] partes = fechaNacimiento.split("/");
-            int dia = Integer.parseInt(partes[0]);
-            int mes = Integer.parseInt(partes[1]) - 1;
-            int ano = Integer.parseInt(partes[2]);
+            val partes = fecha.split("/")
+            val dia = partes[0].toInt()
+            val mes = partes[1].toInt() - 1
+            val ano = partes[2].toInt()
 
-            Calendar sel = Calendar.getInstance();
-            sel.set(ano, mes, dia);
+            val sel = Calendar.getInstance().apply { set(ano, mes, dia) }
             if (sel.after(Calendar.getInstance())) {
-                Drawable err = getDrawable(R.drawable.ic_error_outline);
-                showCustomToast("¡La fecha de nacimiento no puede ser futura!", err);
-                return;
+                val err: Drawable? = getDrawable(R.drawable.ic_error_outline)
+                showCustomToast("¡La fecha de nacimiento no puede ser futura!", err)
+                return
             }
-        } catch (Exception e) {
-            Drawable err = getDrawable(R.drawable.ic_error_outline);
-            showCustomToast("¡Error al procesar la fecha de nacimiento!", err);
-            return;
+        } catch (_: Exception) {
+            val err: Drawable? = getDrawable(R.drawable.ic_error_outline)
+            showCustomToast("¡Error al procesar la fecha de nacimiento!", err)
+            return
         }
 
-        String uid = authVm.uidOrNull();
+        val uid = authVm.uidOrNull()
         if (uid == null) {
-            Drawable err = getDrawable(R.drawable.ic_error_outline);
-            showCustomToast("¡Usuario no autenticado!", err);
-            return;
+            val err: Drawable? = getDrawable(R.drawable.ic_error_outline)
+            showCustomToast("¡Usuario no autenticado!", err)
+            return
         }
 
-        String comunidadId = String.valueOf(obtenerIdComunidadAutonoma(comunidad));
-        String sectorId    = String.valueOf(com.example.lagvis_v1.core.util.LagVisConstantes.getSectorId(sector));
+        // ⚠️ Convertimos NOMBRE -> ID usando tus constantes que devuelven String
+        val comunidadId: String = LagVisConstantesKt.getComunidadIdStr(comunidad)
+        val sectorId: String = LagVisConstantesKt.getSectorIdStr(sector)
+
+        if (comunidadId == "-1" || sectorId == "-1") {
+            val err: Drawable? = getDrawable(R.drawable.ic_error_outline)
+            showCustomToast("Comunidad o sector no válidos", err)
+            return
+        }
 
         // Enviar por VM (MVVM)
-        vm.send(uid, nombre, ape1, ape2, comunidadId, sectorId, fechaNacimiento);
-    }
-
-    // Helpers (puedes moverlos a util si quieres)
-    public int obtenerIdComunidadAutonoma(@NonNull String comunidadAutonoma) {
-        switch (comunidadAutonoma) {
-            case "Andalucía": return 1;
-            case "Aragón": return 2;
-            case "Asturias": return 3;
-            case "Cantabria": return 4;
-            case "Castilla-La Mancha": return 5;
-            case "Castilla y León": return 6;
-            case "Cataluña": return 7;
-            case "Comunidad Valenciana": return 8;
-            case "Extremadura": return 9;
-            case "Galicia": return 10;
-            case "Illes Balears": return 11;
-            case "Canarias": return 12;
-            case "La Rioja": return 13;
-            case "Comunidad de Madrid": return 14;
-            case "Región de Murcia": return 15;
-            case "Navarra": return 16;
-            case "País Vasco": return 17;
-            default: return -1;
-        }
+        vm.send(uid, nombre, ape1, ape2, comunidadId, sectorId, fecha)
     }
 }

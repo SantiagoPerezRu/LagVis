@@ -1,20 +1,21 @@
-// com/example/lagvis_v1/ui/auth/AdvancedFormViewModelFactory.java
-package com.example.lagvis_v1.ui.auth;
+// ui/auth/AdvancedFormViewModelFactory.kt
+package com.example.lagvis_v1.ui.auth
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.lagvis_v1.core.network.RetroFitProviderKt
+import com.example.lagvis_v1.data.remote.AdvancedRegisterApiKt
+import com.example.lagvis_v1.data.repository.AdvancedRegisterRepositoryImplKt
+import com.example.lagvis_v1.dominio.repositorio.AdvancedRegisterRepositoryKt
 
-import com.example.lagvis_v1.core.network.RetroFitProvider;
-import com.example.lagvis_v1.data.remote.ProfileApi;
-import com.example.lagvis_v1.data.repository.ProfileRepositoryImpl;
-import com.example.lagvis_v1.dominio.repositorio.ProfileRepository;
-
-public class AdvancedFormViewModelFactory implements ViewModelProvider.Factory {
-    @NonNull @Override @SuppressWarnings("unchecked")
-    public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        ProfileApi api = RetroFitProvider.provideProfileApi();
-        ProfileRepository repo = new ProfileRepositoryImpl(api);
-        return (T) new AdvancedFormViewModel(repo);
+class AdvancedFormViewModelFactory : ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(AdvancedFormViewModel::class.java)) {
+            val api: AdvancedRegisterApiKt = RetroFitProviderKt.provideAdvancedRegisterApi()
+            val repo: AdvancedRegisterRepositoryKt = AdvancedRegisterRepositoryImplKt(api)
+            return AdvancedFormViewModel(repo) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }
 }

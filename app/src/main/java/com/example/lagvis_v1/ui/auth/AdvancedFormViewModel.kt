@@ -1,41 +1,40 @@
-// com/example/lagvis_v1/ui/auth/AdvancedFormViewModel.java
-package com.example.lagvis_v1.ui.auth;
+// ui/auth/AdvancedFormViewModel.kt
+package com.example.lagvis_v1.ui.auth
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.lagvis_v1.core.ui.UiState
+import com.example.lagvis_v1.core.ui.UiState.*
+import com.example.lagvis_v1.dominio.repositorio.AdvancedRegisterRepositoryKt
+import com.example.lagvis_v1.dominio.repositorio.ProfileRepository
+import kotlinx.coroutines.launch
+import com.example.lagvis_v1.dominio.model.Result
 
-import com.example.lagvis_v1.core.ui.UiState;
-import com.example.lagvis_v1.dominio.repositorio.ProfileRepository;
+class AdvancedFormViewModel(
+    private val repo: AdvancedRegisterRepositoryKt
+) : ViewModel() {
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+    private val _submit = MutableLiveData<UiState<Unit>>()
+    val submit: LiveData<UiState<Unit>> = _submit
 
-public class AdvancedFormViewModel extends ViewModel {
+    fun send(
+        uid: String,
+        nombre: String,
+        apellido1: String,
+        apellido2: String,
+        comunidadId: String,   // IDs como String (como acordaste)
+        sectorId: String,
+        fechaNacimiento: String
+    ) {
+        _submit.value = UiState.Loading()
+        viewModelScope.launch {
+            when (val r = repo.insert(uid, nombre, apellido1, apellido2, comunidadId, sectorId, fechaNacimiento)) {
+                is Result.Success<*> -> _submit.value = Success(Unit)
+                is Result.Error   -> _submit.value = Error(r.message)
 
-    private final ProfileRepository repo;
-    private final ExecutorService io = Executors.newSingleThreadExecutor();
-
-    public AdvancedFormViewModel(ProfileRepository repo) {
-        this.repo = repo;
-    }
-
-    private final MutableLiveData<UiState<Void>> _submit = new MutableLiveData<>();
-    public LiveData<UiState<Void>> submit = _submit;
-
-    public void send(String uid,
-                     String nombre,
-                     String apellido1,
-                     String apellido2,
-                     String comunidadId,
-                     String sectorId,
-                     String fechaNacimiento) {
-
-        _submit.postValue(new UiState.Loading<>());
-        io.execute(() -> {
-            ProfileRepository.Result<Void> r = repo.insert(uid, nombre, apellido1, apellido2, comunidadId, sectorId, fechaNacimiento);
-            if (r.isSuccess()) _submit.postValue(new UiState.Success<>(null));
-            else _submit.postValue(new UiState.Error<>(r.error));
-        });
+            }
+        }
     }
 }

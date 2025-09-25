@@ -1,6 +1,7 @@
 package com.example.lagvis_v1.core.network
 
 import com.example.lagvis_v1.BuildConfig
+import com.example.lagvis_v1.data.remote.AdvancedRegisterApiKt
 import com.example.lagvis_v1.data.remote.HolidaysApiKt
 import com.example.lagvis_v1.data.remote.NewsApiKt
 import com.example.lagvis_v1.data.remote.ProfileApi
@@ -24,6 +25,9 @@ object RetroFitProviderKt {
 
     fun holidaysApi(): HolidaysApiKt =
         retrofit(BuildConfig.HOLIDAYS_BASE_URL).create(HolidaysApiKt::class.java)
+
+    fun provideAdvancedRegisterApi(): AdvancedRegisterApiKt =
+        retrofit(BuildConfig.BACKEND_BASE_URL).create(AdvancedRegisterApiKt::class.java)
 
     val profileApi: ProfileApi by lazy {
         retrofit(BuildConfig.BACKEND_BASE_URL).create(ProfileApi::class.java)

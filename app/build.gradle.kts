@@ -83,6 +83,10 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.4.0")
     implementation("androidx.cardview:cardview:1.0.0")
 
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.4") // viewModel()
+    implementation("androidx.compose.runtime:runtime-livedata")
+    implementation("androidx.compose.material:material-icons-extended")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.9.4")
     // Calendario con decoradores
     implementation("com.kizitonwose.calendar:view:2.8.0")
     implementation(libs.core.ktx)
@@ -93,6 +97,7 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
+    implementation(libs.ui.unit)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
