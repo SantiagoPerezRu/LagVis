@@ -17,17 +17,22 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".uicompose.AdvancedFormRegisterCompose"
+            android:name=".ui.auth.RecoverPasswordCompose"
+            android:exported="false"
+            android:label="@string/title_activity_recover_password_compose"
+            android:theme="@style/Theme.LagVis_V1" />
+        <activity
+            android:name=".ui.auth.AdvancedFormRegisterCompose"
             android:exported="false"
             android:label="@string/title_activity_advanced_form_register"
             android:theme="@style/Theme.LagVis_V1" />
         <activity
-            android:name=".uicompose.RegisterOnCompose"
+            android:name=".ui.auth.RegisterOnCompose"
             android:exported="false"
             android:label="@string/title_activity_register_on_compose"
             android:theme="@style/Theme.LagVis_V1" />
         <activity
-            android:name=".uicompose.LoginOnCompose"
+            android:name=".ui.auth.LoginOnCompose"
             android:exported="true"
             android:label="@string/title_activity_login_on_compose"
             android:theme="@style/Theme.LagVis_V1">
@@ -59,15 +64,6 @@
             android:exported="false" />
         <activity
             android:name=".ui.auth.AdvancedFormRegister"
-            android:exported="false" />
-        <activity
-            android:name=".ui.auth.RecoverPassword"
-            android:exported="false" />
-        <activity
-            android:name=".ui.auth.LoginActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.auth.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".ui.main.MainActivity"

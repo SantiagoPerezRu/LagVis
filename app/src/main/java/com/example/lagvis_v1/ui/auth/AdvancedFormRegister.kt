@@ -24,7 +24,7 @@ class AdvancedFormRegister : BaseActivity() {
 
     // ViewModels (usando delegados)
     private val vm: AdvancedFormViewModel by viewModels { AdvancedFormViewModelFactory() }
-    private val authVm: AuthViewModel by viewModels { AuthViewModelFactory() }
+    private val authVm: AuthViewModelKt by viewModels { AuthViewModelFactoryKt() }
 
     private var fechaNacimiento: String? = null // dd/MM/yyyy
 
@@ -66,7 +66,7 @@ class AdvancedFormRegister : BaseActivity() {
                     binding.btnEnviar.isEnabled = true
                     val ok: Drawable? = getDrawable(R.drawable.ic_check_circle)
                     showCustomToast("Datos registrados correctamente", ok)
-                    startActivity(Intent(this, LoginActivity::class.java))
+                    startActivity(Intent(this, LoginOnCompose::class.java))
                     finish()
                 }
                 is UiState.Error -> {

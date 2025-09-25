@@ -10,8 +10,8 @@ import com.example.lagvis_v1.R;
 import com.example.lagvis_v1.core.ui.UiState;
 import com.example.lagvis_v1.core.util.BaseActivity;
 import com.example.lagvis_v1.databinding.ActivityConvenioBinding;
-import com.example.lagvis_v1.ui.auth.AuthViewModel;
-import com.example.lagvis_v1.ui.auth.AuthViewModelFactory;
+import com.example.lagvis_v1.ui.auth.AuthViewModelFactoryKt;
+import com.example.lagvis_v1.ui.auth.AuthViewModelKt;
 
 import org.xmlpull.v1.XmlPullParser;
 
@@ -22,7 +22,7 @@ public class ConvenioVisualizer extends BaseActivity {
     private ActivityConvenioBinding binding;
 
     private ConvenioViewModel vm;
-    private AuthViewModel authVm;
+    private AuthViewModelKt authVm;
 
     private int convenioIdActual = -1;
     private String usuarioIdActual; // uid
@@ -36,8 +36,8 @@ public class ConvenioVisualizer extends BaseActivity {
         // VMs
         vm = new ViewModelProvider(this, new ConvenioViewModelFactory())
                 .get(ConvenioViewModel.class);
-        authVm = new ViewModelProvider(this, new AuthViewModelFactory())
-                .get(AuthViewModel.class);
+        authVm = new ViewModelProvider(this, new AuthViewModelFactoryKt())
+                .get(AuthViewModelKt.class);
 
         convenioIdActual = getIntent().getIntExtra("sectorId", -1);
         usuarioIdActual = authVm.uidOrNull();

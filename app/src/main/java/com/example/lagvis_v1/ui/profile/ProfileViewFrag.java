@@ -14,8 +14,8 @@ import com.example.lagvis_v1.core.ui.UiState;
 import com.example.lagvis_v1.core.util.BaseFragment;
 import com.example.lagvis_v1.databinding.FragmentFourBinding;
 import com.example.lagvis_v1.dominio.model.UserProfile;
-import com.example.lagvis_v1.ui.auth.AuthViewModel;
-import com.example.lagvis_v1.ui.auth.AuthViewModelFactory;
+import com.example.lagvis_v1.ui.auth.AuthViewModelFactoryKt;
+import com.example.lagvis_v1.ui.auth.AuthViewModelKt;
 
 public class ProfileViewFrag extends BaseFragment { // extiende tu BaseFragment para usar toasts comunes
 
@@ -28,7 +28,7 @@ public class ProfileViewFrag extends BaseFragment { // extiende tu BaseFragment 
     private FragmentFourBinding binding;
 
     private ProfileViewModel vm;
-    private AuthViewModel authVm;
+    private AuthViewModelKt authVm;
 
     public ProfileViewFrag() {}
 
@@ -59,7 +59,7 @@ public class ProfileViewFrag extends BaseFragment { // extiende tu BaseFragment 
 
         // VMs
         vm = new ViewModelProvider(this, new ProfileViewModelFactory()).get(ProfileViewModel.class);
-        authVm = new ViewModelProvider(this, new AuthViewModelFactory()).get(AuthViewModel.class);
+        authVm = new ViewModelProvider(this, new AuthViewModelFactoryKt()).get(AuthViewModelKt.class);
 
         // Observa estado de perfil
         vm.state.observe(getViewLifecycleOwner(), state -> {
