@@ -12,7 +12,12 @@
           "package_name": "com.example.lagvis_v1"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "235946334870-dlbj8vc2udtlcu4tlhntg5347qk7bee0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyC5nTyZ0ywl24-aWYiHfdVHjG2tESaiRk0"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235946334870-dlbj8vc2udtlcu4tlhntg5347qk7bee0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

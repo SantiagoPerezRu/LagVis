@@ -1,4 +1,3 @@
-// uicompose/AdvancedFormRegisterCompose.kt
 package com.example.lagvis_v1.ui.auth
 
 import android.content.Intent
@@ -28,6 +27,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -35,13 +35,18 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.lagvis_v1.LagVisApp
 import com.example.lagvis_v1.R
 import com.example.lagvis_v1.core.ui.UiState
-import com.example.lagvis_v1.core.util.LagVisConstantesKt
 import com.example.lagvis_v1.ui.auth.uicompose.systemcomponents.AppButton
 import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.AppFont
 import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.LagVis_V1Theme
+import com.example.lagvis_v1.ui.common.LookupViewModel
+import com.example.lagvis_v1.ui.common.UiItem
 import com.example.lagvis_v1.ui.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import java.time.Instant
@@ -56,8 +61,10 @@ class AdvancedFormRegisterCompose : ComponentActivity() {
 
         setContent {
             LagVis_V1Theme {
+                // Tu VM existente para enviar el formulario
                 val vm: AdvancedFormViewModel = viewModel(factory = AdvancedFormViewModelFactory())
                 val state by vm.submit.observeAsState()
+
                 val userUid = remember { FirebaseAuth.getInstance().currentUser?.uid.orEmpty() }
 
                 LaunchedEffect(state) {
@@ -82,8 +89,8 @@ class AdvancedFormRegisterCompose : ComponentActivity() {
                             data.nombre,
                             data.apellido,
                             data.apellido2,
-                            data.comunidad,     // ya viene como ID String
-                            data.sector,        // ya viene como ID String
+                            data.comunidad,     // ID real
+                            data.sector,        // ID real
                             data.fechaNacimiento
                         )
                     }
@@ -104,6 +111,15 @@ data class AdvancedRegisterData(
     val sector: String,          // ID en String
     val fechaNacimiento: String  // "dd/MM/yyyy"
 )
+
+// Factory mínimo para LookupViewModel usando el repo desde Application
+class LookupViewModelFactory(private val app: LagVisApp) : ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        // LookupViewModel(repo = app.lookupRepo) — asume que ya lo tienes definido
+        return LookupViewModel(app.lookupRepo) as T
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -136,11 +152,19 @@ fun AdvancedFormRegisterScreen(
     var nombre by rememberSaveable { mutableStateOf("") }
     var apellido by rememberSaveable { mutableStateOf("") }
     var apellido2 by rememberSaveable { mutableStateOf("") }
-    var comunidadUi by rememberSaveable { mutableStateOf("") } // nombre mostrado
-    var sectorUi by rememberSaveable { mutableStateOf("") }    // nombre mostrado
 
-    val comunidades = remember { LagVisConstantesKt.comunidadesUi } // usa tus listas
-    val sectores = remember { LagVisConstantesKt.sectoresUi }
+    // Selección visible (texto) + IDs reales
+    var comunidadUi by rememberSaveable { mutableStateOf("") }         // nombre mostrado
+    var selectedComunidadId by rememberSaveable { mutableStateOf("") } // id real
+
+    var sectorUi by rememberSaveable { mutableStateOf("") }            // nombre mostrado
+    var selectedSectorId by rememberSaveable { mutableStateOf("") }    // id real
+
+    // Lookup ViewModel (listas dinámicas desde Room/Retrofit)
+    val app = LocalContext.current.applicationContext as LagVisApp
+    val lookupVm: LookupViewModel = viewModel(factory = LookupViewModelFactory(app))
+    val comunidades: List<UiItem> by lookupVm.comunidades.collectAsStateWithLifecycle(initialValue = emptyList())
+        val sectores: List<UiItem> by lookupVm.sectores.collectAsStateWithLifecycle(initialValue = emptyList())
 
     // Fecha
     val dateState = rememberDatePickerState()
@@ -151,11 +175,11 @@ fun AdvancedFormRegisterScreen(
     val dateFormatter = remember { DateTimeFormatter.ofPattern("dd/MM/yyyy") }
     val fechaStr = fechaSeleccionada?.format(dateFormatter) ?: ""
 
-    // Validaciones mínimas
+    // Validaciones mínimas (usa IDs reales)
     val nombreOk = nombre.trim().length >= 2
     val apellidoOk = apellido.trim().length >= 2
-    val comunidadOk = comunidadUi.isNotBlank()
-    val sectorOk = sectorUi.isNotBlank()
+    val comunidadOk = selectedComunidadId.isNotBlank()
+    val sectorOk = selectedSectorId.isNotBlank()
     val fechaOk = fechaSeleccionada != null
     val formOk = nombreOk && apellidoOk && comunidadOk && sectorOk && fechaOk && userUid.isNotBlank()
 
@@ -171,7 +195,7 @@ fun AdvancedFormRegisterScreen(
             .fillMaxSize()
             .background(gradient)
     ) {
-        // HEADER (no se solapa)
+        // HEADER
         Box(
             Modifier
                 .fillMaxWidth()
@@ -197,7 +221,7 @@ fun AdvancedFormRegisterScreen(
             }
         }
 
-        // CONTENIDO (debajo del header)
+        // CONTENIDO
         Box(
             Modifier
                 .fillMaxSize()
@@ -264,12 +288,15 @@ fun AdvancedFormRegisterScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
 
-                    // Comunidad (dropdown)
+                    /* ---------------- Comunidad (dropdown) ---------------- */
                     var expandedCA by remember { mutableStateOf(false) }
-                    ExposedDropdownMenuBox(expanded = expandedCA, onExpandedChange = { expandedCA = it }) {
+                    ExposedDropdownMenuBox(
+                        expanded = expandedCA,
+                        onExpandedChange = { expandedCA = it }
+                    ) {
                         OutlinedTextField(
                             value = comunidadUi,
-                            onValueChange = { comunidadUi = it },
+                            onValueChange = { /* readOnly */ },
                             readOnly = true,
                             label = { Text("Comunidad Autónoma", fontFamily = AppFont, fontWeight = FontWeight.SemiBold) },
                             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedCA) },
@@ -277,14 +304,19 @@ fun AdvancedFormRegisterScreen(
                             supportingText = { if (!comunidadOk && comunidadUi.isNotEmpty()) Text("Selecciona una opción") },
                             modifier = Modifier
                                 .menuAnchor()
-                                .fillMaxWidth()
+                                .fillMaxWidth(),
+                            enabled = comunidades.isNotEmpty()
                         )
-                        ExposedDropdownMenu(expanded = expandedCA, onDismissRequest = { expandedCA = false }) {
+                        ExposedDropdownMenu(
+                            expanded = expandedCA,
+                            onDismissRequest = { expandedCA = false }
+                        ) {
                             comunidades.forEach { item ->
                                 DropdownMenuItem(
-                                    text = { Text(item) },
+                                    text = { Text(item.nombre) },
                                     onClick = {
-                                        comunidadUi = item
+                                        comunidadUi = item.nombre
+                                        selectedComunidadId = item.id
                                         expandedCA = false
                                     }
                                 )
@@ -292,12 +324,15 @@ fun AdvancedFormRegisterScreen(
                         }
                     }
 
-                    // Sector (dropdown)
+                    /* ---------------- Sector (dropdown) ---------------- */
                     var expandedSector by remember { mutableStateOf(false) }
-                    ExposedDropdownMenuBox(expanded = expandedSector, onExpandedChange = { expandedSector = it }) {
+                    ExposedDropdownMenuBox(
+                        expanded = expandedSector,
+                        onExpandedChange = { expandedSector = it }
+                    ) {
                         OutlinedTextField(
                             value = sectorUi,
-                            onValueChange = { sectorUi = it },
+                            onValueChange = { /* readOnly */ },
                             readOnly = true,
                             label = { Text("Sector laboral", fontFamily = AppFont, fontWeight = FontWeight.SemiBold) },
                             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedSector) },
@@ -305,14 +340,19 @@ fun AdvancedFormRegisterScreen(
                             supportingText = { if (!sectorOk && sectorUi.isNotEmpty()) Text("Selecciona una opción") },
                             modifier = Modifier
                                 .menuAnchor()
-                                .fillMaxWidth()
+                                .fillMaxWidth(),
+                            enabled = sectores.isNotEmpty()
                         )
-                        ExposedDropdownMenu(expanded = expandedSector, onDismissRequest = { expandedSector = false }) {
+                        ExposedDropdownMenu(
+                            expanded = expandedSector,
+                            onDismissRequest = { expandedSector = false }
+                        ) {
                             sectores.forEach { item ->
                                 DropdownMenuItem(
-                                    text = { Text(item) },
+                                    text = { Text(item.nombre) },
                                     onClick = {
-                                        sectorUi = item
+                                        sectorUi = item.nombre
+                                        selectedSectorId = item.id
                                         expandedSector = false
                                     }
                                 )
@@ -348,25 +388,19 @@ fun AdvancedFormRegisterScreen(
                         ) { DatePicker(state = dateState) }
                     }
 
-                    // Botón Siguiente
+                    // Botón Siguiente (usa IDs reales)
                     AppButton(
                         text = "Siguiente",
                         enabled = formOk,
                         onClick = {
-                            val comunidadIdStr = LagVisConstantesKt.getComunidadIdStr(comunidadUi)
-                            val sectorIdStr = LagVisConstantesKt.getSectorIdStr(sectorUi)
-                            if (comunidadIdStr == "-1" || sectorIdStr == "-1") {
-
-                                return@AppButton
-                            }
                             onNext(
                                 AdvancedRegisterData(
                                     uid = userUid,
                                     nombre = nombre.trim(),
                                     apellido = apellido.trim(),
                                     apellido2 = apellido2.trim(),
-                                    comunidad = comunidadIdStr,
-                                    sector = sectorIdStr,
+                                    comunidad = selectedComunidadId, // << ID real
+                                    sector = selectedSectorId,       // << ID real
                                     fechaNacimiento = fechaStr
                                 )
                             )
@@ -413,5 +447,7 @@ fun HeaderWave(modifier: Modifier = Modifier, height: Dp = 220.dp) {
 @Preview(showBackground = true)
 @Composable
 private fun AdvancedFormRegisterPreviewLight() {
-    LagVis_V1Theme { AdvancedFormRegisterScreen(userUid = "demo-uid") }
+    LagVis_V1Theme {
+        AdvancedFormRegisterScreen(userUid = "demo-uid")
+    }
 }

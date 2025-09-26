@@ -1,4 +1,4 @@
-package com.example.lagvis_v1.ui.compose.ui.theme
+package com.example.lagvis_v1.ui.profile.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

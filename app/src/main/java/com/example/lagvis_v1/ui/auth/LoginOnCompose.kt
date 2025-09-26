@@ -1,14 +1,17 @@
-// LoginOnCompose.kt
+// file: app/src/main/java/com/example/lagvis_v1/ui/auth/LoginOnCompose.kt
 package com.example.lagvis_v1.ui.auth
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,6 +29,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -38,6 +42,15 @@ import com.example.lagvis_v1.ui.auth.uicompose.systemcomponents.AppButton
 import com.example.lagvis_v1.ui.auth.uicompose.systemcomponents.PasswordField
 import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.LagVis_V1Theme
 import com.example.lagvis_v1.ui.main.MainActivity
+import com.google.android.gms.tasks.Task
+import com.google.android.libraries.identity.googleid.GetGoogleIdOption
+import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
 class LoginOnCompose : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +65,7 @@ class LoginOnCompose : ComponentActivity() {
 
         setContent {
             LagVis_V1Theme {
-                // ViewModel con tu factory (MISMA LÓGICA)
+                // Tu ViewModel clásico (email/contraseña)
                 val vm: AuthViewModelKt = viewModel(factory = AuthViewModelFactoryKt())
                 val loginState by vm.login.observeAsState(null)
 
@@ -60,7 +73,7 @@ class LoginOnCompose : ComponentActivity() {
                 var pendingPass by remember { mutableStateOf("") }
                 var pendingRemember by remember { mutableStateOf(false) }
 
-                // Persistencia + navegación tras éxito (MISMA LÓGICA)
+                // Persistencia + navegación tras éxito (email/contraseña)
                 LaunchedEffect(loginState) {
                     if (loginState is UiState.Success<*>) {
                         if (pendingRemember) {
@@ -77,7 +90,6 @@ class LoginOnCompose : ComponentActivity() {
                     }
                 }
 
-                // 🎨 Colores del tema
                 val cs = MaterialTheme.colorScheme
 
                 Scaffold(
@@ -101,12 +113,12 @@ class LoginOnCompose : ComponentActivity() {
                             startActivity(Intent(this@LoginOnCompose, RecoverPasswordCompose::class.java))
                         },
                         onSignUpClick = {
-                            startActivity(
-                                Intent(
-                                    this@LoginOnCompose,
-                                    RegisterOnCompose::class.java
-                                )
-                            )
+                            startActivity(Intent(this@LoginOnCompose, RegisterOnCompose::class.java))
+                        },
+                        // 🔥 nuevo: éxito Google -> navegar a Main
+                        onGoogleSuccess = {
+                            startActivity(Intent(this@LoginOnCompose, MainActivity::class.java))
+                            finish()
                         }
                     )
                 }
@@ -127,31 +139,37 @@ private fun LoginContent(
     initialRemember: Boolean = false,
     onLoginClick: (email: String, pass: String, remember: Boolean) -> Unit = { _, _, _ -> },
     onForgotClick: () -> Unit = {},
-    onSignUpClick: () -> Unit = {}
+    onSignUpClick: () -> Unit = {},
+    onGoogleSuccess: () -> Unit = {}
 ) {
-    // Animación de entrada (sin tocar lógica)
+    // Animación de entrada
     var started by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) { started = true }
 
     val cardScale by animateFloatAsState(
         targetValue = if (started) 1f else 0.98f,
-        animationSpec = tween(700, easing = FastOutSlowInEasing), label = "scale"
+        animationSpec = tween(700, easing = FastOutSlowInEasing),
+        label = "scale"
     )
     val cardAlpha by animateFloatAsState(
         targetValue = if (started) 1f else 0f,
-        animationSpec = tween(600, easing = FastOutSlowInEasing), label = "alpha"
+        animationSpec = tween(600, easing = FastOutSlowInEasing),
+        label = "alpha"
     )
     val cardTranslateY by animateFloatAsState(
         targetValue = if (started) 0f else 20f,
-        animationSpec = tween(700, easing = FastOutSlowInEasing), label = "translateY"
+        animationSpec = tween(700, easing = FastOutSlowInEasing),
+        label = "translateY"
     )
 
-    // Estado de campos (igual que tenías)
+    // Estado de campos
     var email by rememberSaveable { mutableStateOf(initialEmail) }
     var pass by rememberSaveable { mutableStateOf(initialPass) }
     var remember by rememberSaveable { mutableStateOf(initialRemember) }
 
-    // 🎨 Fondo degradado usando tu paleta M3
+    // Loading solo para Google (independiente de email/contraseña)
+    var loadingGoogle by remember { mutableStateOf(false) }
+
     val cs = MaterialTheme.colorScheme
     val gradient = Brush.verticalGradient(
         listOf(
@@ -187,7 +205,6 @@ private fun LoginContent(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(18.dp)
             ) {
-                // Logo (sin teñir para respetar colores del asset)
                 Icon(
                     painter = painterResource(R.mipmap.ic_launcher_foreground),
                     contentDescription = "Logo",
@@ -197,18 +214,9 @@ private fun LoginContent(
                         .padding(top = 8.dp)
                 )
 
-                Text(
-                    "Bienvenido",
-                    style = MaterialTheme.typography.headlineSmall,
-                    color = cs.onSurface
-                )
-                Text(
-                    "Inicia sesión para continuar",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = cs.onSurfaceVariant
-                )
+                Text("Bienvenido", style = MaterialTheme.typography.headlineSmall, color = cs.onSurface)
+                Text("Inicia sesión para continuar", style = MaterialTheme.typography.bodyMedium, color = cs.onSurfaceVariant)
 
-                // OutlinedTextField ya usa la paleta del tema
                 OutlinedTextField(
                     value = email,
                     onValueChange = { email = it },
@@ -234,18 +242,13 @@ private fun LoginContent(
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                // Recordarme + ¿Olvidaste?
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Checkbox(
-                            checked = remember,
-                            onCheckedChange = { remember = it }
-                            // Colores por defecto ya usan cs.primary/secondary
-                        )
+                        Checkbox(checked = remember, onCheckedChange = { remember = it })
                         Spacer(Modifier.width(6.dp))
                         Text("Recordarme", style = MaterialTheme.typography.bodyMedium, color = cs.onSurface)
                     }
@@ -263,11 +266,37 @@ private fun LoginContent(
                     )
                 }
 
-                // Botón principal: toma primary/onPrimary del tema
                 AppButton(
                     text = if (loading) "Entrando…" else "Entrar",
                     enabled = !loading && email.isNotBlank() && pass.isNotBlank(),
                     onClick = { onLoginClick(email.trim(), pass.trim(), remember) },
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                // --- Divider visual ---
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 6.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Divider(Modifier.weight(1f))
+                    Text("  o  ", color = cs.onSurfaceVariant)
+                    Divider(Modifier.weight(1f))
+                }
+
+                // ---------- BOTÓN GOOGLE ----------
+                GoogleSignInButton(
+                    loading = loadingGoogle,
+                    onClick = { loadingGoogle = true },
+                    onResult = { success, message ->
+                        loadingGoogle = false
+                        if (success) {
+                            onGoogleSuccess()
+                        } else {
+                            Toast.makeText(this@LoginOnCompose, message, Toast.LENGTH_SHORT).show()
+                        }
+                    },
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -279,7 +308,103 @@ private fun LoginContent(
     }
 }
 
+/* ------------ Botón Google Compose ------------ */
+
+@Composable
+private fun GoogleSignInButton(
+    modifier: Modifier = Modifier,
+    loading: Boolean = false,
+    onClick: () -> Unit = {},
+    onResult: (success: Boolean, message: String?) -> Unit = { _, _ -> }
+) {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+
+    OutlinedButton(
+        onClick = {
+            if (loading) return@OutlinedButton
+            onClick()
+            scope.launch {
+                val res = signInWithGoogleAndFirebase(context)
+                res.onSuccess {
+                    onResult(true, null)
+                }.onFailure {
+                    onResult(false, it.message)
+                }
+            }
+        },
+        modifier = modifier
+            .height(48.dp),
+        colors = ButtonDefaults.outlinedButtonColors(
+            containerColor = Color.White,
+            contentColor = Color.Black
+        ),
+        border = BorderStroke(1.dp, Color(0xFFE0E0E0))
+    ) {
+        Row(
+            Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.baseline_settings_24),
+                contentDescription = "Google",
+                tint = Color.Unspecified,
+                modifier = Modifier.size(18.dp)
+            )
+            Spacer(Modifier.width(12.dp))
+            Text(
+                text = if (loading) "Conectando…" else "Continuar con Google",
+                modifier = Modifier.weight(1f)
+            )
+            Spacer(Modifier.width(18.dp)) // compensar icono y centrar el texto
+        }
+    }
+}
+
+/* ------------ Lógica de Google Sign-In (Credential Manager + Firebase) ------------ */
+
+private suspend fun signInWithGoogleAndFirebase(context: Context): Result<Unit> = runCatching {
+    // Construir la opción de Google con tu WEB CLIENT ID
+    val googleIdOption = GetGoogleIdOption.Builder()
+        .setServerClientId(context.getString(R.string.default_web_client_id))
+        .setFilterByAuthorizedAccounts(false) // muestra todas las cuentas
+        .setAutoSelectEnabled(false)
+        .build()
+
+    val request = androidx.credentials.GetCredentialRequest.Builder()
+        .addCredentialOption(googleIdOption)
+        .build()
+
+    val cm = androidx.credentials.CredentialManager.create(context)
+    val response = cm.getCredential(context, request)
+    val credential = response.credential
+
+    // Credential Manager devuelve un CustomCredential con un Bundle
+    require(
+        credential is androidx.credentials.CustomCredential &&
+                credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
+    ) { "Tipo de credential no soportado: ${credential::class.java.simpleName}" }
+
+    // ¡IMPORTANTE!: GoogleIdTokenCredential.createFrom espera el Bundle
+    val googleToken = GoogleIdTokenCredential.createFrom(credential.data)
+    val idToken = googleToken.idToken ?: error("idToken nulo")
+
+    val firebaseCred = GoogleAuthProvider.getCredential(idToken, null)
+    val authResult = FirebaseAuth.getInstance().signInWithCredential(firebaseCred).await()
+    requireNotNull(authResult.user) { "Usuario Firebase nulo" }
+}
+
+/* ------------ Task.await helper ------------ */
+
+private suspend fun <T> Task<T>.await(): T =
+    suspendCancellableCoroutine { cont ->
+        addOnSuccessListener { cont.resume(it) }
+        addOnFailureListener { cont.resumeWithException(it) }
+        addOnCanceledListener { cont.cancel() }
+    }
+
 /* ------------ Preview (solo vista) ------------ */
+
 @Preview(showBackground = true)
 @Composable
 private fun LoginPreview() {

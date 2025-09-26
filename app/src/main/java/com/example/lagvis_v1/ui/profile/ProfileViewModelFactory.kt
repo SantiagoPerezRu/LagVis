@@ -1,20 +1,17 @@
-// com/example/lagvis_v1/ui/profile/ProfileViewModelFactory.java
-package com.example.lagvis_v1.ui.profile;
+package com.example.lagvis_v1.ui.profile
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.lagvis_v1.core.network.RetroFitProviderKt
+import com.example.lagvis_v1.dominio.repositorio.ProfileRepositoryImplKt
+import com.example.lagvis_v1.dominio.repositorio.ProfileRepositoryKt
 
-import com.example.lagvis_v1.core.network.RetroFitProvider; // o RetroFitProvider, según tu nombre
-import com.example.lagvis_v1.data.remote.ProfileApi;
-import com.example.lagvis_v1.data.repository.ProfileRepositoryImpl;
-import com.example.lagvis_v1.dominio.repositorio.ProfileRepository;
+class ProfileViewModelFactory : ViewModelProvider.Factory {
 
-public class ProfileViewModelFactory implements ViewModelProvider.Factory {
-    @NonNull @Override @SuppressWarnings("unchecked")
-    public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        ProfileApi api = RetroFitProvider.provideProfileApi();
-        ProfileRepository repo = new ProfileRepositoryImpl(api);
-        return (T) new ProfileViewModel(repo);
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        val api = RetroFitProviderKt.profileApi
+        val repo: ProfileRepositoryKt = ProfileRepositoryImplKt(api)
+        return ProfileViewModel(repo) as T
     }
+
 }

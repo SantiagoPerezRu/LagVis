@@ -95,6 +95,7 @@
     <string name="title_activity_register_on_compose">RegisterOnCompose</string>
     <string name="title_activity_advanced_form_register">AdvancedFormRegister</string>
     <string name="title_activity_recover_password_compose">RecoverPasswordCompose</string>
+    <string name="title_activity_profile_on_compose">ProfileOnCompose</string>
 
 
 </resources>

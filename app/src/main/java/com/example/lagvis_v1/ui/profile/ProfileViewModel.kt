@@ -1,32 +1,48 @@
-// com/example/lagvis_v1/ui/profile/ProfileViewModel.java
-package com.example.lagvis_v1.ui.profile;
+package com.example.lagvis_v1.ui.profile
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.lagvis_v1.core.ui.UiState
+import com.example.lagvis_v1.dominio.model.Result
+import com.example.lagvis_v1.dominio.model.UserProfileKt
+import com.example.lagvis_v1.dominio.repositorio.ProfileRepositoryKt
+import kotlinx.coroutines.launch
 
-import com.example.lagvis_v1.core.ui.UiState;
-import com.example.lagvis_v1.dominio.model.UserProfile;
-import com.example.lagvis_v1.dominio.repositorio.ProfileRepository;
+class ProfileViewModel(
+    private val repo: ProfileRepositoryKt
+) : ViewModel() {
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+    private val _state = MutableLiveData<UiState<UserProfileKt>>(UiState.Loading())
+    val state: LiveData<UiState<UserProfileKt>> = _state
 
-public class ProfileViewModel extends ViewModel {
-    private final ProfileRepository repo;
-    private final ExecutorService io = Executors.newSingleThreadExecutor();
+    fun getProfileData(uid: String) {
+        if (uid.isBlank()) {
+            _state.value = UiState.Error("UID vacío")
+            return
+        }
 
-    public ProfileViewModel(ProfileRepository repo){ this.repo = repo; }
+        _state.value = UiState.Loading()
 
-    private final MutableLiveData<UiState<UserProfile>> _state = new MutableLiveData<>(new UiState.Loading<>());
-    public LiveData<UiState<UserProfile>> state = _state;
-
-    public void load(String uid){
-        _state.postValue(new UiState.Loading<>());
-        io.execute(() -> {
-            ProfileRepository.Result<UserProfile> r = repo.fetch(uid);
-            if (r.isSuccess()) _state.postValue(new UiState.Success<>(r.data));
-            else _state.postValue(new UiState.Error<>(r.error));
-        });
+        viewModelScope.launch {
+            try {
+                when (val result = repo.getProfileData(uid)) {
+                    is Result.Success -> {
+                        val user = result.data
+                        if (user != null) {
+                            _state.postValue(UiState.Success(user))
+                        } else {
+                            _state.postValue(UiState.Error("Datos de usuario vacíos"))
+                        }
+                    }
+                    is Result.Error -> {
+                        _state.postValue(UiState.Error(result.message ?: "Error desconocido"))
+                    }
+                }
+            } catch (t: Throwable) {
+                _state.postValue(UiState.Error(t.message ?: "Error inesperado"))
+            }
+        }
     }
 }

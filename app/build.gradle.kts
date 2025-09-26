@@ -5,7 +5,13 @@ plugins {
     alias(libs.plugins.google.gms.google.services)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.devtools.ksp") // KSP para Room
 }
+
+val room_version = "2.8.0"        // <-- define la versión que estás usando
+val lifecycle_version = "2.8.6"   // estable actual
+val okhttp_version = "4.12.0"     // alinea con logging-interceptor
+val retrofit_version = "2.11.0"   // última estable
 
 val newsApiKey: String = providers.gradleProperty("NEWS_API_KEY").orNull
     ?: gradleLocalProperties(rootDir, providers).getProperty("NEWS_API_KEY")
@@ -23,10 +29,12 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
         buildConfigField("String", "API_KEY_NEWS", "\"$newsApiKey\"")
         buildConfigField("String", "NEWS_BASE_URL", "\"https://newsdata.io/api/1/\"")
         buildConfigField("String", "HOLIDAYS_BASE_URL", "\"https://calendario-laboral-api.onrender.com/\"")
-        buildConfigField("String", "BACKEND_BASE_URL", "\"http://83.33.97.100/lagvis-endpoints\"")
+        // Asegúrate de terminar en "/" para Retrofit
+        buildConfigField("String", "BACKEND_BASE_URL", "\"http://83.33.97.100/lagvis-endpoints/\"")
     }
 
     buildTypes {
@@ -43,61 +51,85 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    kotlinOptions { jvmTarget = "11" }
 
     buildFeatures {
         viewBinding = true
         buildConfig = true
         compose = true
     }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
 }
 
 dependencies {
+    implementation(libs.core.ktx)
     implementation(libs.appcompat)
-    implementation(libs.material)                      // Material Components (una sola vez)
+    implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
 
+    // Firebase
     implementation(libs.firebase.auth)
     implementation(libs.credentials)
     implementation(libs.credentials.play.services.auth)
     implementation(libs.googleid)
 
+    // Volley (si aún lo usas)
     implementation(libs.volley)
 
-    // ⚠️ En Android no suele usarse el conector MySQL de servidor:
-    // implementation("mysql:mysql-connector-java:5.1.49")
+    // --- ROOM (KSP) ---
+    implementation("androidx.room:room-runtime:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
 
-    implementation("com.google.code.gson:gson:2.13.1")
-    implementation("com.squareup.okhttp3:okhttp:5.1.0")
+    implementation("androidx.credentials:credentials:1.3.0")
+    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
 
-    // Retrofit + Gson
-    implementation("com.squareup.retrofit2:retrofit:3.0.0")
-    implementation("com.squareup.retrofit2:converter-gson:3.0.0")
-    // (Si quieres lo último: 2.11.0 para ambos)
+    // Google Identity (esto es lo que te falta para GoogleIdCredential)
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
 
+    // (Opcional pero útil) Play Services Auth si lo usas en otros flujos
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
+
+    implementation("androidx.credentials:credentials:1.3.0")
+    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1") // <- define GoogleIdCredential
+    implementation("com.google.firebase:firebase-auth:23.0.0") // si usas Firebase
+
+    // --- Retrofit + OkHttp coherentes ---
+    implementation("com.squareup.okhttp3:okhttp:$okhttp_version")
+    debugImplementation("com.squareup.okhttp3:logging-interceptor:$okhttp_version")
+
+    implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofit_version")
+
+    // Gson (si lo usas explícitamente)
+    implementation("com.google.code.gson:gson:2.10.1")
+
+    // Glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
+    // Recycler / CardView
     implementation("androidx.recyclerview:recyclerview:1.4.0")
     implementation("androidx.cardview:cardview:1.0.0")
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.4") // viewModel()
+    // Lifecycle Compose (usa versiones válidas)
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:$lifecycle_version")
     implementation("androidx.compose.runtime:runtime-livedata")
+
+    // Compose
+    implementation(platform("androidx.compose:compose-bom:2024.09.01"))
+
+    // --- Compose core (sin versión, la pone el BOM) ---
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.ui:ui-graphics")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-extended")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.9.4")
-    // Calendario con decoradores
+    implementation("androidx.activity:activity-compose:1.9.2") // setContent
+
+    // Calendario
     implementation("com.kizitonwose.calendar:view:2.8.0")
-    implementation(libs.core.ktx)
-    implementation(libs.lifecycle.runtime.ktx)
-    implementation(libs.activity.compose)
-    implementation(platform(libs.compose.bom))
-    implementation(libs.ui)
-    implementation(libs.ui.graphics)
-    implementation(libs.ui.tooling.preview)
-    implementation(libs.material3)
-    implementation(libs.ui.unit)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

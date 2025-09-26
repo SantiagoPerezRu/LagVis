@@ -1,6 +1,6 @@
 package com.example.lagvis_v1.data.remote
 
-import UserResponseKt
+import com.example.lagvis_v1.data.remote.dto.user.UserResponseDto
 import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -17,5 +17,5 @@ interface AdvancedRegisterApiKt {
         @Field("comunidad_id") comunidadId: String,
         @Field("sector_id") sectorId: String,
         @Field("fechaNacimiento") fechaNacimiento: String
-    ): Response<UserResponseKt>
+    ): Response<UserResponseDto>
 }

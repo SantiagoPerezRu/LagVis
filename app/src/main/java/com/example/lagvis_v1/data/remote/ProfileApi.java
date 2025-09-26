@@ -9,7 +9,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Url;
 
 public interface ProfileApi {
-    @FormUrlEncoded
+/*    @FormUrlEncoded
     @POST
     Call<Void> insert(
             @Url String url,           // p.ej. LagVisConstantes.ENDPOINT_INSERTAR (URL completa)
@@ -20,7 +20,7 @@ public interface ProfileApi {
             @Field("comunidad_id") String comunidadId,
             @Field("sector_id") String sectorId,
             @Field("fechaNacimiento") String fechaNacimiento
-    );
+    );*/
 
     @FormUrlEncoded
     @POST

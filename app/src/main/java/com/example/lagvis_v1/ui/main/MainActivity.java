@@ -1,5 +1,6 @@
 package com.example.lagvis_v1.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -19,7 +20,7 @@ import com.example.lagvis_v1.ui.finiquitos.CalculadoraFiniquitosFragment;
 import com.example.lagvis_v1.ui.convenio.ConvenioSelectorFrag;
 import com.example.lagvis_v1.ui.news.NewsViewFragKt;
 import com.example.lagvis_v1.ui.news.NoticiasGuardadasFragmentKt;
-import com.example.lagvis_v1.ui.profile.ProfileViewFrag;
+import com.example.lagvis_v1.ui.profile.ProfileOnCompose;
 import com.google.android.material.navigation.NavigationView;
 
 import com.example.lagvis_v1.ui.despidos.DatosGeneralesDespidoFragment;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ConvenioSelectorFrag convenioSelectorFrag = new ConvenioSelectorFrag();     // Inicio
     NewsViewFragKt newsViewFrag = new NewsViewFragKt();  // Noticias
     CalculadoraFiniquitosFragment calculadoraFiniquitosFragment = new CalculadoraFiniquitosFragment();     // Finiquitos
-    ProfileViewFrag profileViewFrag = new ProfileViewFrag();  // Tú perfil
+    ProfileOnCompose profileViewFrag = new ProfileOnCompose();  // Tú perfil
     DatosGeneralesDespidoFragment fifhtFragment = new DatosGeneralesDespidoFragment(); // Despidos
     NoticiasGuardadasFragmentKt fragmentNoticiasGuaradas = new NoticiasGuardadasFragmentKt(); // Noticias guardadas fragment
     PaginaVidaLaboralFragment fragmentVidaLaboral = new PaginaVidaLaboralFragment(); // Vida Laboral Fragment
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 loadFragment(calculadoraFiniquitosFragment);
                 break;
             case R.id.settings:
-                loadFragment(profileViewFrag);
+                startActivity(new Intent(this, ProfileOnCompose.class));
                 break;
             case R.id.nav_vida_laboral:
                 loadFragment(fragmentVidaLaboral);
