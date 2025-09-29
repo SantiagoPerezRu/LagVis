@@ -30,7 +30,7 @@ class LagVisApp : Application() {
             .addInterceptor(logging)
             .build()
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://83.33.97.100/lagvis-endpoints/") // <-- AJUSTA
+            .baseUrl(BuildConfig.BACKEND_BASE_URL) // <-- AJUSTA
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttp)
             .build()

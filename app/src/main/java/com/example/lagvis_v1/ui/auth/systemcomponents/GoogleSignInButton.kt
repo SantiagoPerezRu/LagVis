@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.example.lagvis_v1.auth.GoogleAuthUiClient
 import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.AppFont
 import kotlinx.coroutines.launch
 

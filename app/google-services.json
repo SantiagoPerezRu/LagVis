@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "235946334870-mpiatqsispuh4dga0u251ejvh3rfrdj3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lagvis_v1",
+            "certificate_hash": "914741ecbe998bf86e69747e17d1dcd47cad0a4f"
+          }
+        },
+        {
           "client_id": "235946334870-dlbj8vc2udtlcu4tlhntg5347qk7bee0.apps.googleusercontent.com",
           "client_type": 3
         }

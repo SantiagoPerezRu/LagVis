@@ -34,7 +34,7 @@ android {
         buildConfigField("String", "NEWS_BASE_URL", "\"https://newsdata.io/api/1/\"")
         buildConfigField("String", "HOLIDAYS_BASE_URL", "\"https://calendario-laboral-api.onrender.com/\"")
         // Asegúrate de terminar en "/" para Retrofit
-        buildConfigField("String", "BACKEND_BASE_URL", "\"http://83.33.97.100/lagvis-endpoints/\"")
+        buildConfigField("String", "BACKEND_BASE_URL", "\"http://lagvis.duckdns.org//lagvis-endpoints/\"")
     }
 
     buildTypes {

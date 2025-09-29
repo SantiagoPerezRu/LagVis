@@ -1,4 +1,4 @@
-package com.example.lagvis_v1.auth
+package com.example.lagvis_v1.ui.auth
 
 import android.content.Context
 import androidx.credentials.Credential
@@ -6,6 +6,7 @@ import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
 import androidx.credentials.GetCredentialResponse
+import com.example.lagvis_v1.R
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.firebase.auth.FirebaseAuth
@@ -30,7 +31,7 @@ class GoogleAuthUiClient(
 
     suspend fun signIn(): Result<GoogleUser> = runCatching {
         val googleIdOption = GetGoogleIdOption.Builder()
-            .setServerClientId(context.getString(com.example.lagvis_v1.R.string.default_web_client_id))
+            .setServerClientId(context.getString(R.string.default_web_client_id))
             .setFilterByAuthorizedAccounts(false)
             .setAutoSelectEnabled(false)
             .build()

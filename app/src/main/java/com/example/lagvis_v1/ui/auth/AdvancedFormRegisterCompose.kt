@@ -12,8 +12,10 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material3.*
@@ -59,12 +61,16 @@ class AdvancedFormRegisterCompose : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        // ⬇️ Lee posibles extras (todos nullables)
+        val initialGiven  : String?    = intent.getStringExtra(NavKeys.EXTRA_GIVEN)
+        val initialFamily : String?    = intent.getStringExtra(NavKeys.EXTRA_FAMILY)
+        val initialBirthS : String?    = intent.getStringExtra(NavKeys.EXTRA_BIRTH)
+        val initialBirth  : LocalDate? = initialBirthS?.let { LocalDate.parse(it) }
+
         setContent {
             LagVis_V1Theme {
-                // Tu VM existente para enviar el formulario
                 val vm: AdvancedFormViewModel = viewModel(factory = AdvancedFormViewModelFactory())
                 val state by vm.submit.observeAsState()
-
                 val userUid = remember { FirebaseAuth.getInstance().currentUser?.uid.orEmpty() }
 
                 LaunchedEffect(state) {
@@ -83,14 +89,18 @@ class AdvancedFormRegisterCompose : ComponentActivity() {
 
                 AdvancedFormRegisterScreen(
                     userUid = userUid,
+                    // ⬇️ Prefills desde Intent
+                    initialGivenName = initialGiven,
+                    initialFamilyName = initialFamily,
+                    initialBirthDate = initialBirth,
                     onNext = { data ->
                         vm.send(
                             data.uid,
                             data.nombre,
                             data.apellido,
                             data.apellido2,
-                            data.comunidad,     // ID real
-                            data.sector,        // ID real
+                            data.comunidad,
+                            data.sector,
                             data.fechaNacimiento
                         )
                     }
@@ -125,6 +135,9 @@ class LookupViewModelFactory(private val app: LagVisApp) : ViewModelProvider.Fac
 @Composable
 fun AdvancedFormRegisterScreen(
     userUid: String,
+    initialGivenName: String? = null,
+    initialFamilyName: String? = null,
+    initialBirthDate: LocalDate? = null,
     modifier: Modifier = Modifier,
     onNext: (AdvancedRegisterData) -> Unit = {}
 ) {
@@ -148,26 +161,31 @@ fun AdvancedFormRegisterScreen(
         label = "ty"
     )
 
-    // Estado del formulario
-    var nombre by rememberSaveable { mutableStateOf("") }
-    var apellido by rememberSaveable { mutableStateOf("") }
+    // Estados con prefill
+    var nombre by rememberSaveable { mutableStateOf(initialGivenName.orEmpty()) }
+    var apellido by rememberSaveable { mutableStateOf(initialFamilyName.orEmpty()) }
     var apellido2 by rememberSaveable { mutableStateOf("") }
 
     // Selección visible (texto) + IDs reales
     var comunidadUi by rememberSaveable { mutableStateOf("") }         // nombre mostrado
     var selectedComunidadId by rememberSaveable { mutableStateOf("") } // id real
-
     var sectorUi by rememberSaveable { mutableStateOf("") }            // nombre mostrado
     var selectedSectorId by rememberSaveable { mutableStateOf("") }    // id real
 
-    // Lookup ViewModel (listas dinámicas desde Room/Retrofit)
+    // Lookup ViewModel
     val app = LocalContext.current.applicationContext as LagVisApp
     val lookupVm: LookupViewModel = viewModel(factory = LookupViewModelFactory(app))
     val comunidades: List<UiItem> by lookupVm.comunidades.collectAsStateWithLifecycle(initialValue = emptyList())
-        val sectores: List<UiItem> by lookupVm.sectores.collectAsStateWithLifecycle(initialValue = emptyList())
+    val sectores: List<UiItem> by lookupVm.sectores.collectAsStateWithLifecycle(initialValue = emptyList())
 
-    // Fecha
-    val dateState = rememberDatePickerState()
+    // DatePicker con fecha inicial (si viene)
+    val initialMillis = remember(initialBirthDate) {
+        initialBirthDate
+            ?.atStartOfDay(ZoneId.systemDefault())
+            ?.toInstant()
+            ?.toEpochMilli()
+    }
+    val dateState = rememberDatePickerState(initialSelectedDateMillis = initialMillis)
     var showDatePicker by rememberSaveable { mutableStateOf(false) }
     val fechaSeleccionada: LocalDate? = dateState.selectedDateMillis?.let {
         Instant.ofEpochMilli(it).atZone(ZoneId.systemDefault()).toLocalDate()
@@ -175,7 +193,7 @@ fun AdvancedFormRegisterScreen(
     val dateFormatter = remember { DateTimeFormatter.ofPattern("dd/MM/yyyy") }
     val fechaStr = fechaSeleccionada?.format(dateFormatter) ?: ""
 
-    // Validaciones mínimas (usa IDs reales)
+    // Validaciones mínimas
     val nombreOk = nombre.trim().length >= 2
     val apellidoOk = apellido.trim().length >= 2
     val comunidadOk = selectedComunidadId.isNotBlank()
@@ -183,7 +201,7 @@ fun AdvancedFormRegisterScreen(
     val fechaOk = fechaSeleccionada != null
     val formOk = nombreOk && apellidoOk && comunidadOk && sectorOk && fechaOk && userUid.isNotBlank()
 
-    // Fondo
+    // Fondo / header
     val cs = MaterialTheme.colorScheme
     val gradient = Brush.verticalGradient(
         listOf(cs.primary.copy(alpha = 0.25f), cs.primaryContainer.copy(alpha = 0.35f), cs.surface)
@@ -195,7 +213,7 @@ fun AdvancedFormRegisterScreen(
             .fillMaxSize()
             .background(gradient)
     ) {
-        // HEADER
+        // ---------- HEADER (aquí estaba faltando) ----------
         Box(
             Modifier
                 .fillMaxWidth()
@@ -221,7 +239,7 @@ fun AdvancedFormRegisterScreen(
             }
         }
 
-        // CONTENIDO
+        // ---------- CONTENIDO ----------
         Box(
             Modifier
                 .fillMaxSize()
@@ -241,8 +259,11 @@ fun AdvancedFormRegisterScreen(
                 colors = CardDefaults.cardColors(containerColor = cs.surface),
                 elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
             ) {
+                val scrollState = rememberScrollState()
                 Column(
                     Modifier
+                        .verticalScroll(scrollState)
+                        .imePadding()
                         .fillMaxWidth()
                         .padding(20.dp),
                     verticalArrangement = Arrangement.spacedBy(14.dp)
@@ -257,6 +278,7 @@ fun AdvancedFormRegisterScreen(
                             .padding(top = 4.dp)
                     )
 
+                    // Nombre
                     OutlinedTextField(
                         value = nombre,
                         onValueChange = { nombre = it },
@@ -268,6 +290,7 @@ fun AdvancedFormRegisterScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
 
+                    // Apellido
                     OutlinedTextField(
                         value = apellido,
                         onValueChange = { apellido = it },
@@ -279,6 +302,7 @@ fun AdvancedFormRegisterScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
 
+                    // Segundo apellido (opcional)
                     OutlinedTextField(
                         value = apellido2,
                         onValueChange = { apellido2 = it },
@@ -288,7 +312,7 @@ fun AdvancedFormRegisterScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
 
-                    /* ---------------- Comunidad (dropdown) ---------------- */
+                    // ---------- Comunidad (dropdown) ----------
                     var expandedCA by remember { mutableStateOf(false) }
                     ExposedDropdownMenuBox(
                         expanded = expandedCA,
@@ -324,7 +348,7 @@ fun AdvancedFormRegisterScreen(
                         }
                     }
 
-                    /* ---------------- Sector (dropdown) ---------------- */
+                    // ---------- Sector (dropdown) ----------
                     var expandedSector by remember { mutableStateOf(false) }
                     ExposedDropdownMenuBox(
                         expanded = expandedSector,
@@ -388,7 +412,7 @@ fun AdvancedFormRegisterScreen(
                         ) { DatePicker(state = dateState) }
                     }
 
-                    // Botón Siguiente (usa IDs reales)
+                    // Botón Siguiente
                     AppButton(
                         text = "Siguiente",
                         enabled = formOk,
@@ -399,8 +423,8 @@ fun AdvancedFormRegisterScreen(
                                     nombre = nombre.trim(),
                                     apellido = apellido.trim(),
                                     apellido2 = apellido2.trim(),
-                                    comunidad = selectedComunidadId, // << ID real
-                                    sector = selectedSectorId,       // << ID real
+                                    comunidad = selectedComunidadId,
+                                    sector = selectedSectorId,
                                     fechaNacimiento = fechaStr
                                 )
                             )
@@ -412,6 +436,7 @@ fun AdvancedFormRegisterScreen(
         }
     }
 }
+
 
 @Composable
 fun HeaderWave(modifier: Modifier = Modifier, height: Dp = 220.dp) {
