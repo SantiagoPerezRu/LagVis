@@ -48,6 +48,7 @@ import com.example.lagvis_v1.ui.auth.uicompose.systemcomponents.AppButton
 import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.AppFont
 import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.LagVis_V1Theme
 import com.example.lagvis_v1.ui.common.LookupViewModel
+import com.example.lagvis_v1.ui.common.LookupViewModelFactory
 import com.example.lagvis_v1.ui.common.UiItem
 import com.example.lagvis_v1.ui.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -122,14 +123,7 @@ data class AdvancedRegisterData(
     val fechaNacimiento: String  // "dd/MM/yyyy"
 )
 
-// Factory mínimo para LookupViewModel usando el repo desde Application
-class LookupViewModelFactory(private val app: LagVisApp) : ViewModelProvider.Factory {
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        // LookupViewModel(repo = app.lookupRepo) — asume que ya lo tienes definido
-        return LookupViewModel(app.lookupRepo) as T
-    }
-}
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -173,8 +167,7 @@ fun AdvancedFormRegisterScreen(
     var selectedSectorId by rememberSaveable { mutableStateOf("") }    // id real
 
     // Lookup ViewModel
-    val app = LocalContext.current.applicationContext as LagVisApp
-    val lookupVm: LookupViewModel = viewModel(factory = LookupViewModelFactory(app))
+    val lookupVm: LookupViewModel = viewModel(factory = LookupViewModelFactory())
     val comunidades: List<UiItem> by lookupVm.comunidades.collectAsStateWithLifecycle(initialValue = emptyList())
     val sectores: List<UiItem> by lookupVm.sectores.collectAsStateWithLifecycle(initialValue = emptyList())
 

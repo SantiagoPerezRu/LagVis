@@ -18,6 +18,11 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.convenio.ConvenioSelectorOnCompose"
+            android:exported="false"
+            android:label="@string/title_activity_convenio_selector_on_compsoe"
+            android:theme="@style/Theme.LagVis_V1" />
+        <activity
             android:name=".ui.profile.ProfileOnCompose"
             android:exported="false"
             android:label="@string/title_activity_profile_on_compose"

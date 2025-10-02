@@ -1,4 +1,4 @@
-package com.example.lagvis_v1.ui.main;
+/*package com.example.lagvis_v1.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.lagvis_v1.R;
 
 import com.example.lagvis_v1.ui.calendario.CalendarioLaboralKt;
+import com.example.lagvis_v1.ui.convenio.ConvenioSelectorOnCompose;
 import com.example.lagvis_v1.ui.finiquitos.CalculadoraFiniquitosFragment;
 import com.example.lagvis_v1.ui.convenio.ConvenioSelectorFrag;
 import com.example.lagvis_v1.ui.news.NewsViewFragKt;
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.home:
-                loadFragment(convenioSelectorFrag);
+                startActivity(new Intent(this, ConvenioSelectorOnCompose.class));
                 break;
             case R.id.notice:
                 loadFragment(newsViewFrag);
@@ -114,4 +115,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         transaction.replace(R.id.frame_layout, fragment);
         transaction.commit();
     }
-}
+}*/

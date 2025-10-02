@@ -96,6 +96,7 @@
     <string name="title_activity_advanced_form_register">AdvancedFormRegister</string>
     <string name="title_activity_recover_password_compose">RecoverPasswordCompose</string>
     <string name="title_activity_profile_on_compose">ProfileOnCompose</string>
+    <string name="title_activity_convenio_selector_on_compsoe">ConvenioSelectorOnCompsoe</string>
 
 
 </resources>

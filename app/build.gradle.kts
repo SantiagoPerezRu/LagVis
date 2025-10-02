@@ -34,7 +34,7 @@ android {
         buildConfigField("String", "NEWS_BASE_URL", "\"https://newsdata.io/api/1/\"")
         buildConfigField("String", "HOLIDAYS_BASE_URL", "\"https://calendario-laboral-api.onrender.com/\"")
         // Asegúrate de terminar en "/" para Retrofit
-        buildConfigField("String", "BACKEND_BASE_URL", "\"http://lagvis.duckdns.org//lagvis-endpoints/\"")
+        buildConfigField("String", "BACKEND_BASE_URL", "\"http://lagvis.es//lagvis-endpoints/\"")
     }
 
     buildTypes {
@@ -73,12 +73,18 @@ dependencies {
     implementation(libs.credentials.play.services.auth)
     implementation(libs.googleid)
 
+    //COMPOSABLES EXTERNAL
+    implementation("com.composables:core:1.43.1")
+    implementation("androidx.navigation:navigation-compose:2.8.2")
     // Volley (si aún lo usas)
     implementation(libs.volley)
 
     // --- ROOM (KSP) ---
     implementation("androidx.room:room-runtime:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
+    implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.navigation.runtime.ktx)
+    implementation(libs.material3.window.size.class1)
     ksp("androidx.room:room-compiler:$room_version")
 
     implementation("androidx.credentials:credentials:1.3.0")

@@ -1,12 +1,6 @@
-// file: app/src/main/java/com/example/lagvis_v1/ui/profile/ProfileComposeActivity.kt
+// file: app/src/main/java/com/example/lagvis_v1/ui/profile/ProfileScreen.kt
 package com.example.lagvis_v1.ui.profile
 
-import android.app.Activity
-import android.os.Bundle
-import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -26,8 +20,8 @@ import androidx.compose.material.icons.outlined.Map
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.WorkOutline
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -36,111 +30,74 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.zIndex
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.lagvis_v1.R
 import com.example.lagvis_v1.core.ui.UiState
 import com.example.lagvis_v1.dominio.model.UserProfileKt
 import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.AppFont
 import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.LagVis_V1Theme
-import com.google.firebase.auth.FirebaseAuth
 
-class ProfileOnCompose : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
-        setContent {
-            LagVis_V1Theme {
-                val vm: ProfileViewModel = viewModel(factory = ProfileViewModelFactory())
-                val state by vm.state.observeAsState(UiState.Loading())
-
-                val uid = remember { FirebaseAuth.getInstance().currentUser?.uid.orEmpty() }
-
-                LaunchedEffect(uid) {
-                    vm.getProfileData(uid)
-                }
-
-                when (val s = state) {
-                    is UiState.Loading -> ProfileLoading()
-
-                    is UiState.Success -> {
-                        val user = s.data
-                        if (user != null) {
-                            ProfileScreen(
-                                user = user,
-                                onChangePasswordClick = {
-                                    val email = FirebaseAuth.getInstance().currentUser?.email
-                                    if (email.isNullOrBlank()) {
-                                        Toast.makeText(
-                                            this@ProfileOnCompose,
-                                            "No hay email en la sesión actual",
-                                            Toast.LENGTH_LONG
-                                        ).show()
-                                    } else {
-                                        FirebaseAuth.getInstance().sendPasswordResetEmail(email)
-                                        Toast.makeText(
-                                            this@ProfileOnCompose,
-                                            "Te hemos enviado un correo para restablecer la contraseña",
-                                            Toast.LENGTH_LONG
-                                        ).show()
-                                    }
-                                }
-                            )
-                        } else {
-                            ProfileEmpty { vm.getProfileData(uid) }
-                        }
-                    }
-
-                    is UiState.Error -> {
-                        val msg = s.message ?: "Error desconocido"
-                        ProfileError(
-                            message = msg,
-                            onRetry = { vm.getProfileData(uid) }
-                        )
-                        LaunchedEffect(msg) {
-                            Toast.makeText(this@ProfileOnCompose, msg, Toast.LENGTH_LONG).show()
-                        }
-                    }
-
-                    else -> ProfileEmpty { vm.getProfileData(uid) }
-                }
+/* =========================================================
+ * 1) Contenedor de estado (útil para NavHost + ViewModel)
+ *    - Le pasas UiState<UserProfileKt> desde tu VM
+ *    - Callbacks: onBack, onRetry, onChangePasswordClick
+ * ========================================================= */
+@Composable
+fun ProfileStateScreen(
+    state: UiState<UserProfileKt?>,
+    onBack: () -> Unit,
+    onRetry: () -> Unit,
+    onChangePasswordClick: () -> Unit
+) {
+    when (state) {
+        is UiState.Loading -> ProfileLoading()
+        is UiState.Error -> ProfileError(message = state.message ?: "Error desconocido", onRetry = onRetry)
+        is UiState.Success -> {
+            val user = state.data
+            if (user != null) {
+                ProfileScreen(
+                    user = user,
+                    onBack = onBack,
+                    onChangePasswordClick = onChangePasswordClick
+                )
+            } else {
+                ProfileEmpty(onRetry = onRetry)
             }
         }
+        else -> ProfileEmpty(onRetry = onRetry)
     }
 }
 
-/* ======================= UI COMPOSE SIN TOP BAR ======================= */
-
+/* =========================================================
+ * 2) Pantalla UI pura (datos ya disponibles)
+ * ========================================================= */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(
     user: UserProfileKt,
+    onBack: () -> Unit,
     onChangePasswordClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val ctx = LocalContext.current
     val scroll = rememberScrollState()
     val headerHeight = 220.dp
 
     Scaffold(
-        // manejamos los insets manualmente
+        // manejamos insets manualmente (opcional)
         contentWindowInsets = WindowInsets(0, 0, 0, 0)
     ) { inner ->
         Box(Modifier.fillMaxSize()) {
 
             // ======= CONTENIDO (debajo del header; no solapa) =======
             Column(
-                Modifier
+                modifier
                     .padding(inner)
-                    .padding(top = headerHeight) // empuja contenido bajo el header
+                    .padding(top = headerHeight)
                     .verticalScroll(scroll)
             ) {
 
@@ -231,12 +188,11 @@ fun ProfileScreen(
                 Spacer(Modifier.height(28.dp))
             }
 
-            // ======= HEADER superpuesto (recibe los toques) =======
+            // ======= HEADER superpuesto =======
             Box(
                 Modifier
                     .fillMaxWidth()
                     .height(headerHeight)
-                    .zIndex(1f) // asegura que queda por encima
                     .background(
                         brush = Brush.verticalGradient(
                             listOf(
@@ -247,6 +203,7 @@ fun ProfileScreen(
                         )
                     )
             ) {
+                // Imagen decorativa (opcional)
                 Image(
                     painter = painterResource(id = R.drawable.top_background),
                     contentDescription = null,
@@ -264,7 +221,7 @@ fun ProfileScreen(
                         .padding(horizontal = 12.dp, vertical = 10.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    IconButton(onClick = { (ctx as? Activity)?.finish() }) {
+                    IconButton(onClick = onBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Atrás",
@@ -294,6 +251,8 @@ fun ProfileScreen(
         }
     }
 }
+
+/* ======================= Subcomponentes ======================= */
 
 @Composable
 private fun SectionCard(
@@ -360,6 +319,7 @@ private fun nonEmptyOrDash(value: String?): String =
     value?.takeIf { it.isNotBlank() } ?: "—"
 
 /* ======================= States ======================= */
+
 @Composable
 private fun ProfileLoading() {
     Box(
@@ -428,6 +388,7 @@ private fun ProfilePreviewLight() {
                 sectorLaboral = "Tecnología",
                 fechaNacimiento = "1995-07-21"
             ),
+            onBack = {},
             onChangePasswordClick = {}
         )
     }
@@ -436,7 +397,7 @@ private fun ProfilePreviewLight() {
 @Preview(showBackground = true)
 @Composable
 private fun ProfilePreviewDark() {
-    LagVis_V1Theme {
+    LagVis_V1Theme(darkTheme = true) {
         ProfileScreen(
             user = UserProfileKt(
                 nombre = "Javier",
@@ -446,6 +407,7 @@ private fun ProfilePreviewDark() {
                 sectorLaboral = "Sanidad",
                 fechaNacimiento = "1988-02-11"
             ),
+            onBack = {},
             onChangePasswordClick = {}
         )
     }

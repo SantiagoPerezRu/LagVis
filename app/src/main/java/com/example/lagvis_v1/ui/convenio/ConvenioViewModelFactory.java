@@ -6,8 +6,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.lagvis_v1.core.network.RetroFitProvider; // usa tu nombre real
 import com.example.lagvis_v1.data.remote.RatingsApi;
+import com.example.lagvis_v1.data.remote.RatingsApiKt;
 import com.example.lagvis_v1.data.repository.RatingsRepositoryImpl;
 import com.example.lagvis_v1.dominio.repositorio.RatingsRepository;
+import com.example.lagvis_v1.dominio.repositorio.RatingsRepositoryKt;
 
 public class ConvenioViewModelFactory implements ViewModelProvider.Factory {
     @NonNull @Override @SuppressWarnings("unchecked")

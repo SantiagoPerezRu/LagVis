@@ -7,6 +7,7 @@ import com.example.lagvis_v1.data.remote.NewsApiKt
 import com.example.lagvis_v1.data.remote.ProfileApi
 import com.example.lagvis_v1.data.remote.ProfileApiKt
 import com.example.lagvis_v1.data.remote.RatingsApi
+import com.example.lagvis_v1.data.remote.RatingsApiKt
 import com.example.lagvis_v1.data.remote.SaveNewsApiKt
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -34,10 +35,6 @@ object RetroFitProviderKt {
         retrofit(BuildConfig.BACKEND_BASE_URL).create(ProfileApiKt::class.java)
     }
 
-
-
-    val ratingsApi: RatingsApi by lazy {
-        retrofit(BuildConfig.BACKEND_BASE_URL).create(RatingsApi::class.java)
-    }
-
+    fun ratingsApi(): RatingsApiKt =
+        retrofit(BuildConfig.BACKEND_BASE_URL).create(RatingsApiKt::class.java)
 }
