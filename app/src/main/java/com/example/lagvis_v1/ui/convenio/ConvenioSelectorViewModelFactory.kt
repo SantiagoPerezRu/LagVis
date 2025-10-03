@@ -1,15 +1,12 @@
-package com.example.lagvis_v1.ui.convenio;
+// file: app/src/main/java/com/example/lagvis_v1/ui/convenio/ConvenioSelectorViewModelFactory.kt
+package com.example.lagvis_v1.ui.convenio
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 
-public class ConvenioSelectorViewModelFactory implements ViewModelProvider.Factory {
-
-    @NonNull @Override @SuppressWarnings("unchecked")
-    public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new ConvenioSelectorViewModel();
+class ConvenioSelectorViewModelFactory : ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return ConvenioSelectorViewModel() as T
     }
-
-
 }

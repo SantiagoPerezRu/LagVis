@@ -35,6 +35,7 @@ android {
         buildConfigField("String", "HOLIDAYS_BASE_URL", "\"https://calendario-laboral-api.onrender.com/\"")
         // Asegúrate de terminar en "/" para Retrofit
         buildConfigField("String", "BACKEND_BASE_URL", "\"http://lagvis.es//lagvis-endpoints/\"")
+        buildConfigField("String", "CONVENIOS_BASE_URL", "\"http://lagvis.es//lagvis-convenios/\"")
     }
 
     buildTypes {
@@ -85,6 +86,7 @@ dependencies {
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.navigation.runtime.ktx)
     implementation(libs.material3.window.size.class1)
+    implementation(libs.lifecycle.runtime.compose)
     ksp("androidx.room:room-compiler:$room_version")
 
     implementation("androidx.credentials:credentials:1.3.0")

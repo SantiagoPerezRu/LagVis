@@ -18,6 +18,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -165,6 +166,59 @@ fun ConveniosScreenM3(
         }
     }
 }
+
+@Composable
+fun ConveniosHost() {
+    // estado local para alternar entre selector y visualizador
+    var archivoSeleccionado by remember { mutableStateOf<String?>(null) }
+    var sectorIdSeleccionado by remember { mutableStateOf<Int?>(null) }
+
+    val ctx = LocalContext.current
+    val selectorVm: ConvenioSelectorViewModel = viewModel(factory = ConvenioSelectorViewModelFactory())
+    val navState by selectorVm.nav.observeAsState(initial = com.example.lagvis_v1.core.ui.UiState.Loading())
+
+    if (archivoSeleccionado == null) {
+        // 1) Tu pantalla de selección
+        ConveniosScreenM3(
+            onSubmit = { comunidad, sector ->
+                // 👇 AQUÍ se ejecuta “la puta acción”
+                android.util.Log.d("ConveniosHost", "onSubmit($comunidad, $sector)")
+                Toast.makeText(ctx, "Buscando convenio…", Toast.LENGTH_SHORT).show()
+                selectorVm.onSiguiente(comunidad, sector)
+            }
+        )
+
+        // 2) Reacciona al resultado del VM de selección
+        LaunchedEffect(navState) {
+            when (val s = navState) {
+                is com.example.lagvis_v1.core.ui.UiState.Success -> {
+                    archivoSeleccionado = s.data.archivo          // p.ej. "madrid_hosteleria.xml"
+                    sectorIdSeleccionado = s.data.sectorId
+                    selectorVm.consumeNav()
+                }
+                is com.example.lagvis_v1.core.ui.UiState.Error -> {
+                    Toast.makeText(ctx, s.message ?: "Error al seleccionar", Toast.LENGTH_LONG).show()
+                    selectorVm.consumeNav()
+                }
+                else -> Unit
+            }
+        }
+    } else {
+        // 3) Mostrar el convenio (descarga + cache). Si quieres, puedes volver atrás
+        ConvenioVisualizerRoute(
+            archivo = archivoSeleccionado!!,
+            onBack = {
+                archivoSeleccionado = null
+                sectorIdSeleccionado = null
+            },
+            onAction = {},
+            onRate = { /* conecta tu rating aquí si quieres */ }
+        )
+    }
+}
+
+
+
 
 /* ======================== Previews ======================== */
 

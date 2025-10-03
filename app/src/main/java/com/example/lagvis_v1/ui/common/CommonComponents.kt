@@ -249,7 +249,7 @@ fun HeaderGradientParallax(
     title: String,
     subtitle: String? = null,
     modifier: Modifier = Modifier,
-    height: Dp = 220.dp,
+    height: Dp = 250.dp,
     imageRes: Int? = null,
     showBack: Boolean = false,
     onBack: (() -> Unit)? = null,
@@ -521,16 +521,24 @@ fun HeaderEdgeToEdge(
     title: String,
     subtitle: String? = null,
     modifier: Modifier = Modifier,
-    height: Dp = 260.dp,
+    height: Dp = 200.dp,
     imageRes: Int? = null,
     darkScrim: Boolean = true,
     onBack: (() -> Unit)? = null,
-    onAction: (() -> Unit)? = null
+    onAction: (() -> Unit)? = null,
+    // 👇 nuevo
+    leadingLogoRes: Int? = null,       // drawable opcional para el logo
 ) {
     val scrim = if (darkScrim)
         Brush.verticalGradient(0f to Color.Black.copy(alpha = 0.55f), 0.7f to Color.Transparent)
     else
         Brush.verticalGradient(0f to Color.White.copy(alpha = 0.55f), 0.7f to Color.Transparent)
+
+    // tamaño del logo aprox. a la altura del título
+    val logoSize = with(LocalDensity.current) {
+        // usamos fontSize del headlineSmall como referencia
+        MaterialTheme.typography.headlineSmall.fontSize.toDp()
+    }
 
     Box(
         modifier = modifier
@@ -551,7 +559,7 @@ fun HeaderEdgeToEdge(
         // scrim superior para contraste de iconos
         Box(Modifier.fillMaxWidth().height(140.dp).background(scrim))
 
-        // barra flotante
+        // barra flotante (back / action)
         Row(
             Modifier
                 .fillMaxWidth()
@@ -586,17 +594,30 @@ fun HeaderEdgeToEdge(
             } else Spacer(Modifier.width(40.dp))
         }
 
-        // títulos en la base
+        // títulos + logo en la base
         Column(
             Modifier
                 .align(Alignment.BottomStart)
                 .padding(20.dp)
         ) {
-            Text(
-                text = title,
-                color = Color.White,
-                style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold)
-            )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                if (leadingLogoRes != null) {
+                    Image(
+                        painter = painterResource(leadingLogoRes),
+                        contentDescription = "Logo",
+                        modifier = Modifier
+                            .size(logoSize)        // ~ altura del título
+                            .clip(CircleShape)     // redondo
+                    )
+                    Spacer(Modifier.width(10.dp))
+                }
+                Text(
+                    text = title,
+                    color = Color.White,
+                    style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold)
+                )
+            }
+
             if (!subtitle.isNullOrBlank()) {
                 Spacer(Modifier.height(4.dp))
                 Text(text = subtitle, color = Color.White.copy(alpha = 0.9f))

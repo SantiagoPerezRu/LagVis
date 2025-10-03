@@ -221,31 +221,6 @@ fun ProfileScreen(
                         .padding(horizontal = 12.dp, vertical = 10.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    IconButton(onClick = onBack) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Atrás",
-                            tint = Color.White
-                        )
-                    }
-                    Text(
-                        text = "Tu perfil",
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(horizontal = 8.dp),
-                        color = Color.White,
-                        fontFamily = AppFont,
-                        fontWeight = FontWeight.SemiBold,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                    IconButton(onClick = onChangePasswordClick) {
-                        Icon(
-                            imageVector = Icons.Outlined.LockReset,
-                            contentDescription = "Cambiar contraseña",
-                            tint = Color.White
-                        )
-                    }
                 }
             }
         }
