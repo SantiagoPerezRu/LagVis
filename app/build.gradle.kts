@@ -79,6 +79,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.8.2")
     // Volley (si aún lo usas)
     implementation(libs.volley)
+    implementation ("com.google.accompanist:accompanist-drawablepainter:0.34.0")
 
     // --- ROOM (KSP) ---
     implementation("androidx.room:room-runtime:$room_version")
@@ -138,6 +139,9 @@ dependencies {
 
     // Calendario
     implementation("com.kizitonwose.calendar:view:2.8.0")
+    //COMPOSE
+    implementation("com.kizitonwose.calendar:compose:2.9.0")
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

@@ -33,17 +33,17 @@
             android:label="@string/title_activity_recover_password_compose"
             android:theme="@style/Theme.LagVis_V1" />
         <activity
-            android:name=".ui.auth.AdvancedFormRegisterCompose"
+            android:name=".ui.auth.register.AdvancedFormRegisterCompose"
             android:exported="false"
             android:label="@string/title_activity_advanced_form_register"
             android:theme="@style/Theme.LagVis_V1" />
         <activity
-            android:name=".ui.auth.RegisterOnCompose"
+            android:name=".ui.auth.register.RegisterOnCompose"
             android:exported="false"
             android:label="@string/title_activity_register_on_compose"
             android:theme="@style/Theme.LagVis_V1" />
         <activity
-            android:name=".ui.auth.LoginOnCompose"
+            android:name=".ui.auth.login.LoginOnCompose"
             android:exported="true"
             android:label="@string/title_activity_login_on_compose"
             android:theme="@style/Theme.LagVis_V1">
@@ -74,7 +74,7 @@
             android:name=".ui.convenio.ConvenioVisualizer"
             android:exported="false" />
         <activity
-            android:name=".ui.auth.AdvancedFormRegister"
+            android:name=".ui.auth.register.AdvancedFormRegister"
             android:exported="false" />
         <activity
             android:name=".ui.main.MainActivity"

@@ -36,12 +36,18 @@ import com.example.lagvis_v1.R
 import com.example.lagvis_v1.core.ui.UiState
 import com.example.lagvis_v1.dominio.model.UserProfileKt
 import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.AppFont
+import com.example.lagvis_v1.ui.calendario.CalendarioLaboralScreenM3
+import com.example.lagvis_v1.ui.calendario.HolidaysViewModelFactoryKt
+import com.example.lagvis_v1.ui.calendario.HolidaysViewModelKt
 import com.example.lagvis_v1.ui.convenio.ConvenioSelectorViewModel
 import com.example.lagvis_v1.ui.convenio.ConvenioSelectorViewModelFactory
 import com.example.lagvis_v1.ui.convenio.ConvenioUiModel
 import com.example.lagvis_v1.ui.convenio.ConvenioViewModel
 import com.example.lagvis_v1.ui.convenio.ConvenioViewModelFactory
 import com.example.lagvis_v1.ui.convenio.ConvenioVisualizerWithEdgeHeader
+import com.example.lagvis_v1.ui.despidos.CalculadoraDespidosHost
+import com.example.lagvis_v1.ui.despidos.CalculadoraDespidosInlineScreen
+import com.example.lagvis_v1.ui.news.NewsOnCompose
 import com.example.lagvis_v1.ui.profile.ProfileStateScreen
 import com.example.lagvis_v1.ui.profile.ProfileViewModel
 import com.example.lagvis_v1.ui.profile.ProfileViewModelFactory
@@ -62,17 +68,17 @@ fun AppNavHostAdaptive(windowSizeClass: WindowSizeClass) {
 
     val items = listOf(
         DrawerItem("Inicio", Route.Home.path, Icons.Outlined.Home),
-        DrawerItem("Noticias", Route.News.path, Icons.Outlined.Article),
+        DrawerItem("Noticias", Route.News.path, Icons.Outlined.Newspaper),
         DrawerItem("Finiquitos", Route.Finiquitos.path, Icons.Outlined.Calculate),
-        DrawerItem("Perfil", Route.Profile.path, Icons.Outlined.Person),
-        DrawerItem("Vida laboral", Route.VidaLaboral.path, Icons.Outlined.WorkHistory),
-        DrawerItem("Despidos", Route.Despidos.path, Icons.Outlined.Gavel),
-        DrawerItem("Guardadas", Route.NoticiasGuardadas.path, Icons.Outlined.BookmarkBorder),
         DrawerItem("Calendario", Route.Calendario.path, Icons.Outlined.CalendarMonth),
+        DrawerItem("Vida laboral", Route.VidaLaboral.path, Icons.Outlined.WorkHistory),
+        DrawerItem("Perfil", Route.Profile.path, Icons.Outlined.Person),
+        // DrawerItem("Despidos", Route.Despidos.path, Icons.Outlined.Gavel),
+       // DrawerItem("Guardadas", Route.NoticiasGuardadas.path, Icons.Outlined.BookmarkBorder),
     )
 
     // Email mostrado en el Drawer (puedes usar el real del usuario si quieres)
-    val userEmail: String? = FirebaseAuth.getInstance().currentUser?.email ?: "contacto@lagvis.es"
+    val userEmail: String? = "contacto@lagvis.es"
 
     val onDrawerSelect: (String) -> Unit = { route ->
         nav.navigateSingleTopTo(route)
@@ -88,8 +94,7 @@ fun AppNavHostAdaptive(windowSizeClass: WindowSizeClass) {
             val currentRoute = nav.currentRouteOrNull()
             val isVisualizer = currentRoute?.startsWith("convenioVisualizer") == true
 
-            val scaffoldModifier =
-                if (isVisualizer) Modifier else Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
+            val scaffoldModifier = Modifier
 
             Scaffold(modifier = scaffoldModifier) {
 
@@ -232,6 +237,44 @@ fun AppNavHostAdaptive(windowSizeClass: WindowSizeClass) {
                             }
                         )
                     }
+                    // ====== CALENDARIO LABORAL ======
+                    composable(Route.Calendario.path) {
+                        val ctx = LocalContext.current
+
+                        // 1) Fuente simple para los dropdowns (puedes cambiarlo por tu LookupViewModel si quieres)
+                        val años = remember { (2025..2026).map { it.toString() } }
+                        val provincias = remember {
+                            listOf(
+                                "A Coruña", "Álava", "Albacete", "Alicante", "Almería", "Asturias", "Ávila",
+                                "Badajoz", "Baleares", "Barcelona", "Burgos", "Cáceres", "Cádiz", "Cantabria",
+                                "Castellón", "Ciudad Real", "Córdoba", "Cuenca", "Girona", "Granada", "Guadalajara",
+                                "Gipuzkoa", "Huelva", "Huesca", "Jaén", "La Rioja", "Las Palmas", "León",
+                                "Lleida", "Lugo", "Madrid", "Málaga", "Murcia", "Navarra", "Ourense", "Palencia",
+                                "Pontevedra", "Salamanca", "Segovia", "Sevilla", "Soria", "Tarragona",
+                                "Santa Cruz de Tenerife", "Teruel", "Toledo", "Valencia", "Valladolid",
+                                "Bizkaia", "Zamora", "Zaragoza"
+                            )
+                        }
+
+                        // 2) Pantalla Compose (ya internamente usa HolidaysViewModelKt para cargar festivos)
+                        CalendarioLaboralScreenM3(
+                            años = años,
+                            provincias = provincias,
+                            onBack = { nav.popBackStack() },
+                            onDaySelected = { fecha ->
+                               // Toast.makeText(ctx, "Día seleccionado: $fecha", Toast.LENGTH_SHORT).show()
+                            }
+                        )
+                    }
+                    composable(Route.News.path) {
+                        val ctx = LocalContext.current
+                        NewsOnCompose().NewsScreen()
+                    }
+                    composable(Route.Finiquitos.path){
+                        val ctx = LocalContext.current
+                        CalculadoraDespidosHost()
+                    }
+
                 }
             }
 
@@ -382,7 +425,7 @@ private fun DrawerContent(
             Column {
                 Text(
                     text = "LagVis",
-                    style = MaterialTheme.typography.headlineSmall,
+                    style = MaterialTheme.typography.bodyLarge,
                     color = cs.onPrimary,
                     fontFamily = AppFont
                 )
@@ -431,6 +474,7 @@ private fun DrawerContent(
         Spacer(Modifier.weight(1f))
 
         Text(
+
             text = "© ${java.time.Year.now()} LagVis",
             style = MaterialTheme.typography.labelSmall,
             color = cs.onSurfaceVariant,

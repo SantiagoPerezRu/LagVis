@@ -1,5 +1,5 @@
 // ui/auth/AuthViewModelFactoryKt.kt
-package com.example.lagvis_v1.ui.auth
+package com.example.lagvis_v1.ui.auth.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

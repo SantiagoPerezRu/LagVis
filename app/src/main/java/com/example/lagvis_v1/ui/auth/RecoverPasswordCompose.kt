@@ -40,6 +40,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.lagvis_v1.R
 import com.example.lagvis_v1.core.ui.UiState
+import com.example.lagvis_v1.ui.auth.login.AuthViewModelFactoryKt
+import com.example.lagvis_v1.ui.auth.login.AuthViewModelKt
+import com.example.lagvis_v1.ui.auth.login.LoginOnCompose
+import com.example.lagvis_v1.ui.auth.register.HeaderWave
+import com.example.lagvis_v1.ui.auth.register.RegisterOnCompose
 import com.example.lagvis_v1.ui.auth.uicompose.systemcomponents.AppButton
 
 class RecoverPasswordCompose : ComponentActivity() {

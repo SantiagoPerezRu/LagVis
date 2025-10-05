@@ -1,5 +1,5 @@
 // file: app/src/main/java/com/example/lagvis_v1/ui/auth/LoginOnCompose.kt
-package com.example.lagvis_v1.ui.auth
+package com.example.lagvis_v1.ui.auth.login
 
 import android.app.Activity
 import android.content.Context
@@ -7,7 +7,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -54,6 +53,15 @@ import kotlinx.coroutines.tasks.await // 👈 usa esta extensión oficial
 import org.json.JSONObject
 import java.util.concurrent.atomic.AtomicBoolean
 import android.util.Base64
+import androidx.credentials.CredentialManager
+import androidx.credentials.CustomCredential
+import androidx.credentials.GetCredentialRequest
+import androidx.credentials.exceptions.GetCredentialCancellationException
+import androidx.credentials.exceptions.GetCredentialException
+import androidx.credentials.exceptions.NoCredentialException
+import com.example.lagvis_v1.ui.auth.RecoverPasswordCompose
+import com.example.lagvis_v1.ui.auth.register.RegisterOnCompose
+import com.example.lagvis_v1.ui.auth.register.AdvancedFormRegisterCompose
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -428,15 +436,15 @@ suspend fun signInWithGoogleAndFirebase(context: Context): Result<SimpleUser> = 
         .setAutoSelectEnabled(false)
         .build()
 
-    val request = androidx.credentials.GetCredentialRequest.Builder()
+    val request = GetCredentialRequest.Builder()
         .addCredentialOption(googleIdOption)
         .build()
 
-    val cm = androidx.credentials.CredentialManager.create(activity)
+    val cm = CredentialManager.create(activity)
     val response = withContext(Dispatchers.Main) { cm.getCredential(activity, request) }
     val credential = response.credential
 
-    if (credential !is androidx.credentials.CustomCredential ||
+    if (credential !is CustomCredential ||
         credential.type != GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
     ) {
         error("Tipo de credential no soportado: ${credential::class.java.simpleName} (${credential.type})")
@@ -463,11 +471,11 @@ suspend fun signInWithGoogleAndFirebase(context: Context): Result<SimpleUser> = 
     )
 }.recoverCatching { e ->
     when (e) {
-        is androidx.credentials.exceptions.GetCredentialCancellationException ->
+        is GetCredentialCancellationException ->
             error("Inicio cancelado por el sistema (la actividad se ocultó o el usuario cerró el diálogo).")
-        is androidx.credentials.exceptions.NoCredentialException ->
+        is NoCredentialException ->
             error("No hay credenciales de Google disponibles en este dispositivo.")
-        is androidx.credentials.exceptions.GetCredentialException ->
+        is GetCredentialException ->
             error("Credential Manager: ${e.errorMessage ?: e.message ?: "error desconocido"}")
         else -> throw e
     }

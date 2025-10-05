@@ -1,5 +1,5 @@
 // ui/auth/AdvancedFormViewModelFactory.kt
-package com.example.lagvis_v1.ui.auth
+package com.example.lagvis_v1.ui.auth.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

@@ -48,10 +48,10 @@ public class CalculadoraFiniquitosFragment extends Fragment {
                 return;
             }
 
-            Intent i = new Intent(requireContext(), ActivityDatosGeneralesFiniquito.class);
-            i.putExtra("fechaInicio", fechaInicio);
-            i.putExtra("fechaFin",    fechaFin);
-            startActivity(i);
+           // Intent i = new Intent(requireContext(), ActivityDatosGeneralesFiniquito.class);
+          //  i.putExtra("fechaInicio", fechaInicio);
+          //  i.putExtra("fechaFin",    fechaFin);
+          //  startActivity(i);
         });
     }
 

@@ -1,5 +1,5 @@
 // ui/auth/AdvancedFormRegister.kt
-package com.example.lagvis_v1.ui.auth
+package com.example.lagvis_v1.ui.auth.register
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -16,6 +16,9 @@ import com.example.lagvis_v1.core.ui.UiState
 import com.example.lagvis_v1.core.util.BaseActivity
 import com.example.lagvis_v1.core.util.LagVisConstantesKt
 import com.example.lagvis_v1.databinding.ActivityAdvancedFormRegisterBinding
+import com.example.lagvis_v1.ui.auth.login.AuthViewModelFactoryKt
+import com.example.lagvis_v1.ui.auth.login.AuthViewModelKt
+import com.example.lagvis_v1.ui.auth.login.LoginOnCompose
 import java.util.Calendar
 
 class AdvancedFormRegister : BaseActivity() {

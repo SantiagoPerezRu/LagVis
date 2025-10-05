@@ -1,4 +1,4 @@
-package com.example.lagvis_v1.ui.auth
+package com.example.lagvis_v1.ui.auth.register
 
 import android.content.Intent
 import android.os.Bundle
@@ -29,7 +29,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -37,13 +36,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.lagvis_v1.LagVisApp
 import com.example.lagvis_v1.R
 import com.example.lagvis_v1.core.ui.UiState
+import com.example.lagvis_v1.ui.auth.login.NavKeys
 import com.example.lagvis_v1.ui.auth.uicompose.systemcomponents.AppButton
 import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.AppFont
 import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.LagVis_V1Theme

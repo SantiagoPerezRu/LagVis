@@ -1,5 +1,5 @@
 // RegisterOnCompose.kt
-package com.example.lagvis_v1.ui.auth
+package com.example.lagvis_v1.ui.auth.register
 
 import android.content.Intent
 import android.os.Bundle
@@ -40,6 +40,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.lagvis_v1.R
 import com.example.lagvis_v1.core.ui.UiState
+import com.example.lagvis_v1.ui.auth.login.AuthViewModelFactoryKt
+import com.example.lagvis_v1.ui.auth.login.AuthViewModelKt
 import com.example.lagvis_v1.ui.auth.uicompose.systemcomponents.AppButton
 import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.LagVis_V1Theme
 

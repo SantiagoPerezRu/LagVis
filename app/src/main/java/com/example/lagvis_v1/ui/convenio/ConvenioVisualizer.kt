@@ -8,8 +8,8 @@ import com.example.lagvis_v1.R
 import com.example.lagvis_v1.core.ui.UiState
 import com.example.lagvis_v1.core.util.BaseActivity
 import com.example.lagvis_v1.databinding.ActivityConvenioBinding
-import com.example.lagvis_v1.ui.auth.AuthViewModelFactoryKt
-import com.example.lagvis_v1.ui.auth.AuthViewModelKt
+import com.example.lagvis_v1.ui.auth.login.AuthViewModelFactoryKt
+import com.example.lagvis_v1.ui.auth.login.AuthViewModelKt
 import androidx.lifecycle.ViewModelProvider
 import org.xmlpull.v1.XmlPullParser
 

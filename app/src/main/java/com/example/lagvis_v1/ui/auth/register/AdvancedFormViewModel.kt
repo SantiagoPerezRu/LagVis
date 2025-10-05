@@ -1,5 +1,5 @@
 // ui/auth/AdvancedFormViewModel.kt
-package com.example.lagvis_v1.ui.auth
+package com.example.lagvis_v1.ui.auth.register
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -27,7 +27,7 @@ class AdvancedFormViewModel(
         sectorId: String,
         fechaNacimiento: String
     ) {
-        _submit.value = UiState.Loading()
+        _submit.value = Loading()
         viewModelScope.launch {
             when (val r = repo.insert(uid, nombre, apellido1, apellido2, comunidadId, sectorId, fechaNacimiento)) {
                 is Result.Success<*> -> _submit.value = Success(Unit)

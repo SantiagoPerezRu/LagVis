@@ -10,7 +10,7 @@ interface NewsApiKt {
     @GET("news")
     suspend fun getNews(
         @Query("apikey") apiKey: String,
-        @Query("q") query: String,
+        @Query("q") q: String? = null,
         @Query("country") country: String,
         @Query("category")category: String
     ): Response<NewsResponseKt>

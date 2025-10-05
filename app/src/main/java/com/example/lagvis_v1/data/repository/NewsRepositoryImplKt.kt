@@ -24,7 +24,12 @@ class NewsRepositoryImplKt(
         country: String,
         category: String
     ): Result<List<NewsItemKt>> = try {
-        val resp = api.getNews(apiKey, query.orEmpty(), country.orEmpty(), category.orEmpty())
+        // Solo enviar si no están vacíos
+        val qParam    = query.takeIf { it.isNotBlank() }
+        val countryParam = country.takeIf { it.isNotBlank() }
+        val categoryParam = category.takeIf { it.isNotBlank() }
+
+        val resp = api.getNews(apiKey, qParam, countryParam.toString(), categoryParam.toString())
         if (resp.isSuccessful) {
             val body = resp.body() ?: return Result.Error("Respuesta vacía")
             Result.Success(body.toDomain())
@@ -38,17 +43,18 @@ class NewsRepositoryImplKt(
     }
 
 
+
     override suspend fun saveNew(
         uid: String,
         item: NewsItemKt
     ): Result<Unit> = try {
-        val url = LagVisConstantes.ENDPOINT_GUARDAR_NOTICIA  // absoluta si usas @Url
+        val url = LagVisConstantes.ENDPOINT_GUARDAR_NOTICIA
         val resp = saveApi.save(
             uid = uid,
-            titulo = item.title,                  // <- CAMBIA a 'titulo'
-            fecha = item.pubDate,                // <- CAMBIA a 'fecha' (string)
-            enlace = item.link,                  // <- CAMBIA a 'enlace'
-            creador = item.creator ?: ""         // PHP lo maneja opcional
+            titulo = item.title,
+            fecha = item.pubDate,
+            enlace = item.link,
+            creador = item.creator ?: ""
         )
         if (resp.isSuccessful) {
             Result.Success(Unit)   // ✅ nada que castear

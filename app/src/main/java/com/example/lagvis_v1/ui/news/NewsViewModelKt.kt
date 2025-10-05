@@ -41,4 +41,19 @@ class NewsViewModelKt(
             }
         }
     }
+
+    fun loadByCategory(
+        categoryEs: String?,
+        country: String = "es",
+        query: String = ""
+    ) {
+        // Usa tu mapa ES->EN; si no hay match, "other"
+        val categoryEn = NewsCategoryTranslations.toEnglish(categoryEs) ?: "other"
+        load(query = query, country = country, category = categoryEn)
+    }
+
+    /** Por si quieres cargar sin categoría (top headlines del país). */
+    fun loadTop(country: String = "es", query: String = "") {
+        load(query = query, country = country, category = "")
+    }
 }
