@@ -20,7 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -32,21 +31,21 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import androidx.navigation.navArgument
-import com.example.lagvis_v1.R
 import com.example.lagvis_v1.core.ui.UiState
 import com.example.lagvis_v1.dominio.model.UserProfileKt
 import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.AppFont
 import com.example.lagvis_v1.ui.calendario.CalendarioLaboralScreenM3
-import com.example.lagvis_v1.ui.calendario.HolidaysViewModelFactoryKt
-import com.example.lagvis_v1.ui.calendario.HolidaysViewModelKt
-import com.example.lagvis_v1.ui.convenio.ConvenioSelectorViewModel
-import com.example.lagvis_v1.ui.convenio.ConvenioSelectorViewModelFactory
-import com.example.lagvis_v1.ui.convenio.ConvenioUiModel
-import com.example.lagvis_v1.ui.convenio.ConvenioViewModel
-import com.example.lagvis_v1.ui.convenio.ConvenioViewModelFactory
-import com.example.lagvis_v1.ui.convenio.ConvenioVisualizerWithEdgeHeader
+import com.example.lagvis_v1.ui.convenio.selector.ConvenioSelectorViewModel
+import com.example.lagvis_v1.ui.convenio.selector.ConvenioSelectorViewModelFactory
+import com.example.lagvis_v1.ui.convenio.visualizer.ConvenioUiModel
+import com.example.lagvis_v1.ui.convenio.visualizer.ConvenioViewModel
+import com.example.lagvis_v1.ui.convenio.visualizer.ConvenioViewModelFactory
+import com.example.lagvis_v1.ui.convenio.visualizer.ConvenioVisualizerWithEdgeHeader
+import com.example.lagvis_v1.ui.convenio.selector.ConveniosScreenM3
+import com.example.lagvis_v1.ui.convenio.visualizer.ConvenioVisualizerViewModel
+import com.example.lagvis_v1.ui.convenio.visualizer.ConvenioVisualizerViewModelFactory
+import com.example.lagvis_v1.ui.conveniosIa.ConveniosIaHost
 import com.example.lagvis_v1.ui.despidos.CalculadoraDespidosHost
-import com.example.lagvis_v1.ui.despidos.CalculadoraDespidosInlineScreen
 import com.example.lagvis_v1.ui.news.NewsOnCompose
 import com.example.lagvis_v1.ui.profile.ProfileStateScreen
 import com.example.lagvis_v1.ui.profile.ProfileViewModel
@@ -73,6 +72,7 @@ fun AppNavHostAdaptive(windowSizeClass: WindowSizeClass) {
         DrawerItem("Calendario", Route.Calendario.path, Icons.Outlined.CalendarMonth),
         DrawerItem("Vida laboral", Route.VidaLaboral.path, Icons.Outlined.WorkHistory),
         DrawerItem("Perfil", Route.Profile.path, Icons.Outlined.Person),
+        DrawerItem("Convenios IA", Route.ConvenioIa.path, Icons.Outlined.Person),
         // DrawerItem("Despidos", Route.Despidos.path, Icons.Outlined.Gavel),
        // DrawerItem("Guardadas", Route.NoticiasGuardadas.path, Icons.Outlined.BookmarkBorder),
     )
@@ -128,7 +128,7 @@ fun AppNavHostAdaptive(windowSizeClass: WindowSizeClass) {
                         }
 
                         // Tu pantalla de selector
-                        com.example.lagvis_v1.ui.convenio.ConveniosScreenM3(
+                        ConveniosScreenM3(
                             onSubmit = { comunidad, sector ->
                                 selectorVm.onSiguiente(comunidad, sector)
                             }
@@ -153,8 +153,8 @@ fun AppNavHostAdaptive(windowSizeClass: WindowSizeClass) {
 
                         // 🔹 ViewModel de visualización (cache-first: descarga si falta y lee local)
                         val app = ctx.applicationContext as android.app.Application
-                        val visualVm: com.example.lagvis_v1.ui.convenio.ConvenioVisualizerViewModel =
-                            viewModel(factory = com.example.lagvis_v1.ui.convenio.ConvenioVisualizerViewModelFactory(app))
+                        val visualVm: ConvenioVisualizerViewModel =
+                            viewModel(factory = ConvenioVisualizerViewModelFactory(app))
 
                         // Lanza la carga una vez por archivo
                         LaunchedEffect(archivo) {
@@ -191,7 +191,7 @@ fun AppNavHostAdaptive(windowSizeClass: WindowSizeClass) {
                                     }
                                 }
                             }
-                            is UiState.Success<com.example.lagvis_v1.ui.convenio.ConvenioUiModel> -> {
+                            is UiState.Success<ConvenioUiModel> -> {
                                 val data = s.data
                                 ConvenioVisualizerWithEdgeHeader(
                                     data = data,
@@ -202,7 +202,7 @@ fun AppNavHostAdaptive(windowSizeClass: WindowSizeClass) {
                                     onBack = { nav.popBackStack() },
                                     onAction = null,
                                     onRate = { rating ->
-                                        val uid = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid
+                                        val uid = FirebaseAuth.getInstance().currentUser?.uid
                                         if (uid != null && sectorId != -1) {
                                             convenioVm.rateConvenio(sectorId, uid, rating)
                                         } else {
@@ -273,6 +273,10 @@ fun AppNavHostAdaptive(windowSizeClass: WindowSizeClass) {
                     composable(Route.Finiquitos.path){
                         val ctx = LocalContext.current
                         CalculadoraDespidosHost()
+                    }
+                    composable(Route.ConvenioIa.path){
+                        val ctx = LocalContext.current
+                        ConveniosIaHost(onBack = { nav.popBackStack() })
                     }
 
                 }

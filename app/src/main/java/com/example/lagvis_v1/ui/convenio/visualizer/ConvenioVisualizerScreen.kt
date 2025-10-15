@@ -1,5 +1,5 @@
 // file: app/src/main/java/com/example/lagvis_v1/ui/convenio/ConvenioVisualizerWithEdgeHeader.kt
-package com.example.lagvis_v1.ui.convenio
+package com.example.lagvis_v1.ui.convenio.visualizer
 
 import android.app.Application
 import android.content.res.Configuration

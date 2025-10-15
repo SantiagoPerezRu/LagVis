@@ -1,8 +1,6 @@
 // file: app/src/main/java/com/example/lagvis_v1/ui/convenio/ConvenioVisualizerViewModel.kt
-package com.example.lagvis_v1.ui.convenio
+package com.example.lagvis_v1.ui.convenio.visualizer
 
-import android.util.Log
-import android.util.Xml
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lagvis_v1.core.ui.UiState
@@ -13,6 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.xmlpull.v1.XmlPullParser
+import org.xmlpull.v1.XmlPullParserFactory
 import java.io.StringReader
 
 class ConvenioVisualizerViewModel(
@@ -56,9 +55,9 @@ class ConvenioVisualizerViewModel(
     }
 
     private fun parseXmlToUiModel(xml: String): ConvenioUiModel {
-        val parser = org.xmlpull.v1.XmlPullParserFactory.newInstance()
+        val parser = XmlPullParserFactory.newInstance()
             .apply { isNamespaceAware = false }
-            .newPullParser().also { it.setInput(java.io.StringReader(xml)) }
+            .newPullParser().also { it.setInput(StringReader(xml)) }
 
         val stack = ArrayDeque<String>()
         val text = StringBuilder()
@@ -85,16 +84,16 @@ class ConvenioVisualizerViewModel(
         var detalleManutencion = ""
 
         var event = parser.eventType
-        while (event != org.xmlpull.v1.XmlPullParser.END_DOCUMENT) {
+        while (event != XmlPullParser.END_DOCUMENT) {
             when (event) {
-                org.xmlpull.v1.XmlPullParser.START_TAG -> {
+                XmlPullParser.START_TAG -> {
                     stack.addLast(parser.name)
                     text.setLength(0)
                 }
-                org.xmlpull.v1.XmlPullParser.TEXT -> {
+                XmlPullParser.TEXT -> {
                     text.append(parser.text ?: "")
                 }
-                org.xmlpull.v1.XmlPullParser.END_TAG -> {
+                XmlPullParser.END_TAG -> {
                     val contenido = text.toString().trim()
                     val path = stack.joinToString("/") // ej: convenio_colectivo/manutencion/detalleManun
 

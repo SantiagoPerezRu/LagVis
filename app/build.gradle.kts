@@ -1,4 +1,6 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import java.io.FileInputStream
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
@@ -36,6 +38,11 @@ android {
         // Asegúrate de terminar en "/" para Retrofit
         buildConfigField("String", "BACKEND_BASE_URL", "\"http://lagvis.es//lagvis-endpoints/\"")
         buildConfigField("String", "CONVENIOS_BASE_URL", "\"http://lagvis.es//lagvis-convenios/\"")
+        buildConfigField(
+            "String",
+            "GEMINI_API_KEY",
+            "\"AIzaSyAI1XGXkxxdIFy_yEZnRgaQbpna3pjrB5A\""
+        )
     }
 
     buildTypes {
@@ -142,6 +149,9 @@ dependencies {
     //COMPOSE
     implementation("com.kizitonwose.calendar:compose:2.9.0")
 
+
+    // GEMINI IA
+    implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

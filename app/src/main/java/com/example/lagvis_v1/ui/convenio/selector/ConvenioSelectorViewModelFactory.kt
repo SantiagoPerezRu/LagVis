@@ -1,5 +1,5 @@
 // file: app/src/main/java/com/example/lagvis_v1/ui/convenio/ConvenioSelectorViewModelFactory.kt
-package com.example.lagvis_v1.ui.convenio
+package com.example.lagvis_v1.ui.convenio.selector
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

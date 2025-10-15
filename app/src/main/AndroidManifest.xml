@@ -71,7 +71,7 @@
             android:name=".ui.finiquitos.ActivityDatosGeneralesFiniquito"
             android:exported="false" />
         <activity
-            android:name=".ui.convenio.ConvenioVisualizer"
+            android:name=".ui.convenio.visualizer.ConvenioVisualizer"
             android:exported="false" />
         <activity
             android:name=".ui.auth.register.AdvancedFormRegister"
