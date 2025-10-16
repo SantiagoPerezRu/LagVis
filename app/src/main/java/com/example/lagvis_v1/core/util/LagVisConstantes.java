@@ -1,9 +1,11 @@
 package com.example.lagvis_v1.core.util;
 
+import com.example.lagvis_v1.BuildConfig;
+
 public class LagVisConstantes {
    // public static final String BASE_URL = BuildConfig.API_BASE_URL;
 
-    public static final String BASE_URL2 = "https://lagvis-backend-service-160368818046.europe-southwest1.run.app";
+    public static final String BASE_URL2 = BuildConfig.BACKEND_BASE_URL;
 
     // Url para scripts php
     public static final String ENDPOINT_MOSTRAR = BASE_URL2 + "/mostrar_.php";
