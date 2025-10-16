@@ -1,24 +1,23 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-import java.io.FileInputStream
-import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.google.gms.google.services)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("com.google.devtools.ksp") // KSP para Room
+    alias(libs.plugins.ksp)
 }
-
-val room_version = "2.8.0"        // <-- define la versión que estás usando
-val lifecycle_version = "2.8.6"   // estable actual
-val okhttp_version = "4.12.0"     // alinea con logging-interceptor
-val retrofit_version = "2.11.0"   // última estable
 
 val newsApiKey: String = providers.gradleProperty("NEWS_API_KEY").orNull
     ?: gradleLocalProperties(rootDir, providers).getProperty("NEWS_API_KEY")
     ?: System.getenv("NEWS_API_KEY")
     ?: error("NEWS_API_KEY no definido (gradle.properties / local.properties / env)")
+
+val geminiApiKey: String = providers.gradleProperty("GEMINI").orNull
+    ?: gradleLocalProperties(rootDir, providers).getProperty("GEMINI")
+    ?: System.getenv("GEMINI")
+    ?: error("GEMINI no definido (gradle.properties / local.properties / env)")
+
 
 android {
     namespace = "com.example.lagvis_v1"
@@ -38,11 +37,7 @@ android {
         // Asegúrate de terminar en "/" para Retrofit
         buildConfigField("String", "BACKEND_BASE_URL", "\"http://lagvis.es//lagvis-endpoints/\"")
         buildConfigField("String", "CONVENIOS_BASE_URL", "\"http://lagvis.es//lagvis-convenios/\"")
-        buildConfigField(
-            "String",
-            "GEMINI_API_KEY",
-            "\"AIzaSyAI1XGXkxxdIFy_yEZnRgaQbpna3pjrB5A\""
-        )
+        buildConfigField("String", "GEMINI_API_KEY", "\"$geminiApiKey\"")
     }
 
     buildTypes {
@@ -69,95 +64,77 @@ android {
 }
 
 dependencies {
+    // --- Base AndroidX / Material ---
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.material3)
 
-    // Firebase
+    // --- Firebase / Auth / Credentials ---
     implementation(libs.firebase.auth)
     implementation(libs.credentials)
     implementation(libs.credentials.play.services.auth)
     implementation(libs.googleid)
+    implementation(libs.play.services.auth)
 
-    //COMPOSABLES EXTERNAL
-    implementation("com.composables:core:1.43.1")
-    implementation("androidx.navigation:navigation-compose:2.8.2")
-    // Volley (si aún lo usas)
+    // --- Networking: Volley (si aún lo usas) ---
     implementation(libs.volley)
-    implementation ("com.google.accompanist:accompanist-drawablepainter:0.34.0")
 
-    // --- ROOM (KSP) ---
-    implementation("androidx.room:room-runtime:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
-    implementation(libs.lifecycle.runtime.ktx)
-    implementation(libs.navigation.runtime.ktx)
-    implementation(libs.material3.window.size.class1)
+    // --- OkHttp + Retrofit (coherentes) ---
+    implementation(libs.okhttp)
+    debugImplementation(libs.okhttp.logging.interceptor)
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.gson)
+    implementation(libs.gson)
+
+    // --- Room (KSP) ---
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+
+    // --- Glide / UI clásicos ---
+    implementation(libs.glide)
+    implementation(libs.recyclerview)
+    implementation(libs.cardview)
+
+    // --- Jetpack Compose (BOM) ---
+    implementation(platform(libs.compose.bom))
+    implementation(libs.ui)
+    implementation(libs.ui.graphics)
+    implementation(libs.ui.tooling.preview)
+    implementation(libs.material3)
+    implementation(libs.material.icons.extended)
+    implementation(libs.activity.compose)
+    androidTestImplementation(platform(libs.compose.bom))
+    debugImplementation(libs.ui.tooling)
+    debugImplementation(libs.ui.test.manifest)
+    androidTestImplementation(libs.ui.test.junit4)
     implementation(libs.lifecycle.runtime.compose)
-    ksp("androidx.room:room-compiler:$room_version")
+    implementation(libs.lifecycle.viewmodel.compose)
+    implementation(libs.compose.runtime.livedata)
 
-    implementation("androidx.credentials:credentials:1.3.0")
-    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
+    // --- Navigation (Compose/Runtime) ---
+    implementation(libs.navigation.compose)
+    implementation(libs.navigation.runtime.ktx)
 
-    // Google Identity (esto es lo que te falta para GoogleIdCredential)
-    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+    // --- Material3 extra ---
+    implementation(libs.material3.window.size.class1)
 
-    // (Opcional pero útil) Play Services Auth si lo usas en otros flujos
-    implementation("com.google.android.gms:play-services-auth:21.2.0")
+    // --- Composables externos / Accompanist ---
+    implementation(libs.composables.core)
+    implementation(libs.accompanist.drawablepainter)
 
-    implementation("androidx.credentials:credentials:1.3.0")
-    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
-    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1") // <- define GoogleIdCredential
-    implementation("com.google.firebase:firebase-auth:23.0.0") // si usas Firebase
+    // --- Calendario ---
+    implementation(libs.kizitonwose.calendar.view)
+    implementation(libs.kizitonwose.calendar.compose)
 
-    // --- Retrofit + OkHttp coherentes ---
-    implementation("com.squareup.okhttp3:okhttp:$okhttp_version")
-    debugImplementation("com.squareup.okhttp3:logging-interceptor:$okhttp_version")
+    // --- Google AI (Gemini client) ---
+    implementation(libs.generativeai)
 
-    implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
-    implementation("com.squareup.retrofit2:converter-gson:$retrofit_version")
-
-    // Gson (si lo usas explícitamente)
-    implementation("com.google.code.gson:gson:2.10.1")
-
-    // Glide
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-
-    // Recycler / CardView
-    implementation("androidx.recyclerview:recyclerview:1.4.0")
-    implementation("androidx.cardview:cardview:1.0.0")
-
-    // Lifecycle Compose (usa versiones válidas)
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:$lifecycle_version")
-    implementation("androidx.compose.runtime:runtime-livedata")
-
-    // Compose
-    implementation(platform("androidx.compose:compose-bom:2024.09.01"))
-
-    // --- Compose core (sin versión, la pone el BOM) ---
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.material:material-icons-extended")
-    implementation("androidx.activity:activity-compose:1.9.2") // setContent
-
-    // Calendario
-    implementation("com.kizitonwose.calendar:view:2.8.0")
-    //COMPOSE
-    implementation("com.kizitonwose.calendar:compose:2.9.0")
-
-
-    // GEMINI IA
-    implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
-
+    // --- Tests ---
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    androidTestImplementation(platform(libs.compose.bom))
-    androidTestImplementation(libs.ui.test.junit4)
-    debugImplementation(libs.ui.tooling)
-    debugImplementation(libs.ui.test.manifest)
 }
