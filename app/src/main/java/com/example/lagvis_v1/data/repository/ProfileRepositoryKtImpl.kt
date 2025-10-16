@@ -4,7 +4,8 @@ import android.util.Log
 import com.example.lagvis_v1.data.mapper.toDomain
 import com.example.lagvis_v1.data.remote.ProfileApiKt
 import com.example.lagvis_v1.dominio.model.Result
-import com.example.lagvis_v1.dominio.model.UserProfileKt
+import com.example.lagvis_v1.dominio.model.profile.UserProfileKt
+import com.example.lagvis_v1.dominio.repositorio.profile.ProfileRepositoryKt
 import com.google.gson.Gson
 
 class ProfileRepositoryImplKt(

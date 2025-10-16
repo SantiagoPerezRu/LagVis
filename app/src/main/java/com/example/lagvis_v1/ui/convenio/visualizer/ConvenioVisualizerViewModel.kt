@@ -4,7 +4,7 @@ package com.example.lagvis_v1.ui.convenio.visualizer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lagvis_v1.core.ui.UiState
-import com.example.lagvis_v1.dominio.repositorio.ConvenioRepository
+import com.example.lagvis_v1.dominio.repositorio.convenio.ConvenioRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

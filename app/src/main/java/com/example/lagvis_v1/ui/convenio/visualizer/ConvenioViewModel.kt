@@ -1,4 +1,6 @@
-// file: app/src/main/java/com/example/lagvis_v1/ui/convenio/ConvenioViewModel.kt
+/*
+ file: app/src/main/java/com/example/lagvis_v1/ui/convenio/ConvenioViewModel.kt
+
 package com.example.lagvis_v1.ui.convenio.visualizer
 
 import androidx.lifecycle.LiveData
@@ -6,7 +8,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lagvis_v1.core.ui.UiState
-import com.example.lagvis_v1.dominio.repositorio.RatingsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -27,3 +28,4 @@ class ConvenioViewModel(private val repo: RatingsRepository) : ViewModel() {
         }
     }
 }
+*/

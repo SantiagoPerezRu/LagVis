@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.lagvis_v1.core.ui.UiState
-import com.example.lagvis_v1.dominio.model.PublicHolidayKt
+import com.example.lagvis_v1.dominio.model.holidays.PublicHolidayKt
 import java.time.LocalDate
 import java.time.YearMonth
 

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.lagvis_v1.core.network.RetroFitProviderKt
 import com.example.lagvis_v1.data.repository.NewsRepositoryImplKt
-import com.example.lagvis_v1.dominio.repositorio.NewsRepositoryKt
+import com.example.lagvis_v1.dominio.repositorio.news.NewsRepositoryKt
 
 class NewsViewModelFactoryKt : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

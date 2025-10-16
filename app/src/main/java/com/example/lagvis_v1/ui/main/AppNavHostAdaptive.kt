@@ -32,14 +32,12 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import androidx.navigation.navArgument
 import com.example.lagvis_v1.core.ui.UiState
-import com.example.lagvis_v1.dominio.model.UserProfileKt
-import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.AppFont
+import com.example.lagvis_v1.dominio.model.profile.UserProfileKt
+import com.example.lagvis_v1.ui.theme.AppFont
 import com.example.lagvis_v1.ui.calendario.CalendarioLaboralScreenM3
 import com.example.lagvis_v1.ui.convenio.selector.ConvenioSelectorViewModel
 import com.example.lagvis_v1.ui.convenio.selector.ConvenioSelectorViewModelFactory
 import com.example.lagvis_v1.ui.convenio.visualizer.ConvenioUiModel
-import com.example.lagvis_v1.ui.convenio.visualizer.ConvenioViewModel
-import com.example.lagvis_v1.ui.convenio.visualizer.ConvenioViewModelFactory
 import com.example.lagvis_v1.ui.convenio.visualizer.ConvenioVisualizerWithEdgeHeader
 import com.example.lagvis_v1.ui.convenio.selector.ConveniosScreenM3
 import com.example.lagvis_v1.ui.convenio.visualizer.ConvenioVisualizerViewModel
@@ -147,10 +145,6 @@ fun AppNavHostAdaptive(windowSizeClass: WindowSizeClass) {
                         val archivo = backStackEntry.arguments?.getString("archivo")?.let { android.net.Uri.decode(it) }.orEmpty()
                         val sectorId = backStackEntry.arguments?.getInt("sectorId") ?: -1
 
-                        // ViewModel de valoraciones (como ya lo tienes)
-                        val convenioVm: ConvenioViewModel = viewModel(factory = ConvenioViewModelFactory())
-                        val rateState by convenioVm.rate.observeAsState()
-
                         // 🔹 ViewModel de visualización (cache-first: descarga si falta y lee local)
                         val app = ctx.applicationContext as android.app.Application
                         val visualVm: ConvenioVisualizerViewModel =
@@ -164,17 +158,6 @@ fun AppNavHostAdaptive(windowSizeClass: WindowSizeClass) {
 
                         // Observa estado de carga del XML cacheado
                         val state by visualVm.state.collectAsStateWithLifecycle()
-
-                        // Observa resultado de rating (igual que antes)
-                        LaunchedEffect(rateState) {
-                            when (val s = rateState) {
-                                is UiState.Success ->
-                                    Toast.makeText(ctx, "Valoración enviada", Toast.LENGTH_LONG).show()
-                                is UiState.Error ->
-                                    Toast.makeText(ctx, s.message ?: "Error al enviar valoración", Toast.LENGTH_LONG).show()
-                                else -> Unit
-                            }
-                        }
 
                         when (val s = state) {
                             is UiState.Loading<*> -> {
@@ -204,7 +187,7 @@ fun AppNavHostAdaptive(windowSizeClass: WindowSizeClass) {
                                     onRate = { rating ->
                                         val uid = FirebaseAuth.getInstance().currentUser?.uid
                                         if (uid != null && sectorId != -1) {
-                                            convenioVm.rateConvenio(sectorId, uid, rating)
+
                                         } else {
                                             Toast.makeText(ctx, "Error: usuario o convenio no válidos", Toast.LENGTH_LONG).show()
                                         }

@@ -42,8 +42,8 @@ import com.example.lagvis_v1.R
 import com.example.lagvis_v1.core.ui.UiState
 import com.example.lagvis_v1.ui.auth.login.NavKeys
 import com.example.lagvis_v1.ui.auth.uicompose.systemcomponents.AppButton
-import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.AppFont
-import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.LagVis_V1Theme
+import com.example.lagvis_v1.ui.theme.AppFont
+import com.example.lagvis_v1.ui.theme.LagVis_V1Theme
 import com.example.lagvis_v1.ui.common.LookupViewModel
 import com.example.lagvis_v1.ui.common.LookupViewModelFactory
 import com.example.lagvis_v1.ui.common.UiItem

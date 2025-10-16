@@ -72,10 +72,6 @@ object RetroFitProviderKt {
     val profileApi: ProfileApiKt by lazy {
         retrofit(BuildConfig.BACKEND_BASE_URL).create(ProfileApiKt::class.java)
     }
-
-    fun ratingsApi(): RatingsApiKt =
-        retrofit(BuildConfig.BACKEND_BASE_URL).create(RatingsApiKt::class.java)
-
     fun provideConveniosApi(): ConveniosApi =
         retrofit(BuildConfig.CONVENIOS_BASE_URL).create(ConveniosApi::class.java)
 }

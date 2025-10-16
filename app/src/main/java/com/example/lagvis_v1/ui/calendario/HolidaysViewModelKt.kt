@@ -3,9 +3,9 @@ package com.example.lagvis_v1.ui.calendario
 
 import androidx.lifecycle.*
 import com.example.lagvis_v1.core.ui.UiState
-import com.example.lagvis_v1.dominio.model.PublicHolidayKt
+import com.example.lagvis_v1.dominio.model.holidays.PublicHolidayKt
 import com.example.lagvis_v1.dominio.model.Result
-import com.example.lagvis_v1.dominio.repositorio.HolidayRepositoryKt
+import com.example.lagvis_v1.dominio.repositorio.holidays.HolidayRepositoryKt
 import kotlinx.coroutines.launch
 
 class HolidaysViewModelKt(

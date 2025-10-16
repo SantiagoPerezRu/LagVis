@@ -2,7 +2,7 @@ package com.example.lagvis_v1.data.mapper
 
 import com.example.lagvis_v1.data.remote.dto.news.NewsItemDtoKt
 import com.example.lagvis_v1.data.remote.dto.news.NewsResponseKt
-import com.example.lagvis_v1.dominio.model.NewsItemKt
+import com.example.lagvis_v1.dominio.model.news.NewsItemKt
 
 
 fun NewsResponseKt.toDomain(): List<NewsItemKt> =

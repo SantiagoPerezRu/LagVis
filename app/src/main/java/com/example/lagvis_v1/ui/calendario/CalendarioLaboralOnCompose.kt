@@ -4,7 +4,6 @@ package com.example.lagvis_v1.ui.calendario
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -23,12 +22,11 @@ import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.lagvis_v1.R
-import com.example.lagvis_v1.dominio.model.PublicHolidayKt
-import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.AppFont
+import com.example.lagvis_v1.dominio.model.holidays.PublicHolidayKt
+import com.example.lagvis_v1.ui.theme.AppFont
 import com.example.lagvis_v1.ui.common.DropdownOutlinedM3
 import com.example.lagvis_v1.ui.common.HeaderGradientParallax
 import com.kizitonwose.calendar.compose.HorizontalCalendar

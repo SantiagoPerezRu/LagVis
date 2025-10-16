@@ -5,9 +5,9 @@ import com.example.lagvis_v1.core.util.LagVisConstantes
 import com.example.lagvis_v1.data.mapper.toDomain
 import com.example.lagvis_v1.data.remote.NewsApiKt
 import com.example.lagvis_v1.data.remote.SaveNewsApiKt
-import com.example.lagvis_v1.dominio.model.NewsItemKt
+import com.example.lagvis_v1.dominio.model.news.NewsItemKt
 import com.example.lagvis_v1.dominio.model.Result
-import com.example.lagvis_v1.dominio.repositorio.NewsRepositoryKt
+import com.example.lagvis_v1.dominio.repositorio.news.NewsRepositoryKt
 import retrofit2.Response
 import java.io.IOException
 

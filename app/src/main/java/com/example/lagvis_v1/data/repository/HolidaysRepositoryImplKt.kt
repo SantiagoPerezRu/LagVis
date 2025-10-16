@@ -4,9 +4,9 @@ package com.example.lagvis_v1.data.repository
 import com.example.lagvis_v1.data.mapper.toDomain
 import com.example.lagvis_v1.data.remote.HolidaysApiKt
 import com.example.lagvis_v1.data.remote.dto.holiday.HolidaysResponseKt
-import com.example.lagvis_v1.dominio.model.PublicHolidayKt
+import com.example.lagvis_v1.dominio.model.holidays.PublicHolidayKt
 import com.example.lagvis_v1.dominio.model.Result
-import com.example.lagvis_v1.dominio.repositorio.HolidayRepositoryKt
+import com.example.lagvis_v1.dominio.repositorio.holidays.HolidayRepositoryKt
 import retrofit2.Response
 import java.io.IOException
 

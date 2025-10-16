@@ -23,7 +23,7 @@ import com.android.volley.toolbox.Volley
 import com.example.lagvis_v1.R
 import com.example.lagvis_v1.core.util.BaseFragment
 import com.example.lagvis_v1.core.util.LagVisConstantes
-import com.example.lagvis_v1.dominio.model.NewsItemKt
+import com.example.lagvis_v1.dominio.model.news.NewsItemKt
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import org.json.JSONArray

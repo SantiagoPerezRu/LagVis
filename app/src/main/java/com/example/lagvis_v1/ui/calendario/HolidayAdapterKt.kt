@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lagvis_v1.R
-import com.example.lagvis_v1.dominio.model.PublicHolidayKt
+import com.example.lagvis_v1.dominio.model.holidays.PublicHolidayKt
 
 class HolidayAdapterKt(
     private var holidayList: MutableList<PublicHolidayKt> = mutableListOf()

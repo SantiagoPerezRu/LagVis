@@ -3,7 +3,7 @@ package com.example.lagvis_v1.data.mapper
 
 import com.example.lagvis_v1.data.remote.dto.holiday.HolidayDtoKt
 import com.example.lagvis_v1.data.remote.dto.holiday.HolidaysResponseKt
-import com.example.lagvis_v1.dominio.model.PublicHolidayKt
+import com.example.lagvis_v1.dominio.model.holidays.PublicHolidayKt
 
 fun HolidaysResponseKt.toDomain(): List<PublicHolidayKt> =
     (holidays ?: emptyList()).map { it.toDomain(display) }

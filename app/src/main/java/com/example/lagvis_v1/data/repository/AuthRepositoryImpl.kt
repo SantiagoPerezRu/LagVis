@@ -1,7 +1,7 @@
 // data/repository/AuthRepositoryImplKt.kt
 package com.example.lagvis_v1.data.repository
 
-import com.example.lagvis_v1.dominio.repositorio.AuthRepositoryKt
+import com.example.lagvis_v1.dominio.repositorio.auth.AuthRepositoryKt
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 

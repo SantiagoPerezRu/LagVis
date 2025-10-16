@@ -17,7 +17,7 @@ class ConvenioVisualizer : BaseActivity() {
 
     private lateinit var binding: ActivityConvenioBinding
 
-    private lateinit var vm: ConvenioViewModel
+    //private lateinit var vm: ConvenioViewModel
     private lateinit var authVm: AuthViewModelKt
 
     private var convenioIdActual: Int = -1
@@ -29,18 +29,18 @@ class ConvenioVisualizer : BaseActivity() {
         setContentView(binding.root)
 
         // VMs
-        vm = ViewModelProvider(this, ConvenioViewModelFactory())
+       /* vm = ViewModelProvider(this, ConvenioViewModelFactory())
             .get(ConvenioViewModel::class.java)
         authVm = ViewModelProvider(this, AuthViewModelFactoryKt())
             .get(AuthViewModelKt::class.java)
-
+*/
         convenioIdActual = intent.getIntExtra("sectorId", -1)
         usuarioIdActual = authVm.uidOrNull()
 
         cargarConvenioDesdeXML() // solo rellena UI con tu XML local
 
         // Observa envío de valoración
-        vm.rate.observe(this) { state ->
+      /*  vm.rate.observe(this) { state ->
             when (state) {
                 is UiState.Loading -> binding.btnEnviarValoracion.isEnabled = false
                 is UiState.Success -> {
@@ -54,7 +54,7 @@ class ConvenioVisualizer : BaseActivity() {
                 }
                 else -> Unit
             }
-        }
+        }*/
 
         binding.btnEnviarValoracion.setOnClickListener {
             val rating = binding.ratingBar.rating
@@ -69,7 +69,7 @@ class ConvenioVisualizer : BaseActivity() {
                 return@setOnClickListener
             }
 
-            vm.rateConvenio(convenioIdActual, usuarioIdActual!!, valoracionFinal)
+            //vm.rateConvenio(convenioIdActual, usuarioIdActual!!, valoracionFinal)
         }
     }
 

@@ -2,7 +2,7 @@
 package com.example.lagvis_v1.data.mapper
 
 import com.example.lagvis_v1.data.remote.dto.user.UserResponseDto
-import com.example.lagvis_v1.dominio.model.UserProfileKt
+import com.example.lagvis_v1.dominio.model.profile.UserProfileKt
 
 fun UserResponseDto?.toDomain(): UserProfileKt? {
     val datos = this?.datos ?: return null

@@ -6,9 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lagvis_v1.core.ui.UiState
-import com.example.lagvis_v1.dominio.model.NewsItemKt
+import com.example.lagvis_v1.dominio.model.news.NewsItemKt
 import com.example.lagvis_v1.dominio.model.Result
-import com.example.lagvis_v1.dominio.repositorio.NewsRepositoryKt
+import com.example.lagvis_v1.dominio.repositorio.news.NewsRepositoryKt
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

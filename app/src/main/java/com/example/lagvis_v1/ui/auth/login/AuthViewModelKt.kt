@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.lagvis_v1.core.ui.UiState
-import com.example.lagvis_v1.dominio.repositorio.AuthRepositoryKt
+import com.example.lagvis_v1.dominio.repositorio.auth.AuthRepositoryKt
 
 class AuthViewModelKt(
     private val repo: AuthRepositoryKt

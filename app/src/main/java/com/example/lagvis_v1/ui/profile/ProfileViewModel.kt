@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lagvis_v1.core.ui.UiState
 import com.example.lagvis_v1.dominio.model.Result
-import com.example.lagvis_v1.dominio.model.UserProfileKt
-import com.example.lagvis_v1.dominio.repositorio.ProfileRepositoryKt
+import com.example.lagvis_v1.dominio.model.profile.UserProfileKt
+import com.example.lagvis_v1.dominio.repositorio.profile.ProfileRepositoryKt
 import kotlinx.coroutines.launch
 
 class ProfileViewModel(

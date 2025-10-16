@@ -4,7 +4,7 @@ package com.example.lagvis_v1.ui.auth.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.lagvis_v1.data.repository.AuthRepositoryImplKt
-import com.example.lagvis_v1.dominio.repositorio.AuthRepositoryKt
+import com.example.lagvis_v1.dominio.repositorio.auth.AuthRepositoryKt
 import com.google.firebase.auth.FirebaseAuth
 
 class AuthViewModelFactoryKt : ViewModelProvider.Factory {

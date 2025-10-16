@@ -42,7 +42,7 @@ import com.example.lagvis_v1.R
 import com.example.lagvis_v1.core.ui.UiState
 import com.example.lagvis_v1.ui.auth.uicompose.systemcomponents.AppButton
 import com.example.lagvis_v1.ui.auth.uicompose.systemcomponents.PasswordField
-import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.LagVis_V1Theme
+import com.example.lagvis_v1.ui.theme.LagVis_V1Theme
 import com.example.lagvis_v1.ui.main.MainActivity
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential

@@ -12,7 +12,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.outlined.Badge
 import androidx.compose.material.icons.outlined.Cake
 import androidx.compose.material.icons.outlined.LockReset
@@ -21,13 +20,11 @@ import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.WorkOutline
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -38,9 +35,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lagvis_v1.R
 import com.example.lagvis_v1.core.ui.UiState
-import com.example.lagvis_v1.dominio.model.UserProfileKt
-import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.AppFont
-import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.LagVis_V1Theme
+import com.example.lagvis_v1.dominio.model.profile.UserProfileKt
+import com.example.lagvis_v1.ui.theme.AppFont
+import com.example.lagvis_v1.ui.theme.LagVis_V1Theme
 
 /* =========================================================
  * 1) Contenedor de estado (útil para NavHost + ViewModel)

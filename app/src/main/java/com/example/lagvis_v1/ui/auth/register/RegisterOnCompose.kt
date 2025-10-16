@@ -43,7 +43,7 @@ import com.example.lagvis_v1.core.ui.UiState
 import com.example.lagvis_v1.ui.auth.login.AuthViewModelFactoryKt
 import com.example.lagvis_v1.ui.auth.login.AuthViewModelKt
 import com.example.lagvis_v1.ui.auth.uicompose.systemcomponents.AppButton
-import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.LagVis_V1Theme
+import com.example.lagvis_v1.ui.theme.LagVis_V1Theme
 
 class RegisterOnCompose : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

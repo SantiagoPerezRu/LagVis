@@ -19,7 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.lagvis_v1.ui.common.HeaderGradientParallax
-import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.AppFont // Asumiendo que AppFont está aquí
+import com.example.lagvis_v1.ui.theme.AppFont // Asumiendo que AppFont está aquí
 
 /**
  * Pantalla para seleccionar el PDF y enviarlo a la IA.

@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.AppFont
+import com.example.lagvis_v1.ui.theme.AppFont
 import com.example.lagvis_v1.ui.common.HeaderGradientParallax
 import java.text.NumberFormat
 import java.util.Locale

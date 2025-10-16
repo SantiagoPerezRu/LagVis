@@ -4,7 +4,7 @@ package com.example.lagvis_v1.data.repository
 import android.content.Context
 import android.util.Log
 import com.example.lagvis_v1.data.remote.ConveniosApi
-import com.example.lagvis_v1.dominio.repositorio.ConvenioRepository
+import com.example.lagvis_v1.dominio.repositorio.convenio.ConvenioRepository
 import okio.buffer
 import okio.sink
 import java.io.File

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.lagvis_v1.core.network.RetroFitProviderKt
 import com.example.lagvis_v1.data.repository.ConvenioRepositoryImpl
-import com.example.lagvis_v1.dominio.repositorio.ConvenioRepository
+import com.example.lagvis_v1.dominio.repositorio.convenio.ConvenioRepository
 
 class ConvenioVisualizerViewModelFactory(
     private val app: Application

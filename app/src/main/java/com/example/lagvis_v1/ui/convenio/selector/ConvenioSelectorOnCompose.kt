@@ -26,8 +26,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.lagvis_v1.core.ui.UiState
-import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.LagVis_V1Theme
-import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.AppFont
+import com.example.lagvis_v1.ui.theme.LagVis_V1Theme
+import com.example.lagvis_v1.ui.theme.AppFont
 import com.example.lagvis_v1.ui.common.DropdownOutlinedM3
 import com.example.lagvis_v1.ui.common.HeaderGradientParallax
 import com.example.lagvis_v1.ui.common.LookupViewModel

@@ -3,7 +3,7 @@ package com.example.lagvis_v1.data.repository
 
 import com.example.lagvis_v1.data.remote.AdvancedRegisterApiKt
 import com.example.lagvis_v1.dominio.model.Result
-import com.example.lagvis_v1.dominio.repositorio.AdvancedRegisterRepositoryKt
+import com.example.lagvis_v1.dominio.repositorio.auth.AdvancedRegisterRepositoryKt
 import okhttp3.ResponseBody
 
 class AdvancedRegisterRepositoryImplKt(
