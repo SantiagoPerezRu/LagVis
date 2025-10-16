@@ -23,34 +23,43 @@ class LookupRepository(
     fun observeSectores(): Flow<List<SectorEntity>> = dao.observeSectores()
 
     suspend fun refreshOnAppStart(force: Boolean = false) {
-        val now = timeProvider()
-        val shouldRefresh = force || (now - lastRefreshAt > ttlMs)
 
-        val haveLocal =
-            dao.getComunidades().isNotEmpty() && dao.getSectores().isNotEmpty()
+        try {
 
-        if (!haveLocal || shouldRefresh) {
-            // Comunidades
-            val cResp = api.getComunidades()
-            if (cResp.isSuccessful) {
-                val body = cResp.body()
-                if (body?.success == true) {
-                    val items = body.data.map { ComunidadEntity(id = it.id, nombre = it.nombre) }
-                    dao.clearComunidades()
-                    dao.upsertComunidades(items)
+            val now = timeProvider()
+            val shouldRefresh = force || (now - lastRefreshAt > ttlMs)
+
+            val haveLocal =
+                dao.getComunidades().isNotEmpty() && dao.getSectores().isNotEmpty()
+
+            if (!haveLocal || shouldRefresh) {
+                // Comunidades
+                val cResp = api.getComunidades()
+                if (cResp.isSuccessful) {
+                    val body = cResp.body()
+                    if (body?.success == true) {
+                        val items =
+                            body.data.map { ComunidadEntity(id = it.id, nombre = it.nombre) }
+                        dao.clearComunidades()
+                        dao.upsertComunidades(items)
+                    }
                 }
-            }
-            // Sectores
-            val sResp = api.getSectores()
-            if (sResp.isSuccessful) {
-                val body = sResp.body()
-                if (body?.success == true) {
-                    val items = body.data.map { SectorEntity(id = it.id, nombre = it.nombre) }
-                    dao.clearSectores()
-                    dao.upsertSectores(items)
+                // Sectores
+                val sResp = api.getSectores()
+                if (sResp.isSuccessful) {
+                    val body = sResp.body()
+                    if (body?.success == true) {
+                        val items = body.data.map { SectorEntity(id = it.id, nombre = it.nombre) }
+                        dao.clearSectores()
+                        dao.upsertSectores(items)
+                    }
                 }
+                lastRefreshAt = now
             }
-            lastRefreshAt = now
+        } catch (SocketExpection: Exception) {
+            SocketExpection.printStackTrace()
         }
+
+
     }
 }

@@ -9,4 +9,5 @@ sealed class Route(val path: String) {
     data object Despidos          : Route("despidos")           // DatosGeneralesDespidoFragment
     data object NoticiasGuardadas : Route("noticias_guardadas") // NoticiasGuardadasFragment
     data object Calendario        : Route("calendario")         // CalendarioLaboral
+    data object ConvenioIa : Route("convenioIa") // ConvenioVisualizer
 }

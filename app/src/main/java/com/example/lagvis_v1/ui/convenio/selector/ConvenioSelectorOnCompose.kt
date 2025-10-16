@@ -1,10 +1,7 @@
-package com.example.lagvis_v1.ui.convenio
+package com.example.lagvis_v1.ui.convenio.selector
 
-import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -28,14 +25,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.lagvis_v1.LagVisApp
+import com.example.lagvis_v1.core.ui.UiState
 import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.LagVis_V1Theme
 import com.example.lagvis_v1.ui.auth.uicompose.ui.theme.AppFont
 import com.example.lagvis_v1.ui.common.DropdownOutlinedM3
 import com.example.lagvis_v1.ui.common.HeaderGradientParallax
 import com.example.lagvis_v1.ui.common.LookupViewModel
 import com.example.lagvis_v1.ui.common.LookupViewModelFactory
-
+import com.example.lagvis_v1.ui.convenio.visualizer.ConvenioVisualizerRoute
 
 
 /* ======================== UI ======================== */
@@ -175,14 +172,14 @@ fun ConveniosHost() {
 
     val ctx = LocalContext.current
     val selectorVm: ConvenioSelectorViewModel = viewModel(factory = ConvenioSelectorViewModelFactory())
-    val navState by selectorVm.nav.observeAsState(initial = com.example.lagvis_v1.core.ui.UiState.Loading())
+    val navState by selectorVm.nav.observeAsState(initial = UiState.Loading())
 
     if (archivoSeleccionado == null) {
         // 1) Tu pantalla de selección
         ConveniosScreenM3(
             onSubmit = { comunidad, sector ->
                 // 👇 AQUÍ se ejecuta “la puta acción”
-                android.util.Log.d("ConveniosHost", "onSubmit($comunidad, $sector)")
+                Log.d("ConveniosHost", "onSubmit($comunidad, $sector)")
                 Toast.makeText(ctx, "Buscando convenio…", Toast.LENGTH_SHORT).show()
                 selectorVm.onSiguiente(comunidad, sector)
             }
@@ -191,12 +188,12 @@ fun ConveniosHost() {
         // 2) Reacciona al resultado del VM de selección
         LaunchedEffect(navState) {
             when (val s = navState) {
-                is com.example.lagvis_v1.core.ui.UiState.Success -> {
+                is UiState.Success -> {
                     archivoSeleccionado = s.data.archivo          // p.ej. "madrid_hosteleria.xml"
                     sectorIdSeleccionado = s.data.sectorId
                     selectorVm.consumeNav()
                 }
-                is com.example.lagvis_v1.core.ui.UiState.Error -> {
+                is UiState.Error -> {
                     Toast.makeText(ctx, s.message ?: "Error al seleccionar", Toast.LENGTH_LONG).show()
                     selectorVm.consumeNav()
                 }
