@@ -36,8 +36,9 @@ fun CalculadoraDespidosHost(
         )
         is DespidosScreenState.Result -> ResultadoFiniquitoScreen(
             resultado = s.data,
-            onInfoFiniquito = { /* opcional */ },
-            onExportPdf = { /* opcional */ }
+            //onInfoFiniquito = { /* opcional */ },
+            onExportPdf = { /* opcional */ },
+            onBack = { current = DespidosScreenState.Form }
         )
     }
 }

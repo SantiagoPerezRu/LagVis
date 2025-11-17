@@ -84,6 +84,7 @@ dependencies {
 
     // --- OkHttp + Retrofit (coherentes) ---
     implementation(libs.okhttp)
+    implementation(libs.animation)
     debugImplementation(libs.okhttp.logging.interceptor)
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.gson)

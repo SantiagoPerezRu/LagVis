@@ -59,7 +59,7 @@ fun CalculadoraDespidosInlineScreen(
             HeaderGradientParallax(
                 title = "Calculadora\nde Despidos",
                 subtitle = "Introduce datos y calcula",
-                showBack = true,
+                showBack = false,
                 onBack = onBack,
                 leadingIcon = Icons.Outlined.Gavel
             )
@@ -144,7 +144,7 @@ fun CalculadoraDespidosInlineScreen(
 
             // Pagas (12/14/prorr)
             Card {
-                Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Column(Modifier.padding(16.dp).fillMaxWidth()) {
                     LabelWithIcon(Icons.Outlined.Payments, "Pagas")
                     SingleChoiceChips(
                         options = listOf("12", "14 (no prorr.)", "Prorrateadas"),
@@ -200,6 +200,7 @@ fun CalculadoraDespidosInlineScreen(
                 is UiState.Success -> {
                     val r = s.data
                     // Resultados
+                    /*
                     ResultCard("Vacaciones no disfrutadas", "€ ${"%.2f".format(r.importeVacaciones)}")
                     ResultCard("Salario mes proporcional", "€ ${"%.2f".format(r.salarioPorDiasTrabajados)}")
                     ResultCard("Pagas extra (devengo)", "€ ${"%.2f".format(r.pagasExtra)}")
@@ -216,7 +217,7 @@ fun CalculadoraDespidosInlineScreen(
                                 fontFamily = AppFont
                             )
                         }
-                    }
+                    }*/
                 }
             }
         }

@@ -90,7 +90,10 @@ fun AppNavHostAdaptive(windowSizeClass: WindowSizeClass) {
 
             // Ruta actual para decidir si ocultar TopBar y/o nestedScroll
             val currentRoute = nav.currentRouteOrNull()
-            val isVisualizer = currentRoute?.startsWith("convenioVisualizer") == true
+            val isVisualizer = listOf(
+                "convenioVisualizer"
+                //"finiquitos"
+            ).any { prefix -> currentRoute?.startsWith(prefix) == true }
 
             val scaffoldModifier = Modifier
 

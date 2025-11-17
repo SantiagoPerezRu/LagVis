@@ -350,6 +350,114 @@ fun HeaderGradientParallax(
     }
 }
 
+@Composable
+fun HeaderGradientParallaxSmall(
+    title: String,
+    subtitle: String? = null,
+    modifier: Modifier = Modifier,
+    height: Dp = 200.dp,
+    imageRes: Int? = null,
+    showBack: Boolean = true,
+    onBack: (() -> Unit)? = null,
+    onAction: (() -> Unit)? = null,
+    leadingIcon: ImageVector? = null
+) {
+    val overlay = Brush.verticalGradient(
+        0f to Color.Black.copy(alpha = 0.45f),
+        0.6f to Color.Transparent,
+        1f to Color.Black.copy(alpha = 0.50f)
+    )
+
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(height)
+    ) {
+        if (imageRes != null) {
+            Image(
+                painter = painterResource(imageRes),
+                contentDescription = null,
+                modifier = Modifier.matchParentSize(),
+                contentScale = ContentScale.Crop
+            )
+        } else {
+            // degradado si no hay imagen
+            Box(
+                Modifier
+                    .matchParentSize()
+                    .background(
+                        Brush.linearGradient(
+                            listOf(
+                                MaterialTheme.colorScheme.primary,
+                                MaterialTheme.colorScheme.tertiary
+                            )
+                        )
+                    )
+            )
+        }
+
+        Box(Modifier.matchParentSize().background(overlay))
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .statusBarsPadding()
+                .padding(horizontal = 12.dp, vertical = 10.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            if (showBack && onBack != null) {
+                IconButton(onClick = onBack) {
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Atrás", tint = Color.White)
+                }
+            } else Spacer(Modifier.width(48.dp))
+
+            /*   Text(
+                   text = title,
+                   color = Color.White,
+                   style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
+                   modifier = Modifier.weight(1f),
+                   maxLines = 1
+               )*/
+
+            if (onAction != null) {
+                IconButton(onClick = onAction) {
+                    Icon(Icons.Outlined.MoreVert, contentDescription = "Acción", tint = Color.White)
+                }
+            } else Spacer(Modifier.width(48.dp))
+        }
+
+        // copy en la parte baja
+        Column(
+            Modifier
+                .align(Alignment.BottomStart)
+                .padding(20.dp)
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically){
+                if (leadingIcon !=null ){
+                    Icon(
+                        imageVector = leadingIcon,
+                        contentDescription = null,
+                        tint = Color.White,
+                        modifier = Modifier.size(22.dp)
+                    )
+                    Spacer(Modifier.width(8.dp))
+                }
+                Text(
+                    text = title,
+                    color = Color.White,
+                    style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold)
+                )
+            }
+
+            if (!subtitle.isNullOrBlank()) {
+                Spacer(Modifier.height(6.dp))
+                Text(text = subtitle, color = Color.White.copy(alpha = 0.9f))
+            }
+
+        }
+    }
+}
+
 @Preview
 @Composable
 private fun PreviewHeaderGradientParallax() {

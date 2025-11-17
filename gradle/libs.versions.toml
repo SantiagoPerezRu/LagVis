@@ -61,6 +61,7 @@ espressoCore = "3.6.1"
 
 #Material 3
 material3 = "1.5.0-alpha04"
+animation = "1.9.3"
 
 [libraries]
 # Base
@@ -129,6 +130,7 @@ generativeai = { group = "com.google.ai.client.generativeai", name = "generative
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+animation = { group = "androidx.compose.animation", name = "animation", version.ref = "animation" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
