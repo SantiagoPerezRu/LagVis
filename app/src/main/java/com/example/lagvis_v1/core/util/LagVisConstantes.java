@@ -1,16 +1,22 @@
 package com.example.lagvis_v1.core.util;
 
+import com.example.lagvis_v1.BuildConfig;
+
 public class LagVisConstantes {
    // public static final String BASE_URL = BuildConfig.API_BASE_URL;
 
-    public static final String HOST = "http://83.33.98.244/lagvis-endpoints"; // con http
-    public static final String ENDPOINT_MOSTRAR = HOST + "/mostrar_.php";
-    public static final String ENDPOINT_INSERTAR = HOST + "/insertar_.php";
-    public static final String ENDPOINT_ELIMINAR = HOST + "/eliminar_.php";
-    public static final String ENDPOINT_GUARDAR_NOTICIA = HOST + "/guardar_noticia.php";
-    public static final String ENDPOINT_LISTAR_NOTICIAS = HOST + "/listar_noticias_guardadas.php";
-    public static final String ENDPOINT_INSERTAR_VALORACION = HOST + "/insertar_valoracion.php";
+    public static final String BASE_URL2 = BuildConfig.BACKEND_BASE_URL;
 
+    // Url para scripts php
+    public static final String ENDPOINT_MOSTRAR = BASE_URL2 + "/mostrar_.php";
+    public static final String ENDPOINT_INSERTAR = BASE_URL2 + "/insertar_.php";
+    //public static final String ENDPOINT_ACTUALIZAR = BASE_URL + "/actualizar_.php"; No lo uso
+    public static final String ENDPOINT_ELIMINAR = BASE_URL2 + "/eliminar_.php";
+    public static final String ENDPOINT_GUARDAR_NOTICIA = BASE_URL2 + "/guardar_noticia.php";
+    public static final String ENDPOINT_LISTAR_NOTICIAS = BASE_URL2 + "/listar_noticias_guardadas.php";
+    //   public static final String ENDPOINT_OBTENER_NOTICIAS = BASE_URL + "/obtener_noticias_guardadas.php";
+
+    public static final String ENDPOINT_INSERTAR_VALORACION = BASE_URL2 + "/insertar_valoracion.php";
 
     /**
      * Devuelve el ID de un sector a partir de su nombre.

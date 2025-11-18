@@ -26,11 +26,11 @@ Este proyecto ha sido desarrollado como mi Trabajo de Fin de Grado (TFG) para el
 El desarrollo de LagVis se ha realizado utilizando un conjunto de tecnologías modernas y eficientes para garantizar la robustez y escalabilidad de la aplicación:
 
 * **Frontend (Aplicación Android):**
-    * **Lenguaje:** Java
+    * **Lenguaje:** Kotlin & Java
     * **IDE:** Android Studio
-    * **Diseño de UI:** XML
+    * **Diseño de UI:** Jetpack Compose
 * **Backend (Servicio en la Nube):**
-    * **Tecnología:** PHP
+    * **Tecnología:** Java Spring Boot
     * **Despliegue Serverless:** Google Cloud Run
     * **Contenerización:** Docker
 * **Base de Datos:**
@@ -40,26 +40,6 @@ El desarrollo de LagVis se ha realizado utilizando un conjunto de tecnologías m
     * **Plataforma:** Firebase
 * **Control de Versiones:**
     * **Plataforma:** Git & GitHub
-
-## Instalación y Puesta en Marcha
-
-Para que la aplicación "LagVis" funcione correctamente, es necesario seguir una serie de pasos que incluyen la preparación del entorno, la configuración de la base de datos y el despliegue del servicio backend. Esta guía detallada cubre los requisitos del sistema y las instrucciones para cada componente.
-
-### 1. Requisitos del Sistema
-
-* **Hardware de Desarrollo:**
-    * PC o portátil con al menos 8 GB de RAM (recomendado 16 GB+), procesador Intel Core i5 / AMD Ryzen 5 o superior, y SSD.
-    * Smartphone Android físico para pruebas (Android 8.0 Oreo o superior).
-* **Software de Desarrollo:**
-    * Sistema Operativo (Windows, macOS, Linux).
-    * Android Studio (última versión estable).
-    * Java Development Kit (JDK) compatible con Android Studio.
-    * SDK de Android (instalado vía Android Studio).
-    * Docker Desktop. (No ncesario pero recomendable.)
-    * Google Cloud SDK (gcloud CLI). (No ncesario pero recomendable.)
-    * Git. (No ncesario pero recomendable.)
-    * Navegador Web (para GCP Console). (No ncesario pero recomendable.)
-
 ## 📄 Licencia
 
 Este proyecto está protegido bajo la **LagVis License - Uso No Comercial** (2025) escrita por Santiago Pérez Díaz-Rubín.
@@ -80,121 +60,3 @@ Para cualquier consulta o colaboración, no dudes en contactarme:
 **Santiago Pérez Díaz-Rubín**
 Email: `santiago.perez.rub@gmail.com`
 
-
-
-
-# LagVis Documentación
-
-
-## Diagrama de Clases
-
-```mermaid
-classDiagram
-    %% Jerarquía de Actividades
-    AppCompatActivity <|-- BaseActivity
-    BaseActivity <|-- LoginActivity
-    BaseActivity <|-- RegisterActivity
-    BaseActivity <|-- AdvancedFormRegister
-    BaseActivity <|-- Convenio
-    AppCompatActivity <|-- MainActivity
-    AppCompatActivity <|-- ActivityResultadoDespido
-    AppCompatActivity <|-- ActivityDatosGeneralesDespido
-    AppCompatActivity <|-- ActivityDatosGeneralesFiniquito
-
-    %% Jerarquía de Fragmentos
-    Fragment <|-- BaseFragment
-    BaseFragment <|-- FirstFragment
-    BaseFragment <|-- SecondFragment
-    BaseFragment <|-- ThirdFragment
-    BaseFragment <|-- NoticiasGuardadasFragment
-    Fragment <|-- FourthFragment
-    Fragment <|-- CalendarioLaboral
-    Fragment <|-- PaginaVidaLaboralFragment
-    Fragment <|-- DatosGeneralesDespidoFragment
-
-    %% Interfaces y Adaptadores
-    MainActivity ..|> NavigationView.OnNavigationItemSelectedListener
-    SecondFragment ..|> NewsApiService.NoticiasCallback
-    RecyclerView.Adapter <|-- HolidayAdapter
-
-    %% APIs y Servicios
-    class NagerDateApi {
-        +getPublicHolidays(int year, String countryCode, String countyCode)
-    }
-
-    class NewsApiService {
-        <<interface>>
-        +onNoticiasObtenidas(List~NewsItem~)
-        +onNoticiasError(String)
-    }
-
-    %% Clases Base
-    class BaseActivity {
-        #onCreate(Bundle)
-        +showCustomToast(String, Drawable)
-    }
-
-    class BaseFragment {
-        -Context context
-        #onCreate(Bundle)
-        #onCreateView(LayoutInflater, ViewGroup, Bundle)
-    }
-
-    %% Actividades Principales
-    class MainActivity {
-        -DrawerLayout drawerLayout
-        -NavigationView navigationView
-        -Toolbar toolbar
-        -FrameLayout frameLayout
-        +onCreate(Bundle)
-    }
-
-    class LoginActivity {
-        -FirebaseAuth auth
-        -EditText emailTextView
-        -EditText passwordTextView
-        -CheckBox checkboxRemember
-        +onCreate(Bundle)
-        -loginUserAccount()
-    }
-
-    class Convenio {
-        -TextView tvTitulo
-        -TextView tvResumenGeneral
-        +onCreate(Bundle)
-        -inicializarVistas()
-        -cargarConvenioDesdeXML()
-    }
-
-    %% Modelos de Datos
-    class NewsItem {
-        +String title
-        +String link
-        +String pubDate
-        +String creator
-        +NewsItem(String, String, String, String)
-        +toString() String
-    }
-
-    class PublicHoliday {
-        -String date
-        -String localName
-        -String name
-        -String countryCode
-        +getDate() String
-        +getLocalName() String
-    }
-
-    %% Adaptadores
-    class HolidayAdapter {
-        -List~PublicHoliday~ holidayList
-        +setHolidayList(List~PublicHoliday~)
-        +onCreateViewHolder(ViewGroup, int)
-        +onBindViewHolder(HolidayViewHolder, int)
-    }
-
-    %% Relaciones
-    HolidayAdapter --> PublicHoliday
-    CalendarioLaboral --> HolidayAdapter
-    SecondFragment --> NewsItem
-    NoticiasGuardadasFragment --> NewsItem
