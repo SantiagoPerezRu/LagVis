@@ -9,7 +9,7 @@ import retrofit2.http.POST
 
 interface ProfileApiKt {
     @FormUrlEncoded
-    @POST("mostrar_.php")
+    @POST("get_datos_usuario")
     suspend fun getProfileData(
         @Field("uid") uid: String
     ): Response<UserResponseDto>

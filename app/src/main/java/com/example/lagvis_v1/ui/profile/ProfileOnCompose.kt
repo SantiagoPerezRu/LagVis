@@ -1,6 +1,7 @@
 // file: app/src/main/java/com/example/lagvis_v1/ui/profile/ProfileScreen.kt
 package com.example.lagvis_v1.ui.profile
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -159,6 +160,8 @@ fun ProfileScreen(
                 }
 
                 Spacer(Modifier.height(12.dp))
+
+                Log.d("ProfileScreen", "user: $user")
 
                 // Secciones
                 SectionCard("Nombre", Icons.Outlined.Person, nonEmptyOrDash(user.nombre))

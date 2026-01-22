@@ -8,14 +8,14 @@ import retrofit2.http.POST
 
 interface AdvancedRegisterApiKt {
     @FormUrlEncoded
-    @POST("insertar_.php")
+    @POST("insertar_usuario")
     suspend fun insert(
         @Field("uid") uid: String,
         @Field("nombre") nombre: String,
         @Field("apellido") apellido1: String,
         @Field("apellido2") apellido2: String,
-        @Field("comunidad_id") comunidadId: String,
-        @Field("sector_id") sectorId: String,
+        @Field("comunidad") comunidadId: String,
+        @Field("sector") sectorId: String,
         @Field("fechaNacimiento") fechaNacimiento: String
     ): Response<UserResponseDto>
 }

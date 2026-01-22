@@ -13,8 +13,8 @@ fun UserResponseDto?.toDomain(): UserProfileKt? {
         d.nombre ?: "",
         d.apellido ?: "",
         d.apellido2 ?: "",
-        d.sector_laboral ?: "",
-        d.comunidad_autonoma ?: "",
-        d.fecha_nacimiento ?: ""
+        d.sectorLaboral ?: "",
+        d.comunidadAutonoma ?: "",
+        d.fechaNacimiento ?: ""
     )
 }

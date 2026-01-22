@@ -2,6 +2,7 @@ package com.example.lagvis_v1.ui.auth.register
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -101,6 +102,8 @@ class AdvancedFormRegisterCompose : ComponentActivity() {
                             data.sector,
                             data.fechaNacimiento
                         )
+
+                        Log.d("AdvancedFormRegisterCompose", "onNext: $data")
                     }
                 )
             }

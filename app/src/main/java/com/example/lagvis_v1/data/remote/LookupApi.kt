@@ -5,9 +5,9 @@ import retrofit2.Response
 import retrofit2.http.GET
 
 interface LookupApi {
-    @GET("get_comunidades.php")
+    @GET("get_comunidades")
     suspend fun getComunidades(): Response<LookupDtos.SimpleLookupResponse>
 
-    @GET("get_sectores.php")
+    @GET("get_sectores")
     suspend fun getSectores(): Response<LookupDtos.SimpleLookupResponse>
 }

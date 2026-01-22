@@ -10,7 +10,7 @@ data class UserDataDto(
     val nombre: String? = null,
     val apellido: String? = null,
     val apellido2: String? = null,
-    val sector_laboral: String? = null,
-    val comunidad_autonoma: String? = null,
-    val fecha_nacimiento: String? = null
+    val sectorLaboral: String? = null,
+    val comunidadAutonoma: String? = null,
+    val fechaNacimiento: String? = null
 )

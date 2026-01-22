@@ -13,6 +13,11 @@ val newsApiKey: String = providers.gradleProperty("NEWS_API_KEY").orNull
     ?: System.getenv("NEWS_API_KEY")
     ?: error("NEWS_API_KEY no definido (gradle.properties / local.properties / env)")
 
+val holidaysApiKey: String = providers.gradleProperty("HOLIDAYS_API_KEY").orNull
+    ?: gradleLocalProperties(rootDir, providers).getProperty("HOLIDAYS_API_KEY")
+    ?: System.getenv("HOLIDAYS_API_KEY")
+    ?: error("HOLIDAYS_API_KEY no definido (gradle.properties / local.properties / env)")
+
 val geminiApiKey: String = providers.gradleProperty("GEMINI").orNull
     ?: gradleLocalProperties(rootDir, providers).getProperty("GEMINI")
     ?: System.getenv("GEMINI")
@@ -33,9 +38,10 @@ android {
 
         buildConfigField("String", "API_KEY_NEWS", "\"$newsApiKey\"")
         buildConfigField("String", "NEWS_BASE_URL", "\"https://newsdata.io/api/1/\"")
-        buildConfigField("String", "HOLIDAYS_BASE_URL", "\"https://calendario-laboral-api.onrender.com/\"")
+        buildConfigField("String", "HOLIDAYS_BASE_URL", "\"https://api.lagvis.com/\"")
+        buildConfigField("String", "HOLIDAYS_API_KEY", "\"$holidaysApiKey\"")
         // Asegúrate de terminar en "/" para Retrofit
-        buildConfigField("String", "BACKEND_BASE_URL", "\"http://lagvis.es//lagvis-endpoints/\"")
+        buildConfigField("String", "BACKEND_BASE_URL", "\"https://api.lagvis.com/\"")
         buildConfigField("String", "CONVENIOS_BASE_URL", "\"http://lagvis.es//lagvis-convenios/\"")
         buildConfigField("String", "GEMINI_API_KEY", "\"$geminiApiKey\"")
     }
